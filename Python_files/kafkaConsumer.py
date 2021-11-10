@@ -5,6 +5,7 @@ from kafka import KafkaConsumer   # Import Kafka consumer
 topic_lecture="tweets"
 
 
+
 ## we have to put in the terminal the port 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument('--broker-list', type=str, required=True, help="the broker list")
