@@ -44,7 +44,7 @@ ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
 RUN echo "  C++KAFKA installed"
 WORKDIR /
 # Get files needed
-RUN git clone https://gitlab-student.centralesupelec.fr/antoine.pagneux/tweetoscope_2021_11.git
+RUN git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 WORKDIR tweetoscope_2021_11/generator
 RUN g++ -o tweet-generator tweet-generator.cpp -O3 $(pkg-config --cflags --libs gaml) -lpthread -lcppkafka
 #Running the exe files
