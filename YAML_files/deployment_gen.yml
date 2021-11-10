@@ -1,0 +1,22 @@
+#########################################
+########    Generator     ###############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      name: generator-pod
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: generator-container
+        image: t126cl218/tweetoscope_2021_11:2.3
+        imagePullPolicy: Always

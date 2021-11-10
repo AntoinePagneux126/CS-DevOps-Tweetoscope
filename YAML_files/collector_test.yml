@@ -1,0 +1,22 @@
+#########################################
+##########   Collector     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      name: collector-pod
+      labels:
+        app: collector
+    spec:
+      containers:
+      - name: collector-container
+        image: t126cl218/tweetoscope_2021_11_collector:1.0
+        imagePullPolicy: Always
