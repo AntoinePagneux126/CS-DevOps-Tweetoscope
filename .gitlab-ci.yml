@@ -1,7 +1,7 @@
 stages :
-  - create_docker_image
   - test_py
   - pylint_test
+  - create_docker_image
 
 
 create_docker_image_job:
