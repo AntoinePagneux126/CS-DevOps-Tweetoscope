@@ -3,7 +3,7 @@ FROM ubuntu
 RUN apt-get update
 RUN apt-get install openjdk-11-jdk -y
 RUN apt-get install wget -y
-#RUN echo "  ${'\033[0;31m' } Starting GAML installation process..$"
+RUN echo "Starting GAML installation process.."
 #C++ 17
 RUN echo "  C++17 installation started..."
 RUN apt-get install gcc-7 g++-7 -y
@@ -21,7 +21,7 @@ RUN apt-get install libcurl4 -y
 ########################################################
 
 #Unix Installation
-#RUN echo "  ${'\033[0;31m' } Unix installation procecing..$"
+RUN echo "Unix installation procecing.."
 RUN git clone https://github.com/HerveFrezza-Buet/gaml
 WORKDIR /gaml/gaml/build
 RUN cmake .. -DCMAKE_INSTALL_PREFIX=/usr
@@ -49,5 +49,4 @@ WORKDIR tweetoscope_2021_11/generator
 RUN g++ -o tweet-generator tweet-generator.cpp -O3 $(pkg-config --cflags --libs gaml) -lpthread -lcppkafka
 #Running the exe files
 RUN chmod +x ./tweet-generator
-CMD ./tweet-generator params.config
-#CMD bash
+CMD ./tweet-generator params-deploy.config
