@@ -52,7 +52,8 @@ int main(int argc, char* argv[]) {
   // we have not asked for any data, nothing has really happened so far
   // (except an eventual and time consuming index file creation once).
 
-  // Now, we start threads. Each thread is a lambda-function, that well build its own gaml objects for getting data.
+  // Now, we start threads. Each thread is a lambda-function, that
+  // well build its own gaml objects for getting data.
   std::vector<std::thread> threads;
   for(unsigned int thread_id = 0; thread_id < params._number_of_threads; ++thread_id)
     threads.emplace_back([thread_id, &gen, &params, &shuf_idx = cascades_shuffled.index_table()]() {
@@ -99,7 +100,7 @@ int main(int argc, char* argv[]) {
 	    // This tag is used when serializing the event
 	    evt.source_id = thread_id;
 
-	    auto key = std::to_string(evt.id());
+	    auto key = std::to_string(evt.source_id);
 	    builder.key(key);
 
 	    std::ostringstream ostr;

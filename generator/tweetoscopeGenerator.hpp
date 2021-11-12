@@ -10,8 +10,6 @@
 
 #include <gaml.hpp>
 
-
-
 namespace tweetoscope {
 
   using timestamp = std::size_t;
@@ -282,7 +280,7 @@ namespace tweetoscope {
     std::size_t offset_begin;   //!< Offset of the first data in the cascade.
     std::size_t offset_end;     //!< Offset of the last data (not included) in the cascade.
     DataIt      begin;          //!< Actual iterator to the first tweet (i.e. base+offset_begin).
-    DataIt      end;            //!< Actual iterator to the first tweet (i.e. base+offset_end).
+    DataIt      end;            //!< Actual iterator to the 'after last' tweet (i.e. base+offset_end).
 
     Cascade()                          = default;
     Cascade(const Cascade&)            = default;
@@ -312,7 +310,7 @@ namespace tweetoscope {
     if(cascade.base == DataIt()) // The base is not initialised
       os << "[Unanchored (" << cascade.offset_begin << ", " << cascade.offset_end << ")]";
     else {
-      std::cout << '[';
+      os << '[';
       auto it = cascade.begin;
       if(cascade.begin != cascade.end) os << *(it++);
       while(it != cascade.end)         os << ", " << *(it++);
@@ -358,7 +356,7 @@ namespace tweetoscope {
      several tweet cascades are executed. The events keep trace of the
      cascade they come from, they handle a boolean for knowing if thy
      are a initial tweet or a retweet, etc... This is why events are a
-     bit more than juste a tweet. */
+     bit more than just a tweet. */
 
   /**
    * This is the base class for Events. Indeed, the event type is a
@@ -379,7 +377,7 @@ namespace tweetoscope {
     timestamp   start_time;   //!< This is the start of the cascade.
     timestamp   date;         //!< This is the date of the tweet emission.
     std::size_t cascade_id;   //!< This identifies the cascade that concerns this tweet.
-    bool        first_tweet;  //!< This tells wether the tweet ois an initial tweet or a retweet.
+    bool        first_tweet;  //!< This tells wether the tweet is an initial tweet or a retweet.
     std::size_t source_id;    //!< This identifies the tweet source (i.e the scheduler in this simulation context).
     
     unsigned int id() const {return idf;}
@@ -480,7 +478,7 @@ namespace tweetoscope {
     os << ", \"msg\": \"" << tweet.msg << '"'
        << ", \"t\": " << tweet.time 
        << ", \"m\": " << tweet.magnitude 
-       << ", \"source\": " << evt.source_id
+       << ", \"tweet_id\": " << evt.id()
        << ", \"info\": \"cascade=" << evt.cascade_id << '"' 
        << '}';
     return os;
@@ -495,7 +493,7 @@ namespace tweetoscope {
 
   /**
    * The scheduler represents one tweet source, where several cascades
-   * are generated.x
+   * are generated.
    */
   template<typename DataIt, typename CascadeIt, typename RANDOM_GEN>
   class Scheduler {

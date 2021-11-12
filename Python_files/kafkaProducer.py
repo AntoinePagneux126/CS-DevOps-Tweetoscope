@@ -24,7 +24,8 @@ msg = {
     'comment': 'Nothing special'
 }
 for _ in range(5000):
-    producer.send(topic_writing, key = msg['dst'], value = msg) # Send a new message to topic
-    time.sleep(5)
+  print("Message : ",_, ", temps(s) : ",_*5)
+  producer.send(topic_writing, key = msg['dst'], value = msg) # Send a new message to topic
+  time.sleep(5)
     
 producer.flush() # Flush: force purging intermediate buffers before leaving
