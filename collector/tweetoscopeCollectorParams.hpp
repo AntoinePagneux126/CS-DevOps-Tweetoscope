@@ -57,13 +57,13 @@ namespace tweetoscope
                 while (c == '#' || c == '[')
                 {
                     if (c == '[')
-                        std::getline(is, current_section, ']');
-                    std::getline(is, buf, '\n');
+                        std::getline(is, current_section, ']'); //getline reads characters from an input stream and places them into a string
+                    std::getline(is, buf, '\n');                //input-the stream to get data from   str	-  the string to put the data into    delim-the delimiter character
                     is >> std::ws >> c;
                 }
-                is.putback(c);
+                is.putback(c); // recupere le dernier input stream utilisé
                 std::string key, val;
-                is >> std::ws;
+                is >> std::ws; // supprime les esapces
                 std::getline(is, key, '=');
                 is >> val;
                 std::getline(is, buf, '\n');
@@ -78,7 +78,7 @@ namespace tweetoscope
 
             collector(const std::string &config_filename)
             {
-                std::ifstream ifs(config_filename.c_str());
+                std::ifstream ifs(config_filename.c_str()); //.c_str renvoie A pointer to the c-string representation of the string object's value.
                 if (!ifs)
                     throw std::runtime_error(std::string("Cannot open \"") + config_filename + "\" for reading parameters.");
                 ifs.exceptions(std::ios::failbit | std::ios::badbit | std::ios::eofbit);
