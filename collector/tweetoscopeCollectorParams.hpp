@@ -202,7 +202,59 @@ namespace tweetoscope
             is >> c; // eats '"'
         } 
         return is;
-    }  
+    }
+
+    namespace   cascade {
+
+        // Definition of the two classes
+        class   Processor;
+        class   Cascade; // Class for storing cascade information.
+
+        // Definition of types like
+        using   ref =   std::shared_ptr<Cascade>;
+
+        // Implementation of the Cascade class
+        class Cascade
+        {
+            private:
+                /* data */
+
+            public:
+                // Constructor
+                Cascade(/* args */);
+                // Destructor
+                ~Cascade();
+        };
+            
+        // Inlining methods of the Cascade class    
+        inline  Cascade::Cascade(/* args */){}
+            
+        inline  Cascade::~Cascade() {}
+
+
+        // Implementation of the Processor class
+        class Processor
+        {
+        private:
+            /* data */
+        public:
+            // Constructor
+            Processor(/* args */);
+            // Destructor
+            ~Processor();
+        };
+        
+        // Inlining methods of the Processor class 
+        Processor::Processor(/* args */)
+        {
+        }
+        
+        Processor::~Processor()
+        {
+        }
+        
+        
+    }
 
 
 
