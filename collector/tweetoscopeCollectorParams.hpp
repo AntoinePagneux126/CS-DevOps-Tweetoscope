@@ -17,6 +17,10 @@
 #include <stdexcept>
 #include <memory>
 #include <map>
+#include <queue>
+#include <iomanip>
+#include <boost/heap/binomial_heap.hpp>
+
 
 namespace tweetoscope
 {
@@ -209,52 +213,133 @@ namespace tweetoscope
         // Definition of the two classes
         class   Processor;
         class   Cascade; // Class for storing cascade information.
+        struct  CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
+
 
         // Definition of types like
-        using   ref =   std::shared_ptr<Cascade>;
+        using   cascade_ref             =   std::shared_ptr<Cascade>;
+        using   cascade_wref            =   std::weak_ptr<Cascade>;
+        using   priority_queue          =   boost::heap::binomial_heap<cascade_ref, boost::heap::compare< CascadeRefComparator>>;
+        using   idf                     =   std::size_t;
+
+
+        // Implementation of CascadeRefComparator class
+        struct  CascadeRefComparator {
+            bool operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
+        };
+
+        inline  bool    CascadeRefComparator::operator()(cascade_ref ref_c1, cascade_ref ref_c2) const{
+            return ref_c1 > ref_c2;
+        }
 
         // Implementation of the Cascade class
         class Cascade
         {
             private:
-                /* data */
+                // Attributes
+                std::string                             m_id;
+                std::string                             m_msg;
+                timestamp                               m_timeOfFirstTweet;
+                timestamp                               m_timeOfLastTweet;
+                std::vector<std::pair<timestamp, int>>  m_pairsOfTimesAndMagnitudes; 
+                source::idf                             m_source; 
+                
 
             public:
                 // Constructor
-                Cascade(/* args */);
+                Cascade(const tweet& twt, const std::string& key);
+                Cascade(const Cascade& process)                     =   default;
+                Cascade(Cascade&& process)                          =   default;
+                Cascade& operator=(const Cascade& process)          =   default;
+                Cascade& operator=(Cascade&& process)               =   default;
+
                 // Destructor
                 ~Cascade();
+
+                // Methods
+                void operator+=(const std::pair<tweet, std::string>& elt)           ;
+                bool operator<(const cascade_ref& ref_other_cascade)           const;
+                cascade_ref makeRef(tweet& twt, std::string&key)                    ;
+
         };
             
         // Inlining methods of the Cascade class    
-        inline  Cascade::Cascade(/* args */){}
+        inline  Cascade::Cascade(const tweet& twt, const std::string& key)  :   m_id(key),
+                                                                                m_msg(twt.msg),
+                                                                                m_timeOfFirstTweet(twt.time),
+                                                                                m_timeOfLastTweet(twt.time),
+                                                                                m_pairsOfTimesAndMagnitudes{std::make_pair(twt.time, twt.magnitude)},
+                                                                                m_source(twt.source)
+        {}
             
         inline  Cascade::~Cascade() {}
+
+        inline  void        Cascade::operator+=(const std::pair<tweet, std::string>& elt)   { 
+            /* to dev */
+        }
+
+        inline  bool        Cascade::operator<(const cascade_ref& ref_other_cascade) const  {
+            /* to dev */
+            return true;
+        }
+        
+        inline  cascade_ref Cascade::makeRef(tweet& twt, std::string&key)                   {
+            return std::make_shared<Cascade>(twt,key);
+        }
+
+
 
 
         // Implementation of the Processor class
         class Processor
         {
         private:
-            /* data */
+            // Attributes
+            source::idf                                     m_source;
+            timestamp                                       m_sourceTime;
+            priority_queue                                  m_priorityQueue;
+            std::map<timestamp, std::queue<cascade_wref>>   m_FIFO;
+            std::map<idf, cascade_wref>                     m_symbolTable;
+        
+
         public:
             // Constructor
-            Processor(/* args */);
+            Processor(const tweet& twt);
+            Processor(const Processor& process)             =   default;
+            Processor(Processor&& process)                  =   default;
+            Processor& operator=(const Processor& process)  =   default;
+            Processor& operator=(Processor&& process)       =   default;
+
             // Destructor
             ~Processor();
+
+            // Methods
+            std::vector<std::string>    sendPartialCascade(const std::vector<std::size_t>& obs)                 const;
+            std::vector<std::string>    sendTerminatedCascade(timestamp& end_time, const std::size_t& min_size) const;
         };
         
         // Inlining methods of the Processor class 
-        Processor::Processor(/* args */)
-        {
+        inline  Processor::Processor(const tweet& twt)      :   m_source(twt.source),
+                                                                m_sourceTime(twt.time),
+                                                                m_priorityQueue{}, 
+                                                                m_FIFO{}, 
+                                                                m_symbolTable{} 
+        {}
+        
+        inline  Processor::~Processor() {}
+
+        std::vector<std::string>    sendPartialCascade(const std::vector<std::size_t>& obs)                 {
+            /* to dev */
+            return {"to dev"};
+        }
+
+        std::vector<std::string>    sendTerminatedCascade(timestamp& end_time, const std::size_t& min_size) {
+            /* to dev */
+            return {"to dev"};
         }
         
-        Processor::~Processor()
-        {
-        }
         
-        
-    }
+    } //End of namespace cascade
 
 
 
