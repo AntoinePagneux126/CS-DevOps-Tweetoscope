@@ -23,7 +23,8 @@ test_py_job:
   stage: test_py 
   image: python:latest
   before_script: 
-    - pip3 install pytest pytest-cov 
+    - pip3 install pytest 
+    - pip3 install pytest-cov
     - pip3 install -r requirements.txt
   script: 
     - echo "starting test for python coverage"
