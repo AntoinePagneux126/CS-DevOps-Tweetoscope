@@ -47,7 +47,6 @@ test_py_job:
     - echo "Code coverage finished ..."
     - echo "starting lint for python code ... "
     - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
-    - echo "Code has been pylinted... "
 
   artifacts: 
     untracked : false
