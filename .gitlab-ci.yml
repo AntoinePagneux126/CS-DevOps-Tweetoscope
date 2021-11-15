@@ -25,16 +25,12 @@ test_py_job:
   before_script: 
     - python3 --version
     - pip3 --version
-    # - sudo apt-get install python3-venv -y
-    # - sudo apt-get install python3-pip -y
-    # - python3 -m venv Tweetoscope
-    # - source Tweetoscope/bin/activate.bat
     - pip3 install pytest 
     - pip3 install pytest-cov
     - pip3 install -r requirements.txt
   script: 
     - echo "starting test for python coverage"
-    - python3 -m pytest --cov report=html --cov=Python_files /tests/
+    - python3 -m pytest --cov report=html --cov=Python_files tests/
   artifacts: 
     untracked : false
     paths :
