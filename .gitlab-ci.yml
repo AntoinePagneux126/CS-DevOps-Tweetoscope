@@ -6,7 +6,7 @@ stages :
 
 create_docker_image_job:
   stage: create_docker_image
-  allow_failure: true
+  allow_failure: false
   image: docker:latest
   services:
     - docker:dind
@@ -48,7 +48,6 @@ test_py_job:
     - echo "Code coverage finished ..."
     - echo "starting lint for python code ... "
     # - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
-
 
 
   artifacts: 
