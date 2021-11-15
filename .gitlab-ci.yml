@@ -1,5 +1,5 @@
 stages :
-  - pylint_test
+  # - pylint_test
   - test_py
   - create_docker_image
 
@@ -37,51 +37,21 @@ test_py_job:
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
     - pip --version
-    - pip install pytest 
-    - pip install pytest-cov
-    # - pip install pylint
+    - pip install pytest pytest-cov
+    - pip install pytest-html
+    - pip install pylint
     - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
     - python3 -m pytest --cov-report=html --cov=Python_files .
     - echo "Code coverage finished ..."
-    # - echo "starting lint for python code ... "
-    # - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
-
-  artifacts: 
-    untracked : false
-    paths :
-      - coverage ## correspond au nom dans la section [html] du .coveragerc
-    expire_in: 60 days
-
-
-pylint_test_job : 
-  stage : pylint_test
-  allow_failure: true
-  image: python:latest
-  variables:
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cache:
-    paths:
-      - .cache/pip
-      - venv/
-
-  before_script: 
-    - python3 --version
-    - pip install virtualenv 
-    - python3 -m venv TweetoscopeVenv
-    - source TweetoscopeVenv/bin/activate
-    - pip --version
-    # - pip install pytest 
-    # - pip install pytest-cov
-    - pip install pylint
-    - pip install -r requirements.txt
-  script: 
     - echo "starting lint for python code ... "
     - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
 
-  artifacts: 
-    untracked : false
-    paths :
-      - Rapport_Pylint ## correspond au nom dans la section [html] du .coveragerc
-    expire_in: 60 days
+  # artifacts: 
+  #   untracked : false
+  #   paths :
+  #     - coverage ## correspond au nom dans la section [html] du .coveragerc
+  #   expire_in: 60 days
+
+
