@@ -48,6 +48,7 @@ test_py_job:
     - echo "starting lint for python code ... "
     - pylint -ry -sy Python_files/*.py >> rapport_pylint/report.txt
     - echo "Code has been pylinted... "
+    
   artifacts: 
     untracked : false
     paths :
