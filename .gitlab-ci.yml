@@ -6,6 +6,7 @@ stages :
 
 create_docker_image_job:
   stage: create_docker_image
+  allow_failure: true
   image: docker:latest
   services:
     - docker:dind
@@ -21,6 +22,7 @@ create_docker_image_job:
 
 test_py_job:
   stage: test_py 
+  allow_failure: true
   image: python:latest
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
@@ -49,6 +51,7 @@ test_py_job:
 
 pylint_test_job : 
   stage : pylint_test
+  allow_failure: true
   image: python:latest
 
   variables:
@@ -66,6 +69,5 @@ pylint_test_job :
     - pip3 install pylint
     - pip3 install -r requirements.txt
   script :
-    - cd Python_files
     - echo "starting lint for python code"
-    - pylint -ry -sy *.py >> ../Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
