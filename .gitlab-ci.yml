@@ -40,12 +40,15 @@ test_py_job:
       - coverage ## correspond au nom dans la section [html] du .coveragerc
     expire_in: 60 days
 
+
 pylint_test_job : 
   stage : pylint_test
   image: python:latest
   before_script : 
-    - pip install pylint
-    - pip install requirements.txt
+
+    - pip3 install pylint
+    - pip3 install -r requirements.txt
   script :
     - cd Python_files
+    - echo "starting lint for python code"
     - pylint -ry -sy *.py >> ../Rapport_Pylint/report.txt
