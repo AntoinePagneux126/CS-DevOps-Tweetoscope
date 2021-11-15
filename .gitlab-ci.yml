@@ -50,6 +50,7 @@ test_py_job:
     # - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
 
 
+
   artifacts: 
     untracked : false
     paths :
