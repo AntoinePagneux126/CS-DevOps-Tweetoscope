@@ -1,6 +1,6 @@
 stages :
-  - test_py
   - pylint_test
+  - test_py
   - create_docker_image
 
 
