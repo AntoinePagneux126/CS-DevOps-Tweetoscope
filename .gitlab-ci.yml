@@ -37,7 +37,6 @@ test_py_job:
       - coverage ## correspond au nom dans la section [html] du .coveragerc
     expire_in: 60 days
 
-
 pylint_test_job : 
   stage : pylint_test
   image: python:latest
