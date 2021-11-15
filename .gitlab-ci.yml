@@ -60,7 +60,7 @@ test_py_job:
 pylint_test_job:
   stage: pylint_test
   allow_failure: true
-  image: python:latest
+  image: python:3.9
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   cache:
@@ -81,7 +81,4 @@ pylint_test_job:
     - echo "starting lint for python code ... "
     - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
 
-  artifacts: 
-    untracked : false
-    expire_in: 60 days
 
