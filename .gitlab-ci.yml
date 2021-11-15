@@ -23,7 +23,9 @@ test_py_job:
   stage: test_py 
   image: python:latest
   before_script: 
-    - python3 -m pip
+    - python3 --version
+    - python3 -m venv Tweetoscope
+    - source Tweetoscope/bin/activate.bat
     - pip3 install pytest 
     - pip3 install pytest-cov
     - pip3 install -r requirements.txt
