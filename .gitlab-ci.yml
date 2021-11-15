@@ -39,6 +39,7 @@ test_py_job:
     - pip --version
     - pip install pytest 
     - pip install pytest-cov
+    - pip install pylint
     - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
