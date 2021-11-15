@@ -24,6 +24,7 @@ test_py_job:
   image: python:latest
   before_script: 
     - python3 --version
+    - apt-get install python3-venv
     - python3 -m venv Tweetoscope
     - source Tweetoscope/bin/activate.bat
     - pip3 install pytest 
