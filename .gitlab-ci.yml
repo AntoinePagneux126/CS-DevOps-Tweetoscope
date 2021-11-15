@@ -35,7 +35,7 @@ test_py_job:
     - python3 --version
     - ls 
     - cd ~
-    - apt-get install python3-venv
+    - apt-get install python-venv
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
     - pip3 --version
@@ -65,7 +65,7 @@ pylint_test_job :
       - venv/
   before_script : 
     - python3 --version
-    - apt-get install python3-venv
+    - apt-get install python-venv
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
     - pip3 --version
