@@ -46,37 +46,10 @@ test_py_job:
     - python3 -m pytest --cov report=html --cov=Python_files tests/
     - echo "Code coverage finished ..."
     - echo "starting lint for python code ... "
-    - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py >> rapport_pylint/report.txt
     - echo "Code has been pylinted... "
   artifacts: 
     untracked : false
     paths :
       - coverage ## correspond au nom dans la section [html] du .coveragerc
     expire_in: 60 days
-
-# pylint_test_job : 
-#   stage : pylint_test
-#   allow_failure: true
-#   image: python:latest
-
-#   variables:
-#     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-
-#   cache:
-#     paths:
-#       - .cache/pip
-#       - venv/
-#   # before_script : 
-
-#   script :
-#     - python3 --version
-#     # - apt-get install python3-pip
-#     # - dpkg -L python3-pip
-#     - pip install virtualenv 
-#     - python3 -m venv TweetoscopeVenv
-#     - source TweetoscopeVenv/bin/activate
-#     - pip --version
-#     - pip install pylint
-#     - pip install -r requirements.txt
-#     - echo "starting lint for python code"
-#     - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
