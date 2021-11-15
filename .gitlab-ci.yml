@@ -23,18 +23,18 @@ test_py_job:
   stage: test_py 
   image: python:latest
   variables:
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
   cache:
     paths:
-      - .cache/pip
+      - .cache/pip3
       - venv/
 
   before_script: 
     - python3 --version
-    - pip --version
-    - pip install pytest 
-    - pip install pytest-cov
-    - pip install -r requirements.txt
+    - pip3 --version
+    - pip3 install pytest 
+    - pip3 install pytest-cov
+    - pip3 install -r requirements.txt
   script: 
     - echo "starting test for python coverage"
     - python3 -m pytest --cov report=html --cov=Python_files tests/
