@@ -5,15 +5,33 @@ import hawkes_tools
 
 class Cascade : 
     def __init__(self,json) : 
+
+    ##############################################
+    ###########   Given Attributes  ##############
+    ##############################################
+
         self._json=json.value
         self._history=json.value["tweets"]
         self._t=json.value["T_obs"]
 
+    ##############################################
+    #####  Constants given by Mishra et al  ######
+    ##############################################
+
+
         self._mu=1
         self._alpha=2.016
+
+    ##############################################
+    ############    Default constants ############
+    ##############################################
+
+
         self._p = 0 # default value
         self._beta= 0 #default value
         self._N=1 #default value 
+
+
 
     #################################
     ##########  Accessors   #########
@@ -50,7 +68,7 @@ class Cascade :
         self._t=value
 
     #################################
-    ##########  Methods   #########
+    ##########  Methods   ###########
     #################################
 
 
