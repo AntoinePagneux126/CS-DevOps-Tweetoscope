@@ -43,7 +43,7 @@ test_py_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
-    - python3 -m pytest --cov report=html --cov=Python_files tests/
+    - python3 -m pytest --cov-report=html --cov=Python_files tests/
     - echo "Code coverage finished ..."
     - echo "starting lint for python code ... "
     - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
