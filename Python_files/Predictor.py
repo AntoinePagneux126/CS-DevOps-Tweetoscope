@@ -16,7 +16,9 @@ if __name__=="__main__":
     ################################################
 
     topic_reading="cascade_properties"
-    topic_writing="cascade_properties"
+    topic_writing_sample="samples"
+    topic_writing_alert="alerts"
+    topic_writing_stats="stats"
 
 
     ## we have to put in the terminal the port 
@@ -46,18 +48,37 @@ if __name__=="__main__":
     #####         Prediction Part              #####
     ################################################
     for msg in consumer : 
-      msg=msg.value # which will be remplaced by our object in a near future 
-      my_params=[msg["p"],msg["beta"]]
-      cid=msg["cid"]
-      # modifier predictions afin d'avoir G1 en valeur de sortire aussi 
-      N,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
+        msg=msg.value # which will be remplaced by our object in a near future 
+        my_params=[msg["p"],msg["beta"]]
+        cid=msg["cid"]
+        # modifier predictions afin d'avoir G1 en valeur de sortire aussi 
+        N,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
 
-      send= {
-        'type': 'sample',
-        'cid': cid,
-        'params': my_params,
-        'X': [msg["beta"],N,G1],
-        'W' : 1,
+        send_sample= {
+          'type': 'sample',
+          'cid': cid,
+          'params': my_params,
+          'X': [msg["beta"],N,G1],
+          'W' : 1,
+          }
+        producer.send(topic_writing_sample, key =msg["T_obs"], value = send_sample)
+
+        # to be tuned to make it nicer
+        send_alert={
+          'type': 'alert',
+          'to display' :'very hot topic, follow up with it',
+          'cid': cid,
+          'n_tot': N,
         }
 
-    producer.send(topic_writing, key =msg["T_obs"], value = send)
+        producer.send(topic_writing_alert, key =msg["T_obs"], value = send_alert)
+        
+
+        error = 0 # to be implemented
+        send_stats={
+          'type': 'stats',
+          'cid' :cid, 
+          'T_obs': msg["T_obs"],
+          'ARE' : error, 
+        }
+        producer.send(topic_writing_stats, key =None, value = send_stats)
