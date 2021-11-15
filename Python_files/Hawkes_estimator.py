@@ -51,9 +51,9 @@ if __name__=="__main__" :
     mu,alpha=1 , 2.016
     
     for msg in consumer : 
-      MAP_res=Haw.compute_MAP(history=msg['tweets'],t=msg['T_obs'],alpha=alpha, mu=mu)
+      MAP_res=Haw.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
       p,beta=MAP_res[-1]
 
-    producer.send(topic_writing, key = msg['dst'], value = msg)
+    producer.send(topic_writing, key = msg.value['dst'], value = msg)
 
 

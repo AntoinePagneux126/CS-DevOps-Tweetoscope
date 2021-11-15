@@ -46,9 +46,9 @@ test_py_job:
     - python3 -m pytest --cov report=html --cov=Python_files tests/
     - echo "Code coverage finished ..."
     - echo "starting lint for python code ... "
-    - pylint -ry -sy Python_files/*.py >> rapport_pylint/report.txt
+    - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
     - echo "Code has been pylinted... "
-    
+
   artifacts: 
     untracked : false
     paths :
