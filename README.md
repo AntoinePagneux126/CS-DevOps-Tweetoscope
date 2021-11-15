@@ -20,3 +20,19 @@
   - [How to use](#how-to-use)
     - [Instruction for installation](#instruction-for-installation)
   - [Conclusion](#conclusion)
+
+## Introduction
+Here you are to see the so called tweetoscope 3rd year project as part of MDS_SDI mention and aimed to predict tweet popularity. All of it is based on fundamentals knowledges from SAE, Advanced C++, ML and statistical models courses. We want to detect as soon as possible tweets that are likely to become popular, where popularity of a tweet is defined as the number of times this tweet will be retweeted, i.e. forwarded by users to their followers. Because retweets propagate with a cascade effect, a tweet and all retweets it triggered, build up what is hereafter called a cascade. Once we are able to predict popularities of tweets, it is straight-forward to identify the most promising tweets with the highest expected popularity. So to summarize, the problem is to guess the final size of cascades, just by observing the beginning of it during a given observation time window, like, say, the ten first minutes.
+
+## Architecture & overview
+Our architecture ensure stability and safety because it relies on a well done Kubernetes x Docker collaboration. Moreover we have used agile methods, like ci-cd gitlab features.
+
+
+## How to use 
+To set up and use our product you will have to do the following : 
+"""
+git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
+"""
+
+## Conclusion
+To conclude, we can say that even if this project was time consuming we have learn so much on good practice to get scalability, relybility, and continuous integration/delivery. 
