@@ -1,7 +1,7 @@
-  """
+"""
 The aim of this code is predict the number of retweet thanks to the estimated 
 parameters.
-  """
+"""
 
 
 import argparse                   # To parse command line arguments
