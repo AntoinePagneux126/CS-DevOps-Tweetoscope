@@ -241,7 +241,7 @@ namespace tweetoscope
                 std::string                             m_msg;
                 timestamp                               m_timeOfFirstTweet;
                 timestamp                               m_timeOfLastTweet;
-                std::vector<std::pair<timestamp, int>>  m_pairsOfTimesAndMagnitudes; 
+                std::vector<std::pair<timestamp, double>>  m_pairsOfTimesAndMagnitudes; 
                 source::idf                             m_source; 
                 
 
@@ -274,8 +274,19 @@ namespace tweetoscope
             
         inline  Cascade::~Cascade() {}
 
-        inline  void        Cascade::operator+=(const std::pair<tweet, std::string>& elt)   { 
+        inline  void        Cascade::operator+=(const std::pair<tweet, std::string>& elt)   { // string is the key 
             /* to dev */
+            if (elt.second==m_id){
+                timestamp   t_time =   elt.first.time ;
+                double      t_magnitude   =   elt.first.magnitude;
+                source::idf t_source      =   elt.first.source;
+                std::string t_info= elt.first.info;
+                m_pairsOfTimesAndMagnitudes.push_back(std::pair<timestamp,double>(t_time,t_magnitude));
+                if (t_source==m_source && t_time>m_timeOfLastTweet) {
+                    m_timeOfLastTweet=t_source;
+                    m_source=t_source;
+                }
+            }
         }
 
         inline  bool        Cascade::operator<(const cascade_ref& ref_other_cascade) const  {
