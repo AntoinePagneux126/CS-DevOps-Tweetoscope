@@ -34,9 +34,10 @@ test_py_job:
   before_script: 
 
     - python3 --version
-    - pip3 --version
+
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
+    - pip3 --version
     - pip3 install pytest 
     - pip3 install pytest-cov
     - pip3 install -r requirements.txt
@@ -63,9 +64,10 @@ pylint_test_job :
       - venv/
   before_script : 
     - python3 --version
-    - pip3 --version
+
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
+    - pip3 --version
     - pip3 install pylint
     - pip3 install -r requirements.txt
   script :
