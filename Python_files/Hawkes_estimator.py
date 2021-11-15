@@ -49,11 +49,20 @@ if __name__=="__main__" :
 
     # Constants given by Mishra et al 
     mu,alpha=1 , 2.016
-    
+  
     for msg in consumer : 
+      # I'll construct a cascade object thanks to msg
       MAP_res=Haw.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
       p,beta=MAP_res[-1]
+      my_params=[p,beta]
 
-    producer.send(topic_writing, key = msg.value['dst'], value = msg)
+      send ={
+          'type': 'parameters',
+          'n_obs' : msg.value["T_obs"],
+          'n_supp' : 0,
+          'params' : my_params,
+      }
+
+    producer.send(topic_writing, key = msg.value['T_obs'], value = send)
 
 

@@ -45,11 +45,19 @@ if __name__=="__main__":
     ################################################
     #####         Prediction Part              #####
     ################################################
+    for msg in consumer : 
+      msg=msg.value # which will be remplaced by our object in a near future 
+      my_params=[msg["p"],msg["beta"]]
+      cid=msg["cid"]
+      # modifier predictions afin d'avoir G1 en valeur de sortire aussi 
+      N,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
 
+      send= {
+        'type': 'sample',
+        'cid': cid,
+        'params': my_params,
+        'X': [msg["beta"],N,G1],
+        'W' : 1,
+        }
 
-
-
-
-
-
-    producer.send(topic_writing, key = msg['dst'], value = msg)
+    producer.send(topic_writing, key =msg["T_obs"], value = send)
