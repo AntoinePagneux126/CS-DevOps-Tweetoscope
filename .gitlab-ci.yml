@@ -33,6 +33,8 @@ test_py_job:
 
   before_script: 
     - python3 --version
+    - ls 
+    - cd ~
     - apt-get install python3-venv
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
