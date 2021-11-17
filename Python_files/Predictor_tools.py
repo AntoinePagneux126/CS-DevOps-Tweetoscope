@@ -2,6 +2,8 @@
 This code is aimed to provide tools for prediction process. 
 """
 
+import numpy as np
+
 
 
 def predictions(params, history, alpha, mu, T = None):
@@ -14,6 +16,20 @@ def predictions(params, history, alpha, mu, T = None):
     mu       -- min value parameter of the power-law mark distribution
     T        -- 1D-array of times (i.e ends of observation window)
     """
+    if not isinstance(t, float or int ) or t < 0:
+            raise Exception(" n must be an float or int greater than 0")
+
+    if not isinstance(params, tuple):
+            raise Exception(" params must be a tuple")
+    
+    if not isinstance(params[0], int) or not isinstance(params[0], float) : 
+            raise Exception ("p must be a int or float")
+
+    if not isinstance(params[1], int) or not isinstance(params[1], float) or params[1]<0: 
+            raise Exception ("beta must be a int or float greater than 0")
+
+    if not isinstance(history, np.array) or history.shape[1]!=2 : 
+            raise Exception(" history must be an np.array with following shape : (n,2)")
 
     p,beta = params
     
