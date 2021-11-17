@@ -61,12 +61,12 @@ test_py_job:
   stage: test_py 
   allow_failure: true
   image: python:latest
-  variables:
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cache:
-    paths:
-      - .cache/pip
-      - venv/
+  # variables:
+  #   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # cache:
+  #   paths:
+  #     - .cache/pip
+  #     - venv/
 
 
   before_script: 
@@ -97,12 +97,12 @@ pylint_test_job:
   stage: pylint_test
   allow_failure: true
   image: python:latest
-  variables:
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cache:
-    paths:
-      - .cache/pip
-      - venv/
+  # variables:
+  #   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # cache:
+  #   paths:
+  #     - .cache/pip
+  #     - venv/
 
 
   before_script: 
