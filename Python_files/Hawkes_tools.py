@@ -3,9 +3,6 @@ The aim of this code is to provide statistical tools for cascade's parameters es
 """
 
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import pandas as pd
 import scipy.optimize as optim
 
 ################################################

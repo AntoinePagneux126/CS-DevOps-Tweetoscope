@@ -3,6 +3,7 @@ stages :
   - test_py
   - create_docker_image_gaml
   - create_docker_image_collector
+  - create_docker_image_python
 
 
 create_docker_image_gaml_job:
@@ -36,6 +37,24 @@ create_docker_image_collector_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/collector
     - echo " Image pushed !"
+
+create_docker_image_python_job:
+  stage: create_docker_image_python
+  allow_failure: false
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - cd Docker_files
+    - echo " Image Python build process starts ..."
+    - docker build -t $CI_REGISTRY_IMAGE/python -f DockerFile.Python .
+    - echo " Docker login in process ... "
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo " Login done !"
+    - docker push $CI_REGISTRY_IMAGE/python
+    - echo " Image pushed !"
+
+
 
 
 test_py_job:
