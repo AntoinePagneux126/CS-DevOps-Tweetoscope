@@ -10,7 +10,12 @@ from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
 import Predictor_tools as prd
 
+import logger
+
 if __name__=="__main__": 
+
+    ## TODO : put the node's name
+    logger = logger.get_logger('', broker_list="localhost::9092",debug=True)
     ################################################
     #######         Kafka Part              ########
     ################################################
@@ -20,10 +25,11 @@ if __name__=="__main__":
     topic_writing_alert="alerts"
     topic_writing_stats="stats"
 
+    logger.info("Setting up kafka consumer & producer for predictor part...")
 
-    ## we have to put in the terminal the port 
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('--broker-list', type=str, required=True, help="the broker list")
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--broker-list', type=str, help="the broker list", default="localhost:9092")
     args = parser.parse_args()  # Parse arguments
 
     consumer = KafkaConsumer(topic_reading,                   # Topic name
@@ -31,10 +37,6 @@ if __name__=="__main__":
       value_deserializer=lambda v: json.loads(v.decode('utf-8')),  # How to deserialize the value from a binary buffer
       key_deserializer= lambda v: v.decode()                       # How to deserialize the key (if any)
     )
-
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('--broker-list', type=str, required=True, help="the broker list")
-    args = parser.parse_args()  # Parse arguments
 
     producer = KafkaProducer(
       bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
@@ -47,18 +49,21 @@ if __name__=="__main__":
     ################################################
     #####         Prediction Part              #####
     ################################################
+    logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
         my_params=[msg["p"],msg["beta"]]
         cid=msg["cid"]
-        # modifier predictions afin d'avoir G1 en valeur de sortire aussi 
-        N,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
+
+        logger.info(f"Predictions computation for {cid} ...")
+        # modifier predictions afin d'avoir G1 en valeur de sortire aussi et N_star
+        N,N_star,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
 
         send_sample= {
           'type': 'sample',
           'cid': cid,
           'params': my_params,
-          'X': [msg["beta"],N,G1],
+          'X': [msg["beta"],N_star,G1],
           'W' : 1,
           }
         producer.send(topic_writing_sample, key =msg["T_obs"], value = send_sample)
@@ -82,3 +87,4 @@ if __name__=="__main__":
           'ARE' : error, 
         }
         producer.send(topic_writing_stats, key =None, value = send_stats)
+        logger.info(f"Messages sended post predictions for {cid}...")

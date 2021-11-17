@@ -1,7 +1,7 @@
 """ this is the class version of the previous code"""
 
-import hawkes_tools
-
+import numpy as np 
+import scipy.optimize as optim
 
 class Cascade : 
     def __init__(self,json) : 
@@ -11,6 +11,7 @@ class Cascade :
     ##############################################
 
         self._json=json.value
+        self._key = json.value["key"]
         self._history=json.value["tweets"]
         self._t=json.value["T_obs"]
 
