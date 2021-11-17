@@ -3,6 +3,7 @@ The aim of this code is to provide statistical tools for cascade's parameters es
 """
 
 import numpy as np
+from numpy.core.arrayprint import array2string
 import scipy.optimize as optim
 
 ################################################
@@ -22,16 +23,16 @@ def loglikelihood(params, history, t):
     if not isinstance(t, float or int ) or t < 0:
             raise Exception(" n must be an float or int greater than 0")
 
-    if not isinstance(params, tuple):
-            raise Exception(" params must be a tuple")
-    
-    if not isinstance(params[0], int) or not isinstance(params[0], float) : 
+    if not isinstance(params, np.ndarray):
+            raise Exception(" params must be a np.darray")
+
+    if (not isinstance(params[0], np.floating) or not isinstance(params[0], float) or isinstance(params[0], int)) :
             raise Exception ("p must be a int or float")
 
-    if not isinstance(params[1], int) or not isinstance(params[1], float) or params[1]<0: 
+    if (not isinstance(params[1], np.floating) or not isinstance(params[1], float) or  not isinstance(params[1], int) and params[1]<0 ) :
             raise Exception ("beta must be a int or float greater than 0")
 
-    if not isinstance(history, np.array) or history.shape[1]!=2 : 
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")
     
     p,beta = params    
@@ -85,7 +86,7 @@ def compute_MAP(history, t, alpha, mu,
     if not isinstance(t, float or int ) or t < 0:
             raise Exception(" n must be an float or int greater than 0")
 
-    if not isinstance(history, np.array) or history.shape[1]!=2 : 
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")
 
     
