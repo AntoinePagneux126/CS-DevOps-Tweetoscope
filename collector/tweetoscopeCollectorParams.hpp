@@ -359,10 +359,29 @@ namespace tweetoscope
             {
                 if (!m_FIFO[t_obs].empty())
                 {
+                    cascade_wref elem = m_FIFO[t_obs].front(); //last elem in FIFO
+                    auto w_cascade = elem.lock();              // to be sure the shared pointer exists
+                    while ((m_sourceTime - w_cascade->m_timeOfLastTweet) > t_obs)
+                    {
+                        auto iterator = (w_cascade->m_pairsOfTimesAndMagnitudes).begin();
+                        std::vector<std::pair<timestamp, double>> partial_pairs;
+                        while ((iterator->first - w_cascade->m_timeOfLastTweet <= t_obs) && (iterator != (w_cascade->m_pairsOfTimesAndMagnitudes).end()))
+                        {
+                            partial_pairs.push_back(*iterator);
+                            ++iterator;
+                        }
+                        std::ostringstream ostr;
+                        ostr << "{"
+                             << "\"type\" : \"serie\""
+                             << ", \"cid\" : " << w_cascade->m_id << ", \"msg\": \"" << w_cascade->m_msg << '"' << ", \"T_obs\" : " << t_obs << ",\"tweets\" :" << partial_pairs << '}';
+                        std::string msg_series = ostr.str();
+                        partial_to_send.push_back(msg_series);
+                        m_FIFO[t_obs].pop();
+                    }
                 }
             }
 
-            return {"to dev"};
+            return partial_to_send;
         }
 
         inline std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
