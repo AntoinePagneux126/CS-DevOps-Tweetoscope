@@ -18,7 +18,7 @@ import logger
 if __name__=="__main__" : 
 
     ## TODO : put the node's name
-    logger = logger.get_logger('', broker_list="localhost::9092",debug=True)
+    logger = logger.get_logger('estimator', broker_list="localhost::9092",debug=True)
     
     ################################################
     #######         Kafka Part              ########
