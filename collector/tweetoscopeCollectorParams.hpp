@@ -354,7 +354,6 @@ namespace tweetoscope
         {
             //obs is a vector of time to send the cascade
             std::vector<std::string> partial_to_send;
-
             for (auto t_obs : obs)
             {
                 if (!m_FIFO[t_obs].empty())
