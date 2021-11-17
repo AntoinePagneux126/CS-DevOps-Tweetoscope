@@ -21,6 +21,8 @@
 #include <iomanip>
 #include <boost/heap/binomial_heap.hpp>
 
+#define DURATION_END_CASCADE 1000
+
 namespace tweetoscope
 {
     namespace params
@@ -284,13 +286,13 @@ namespace tweetoscope
 
         inline void Cascade::operator+=(const std::pair<tweet, std::string> &elt)
         { // string is the key
+            // We update the cascade object
             /* to dev */
             if (elt.second == m_id)
             {
                 timestamp t_time = elt.first.time;
                 double t_magnitude = elt.first.magnitude;
                 source::idf t_source = elt.first.source;
-                std::string t_info = elt.first.info;
                 m_pairsOfTimesAndMagnitudes.push_back(std::pair<timestamp, double>(t_time, t_magnitude));
                 if (t_source == m_source && t_time > m_timeOfLastTweet)
                 {
@@ -302,12 +304,7 @@ namespace tweetoscope
 
         inline bool Cascade::operator<(const cascade_ref &ref_other_cascade) const
         {
-            /* to dev */
-
-            if (m_timeOfLastTweet > ref_other_cascade->m_timeOfLastTweet)
-                return false;
-            else
-                return true;
+            return m_timeOfLastTweet < ref_other_cascade->m_timeOfLastTweet;
         }
 
         inline cascade_ref Cascade::makeRef(tweet &twt, std::string &key)
@@ -353,13 +350,22 @@ namespace tweetoscope
 
         inline Processor::~Processor() {}
 
-        std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs)
+        inline std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs)
         {
-            /* to dev */
+            //obs is a vector of time to send the cascade
+            std::vector<std::string> partial_to_send;
+
+            for (auto t_obs : obs)
+            {
+                if (!m_FIFO[t_obs].empty())
+                {
+                }
+            }
+
             return {"to dev"};
         }
 
-        std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
+        inline std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
         {
             /* to dev */
             return {"to dev"};
