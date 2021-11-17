@@ -18,5 +18,5 @@ spec:
     spec:
       containers:
       - name: predictor-container
-        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/python
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/predictor
         imagePullPolicy: Always
