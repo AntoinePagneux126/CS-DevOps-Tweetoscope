@@ -1,5 +1,5 @@
 stages :
-  - pylint_test
+  # - pylint_test
   - test_py
   - create_docker_image_gaml
   - create_docker_image_collector
@@ -111,7 +111,7 @@ test_py_job:
 
 
 pylint_test_job:
-  stage: pylint_test
+  stage: py_test#parall
   allow_failure: true
   image: python:3.10.0
   # variables:
