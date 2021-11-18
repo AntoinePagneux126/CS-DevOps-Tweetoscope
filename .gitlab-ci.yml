@@ -77,25 +77,25 @@ create_docker_image_predictor_py_job:
 test_py_job:
   stage: test_py
   allow_failure: true
-  image: python:3.10.0
+  image: python:3.9.9
   # variables:
-  #   pip3_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
+  #   pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   # cache:
   #   paths:
-  #     - .cache/pip3
+  #     - .cache/pip
   #     - venv/
 
 
   before_script: 
     - python3 --version
-    - pip3 install virtualenv 
+    - pip install virtualenv 
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
-    - pip3 --version
-    - pip3 install pytest pytest-cov
-    - pip3 install pytest-html
-    # - pip3 install pylint
-    - pip3 install -r requirements.txt
+    - pip --version
+    - pip install pytest pytest-cov
+    - pip install pytest-html
+    # - pip install pylint
+    - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
     - python3 -m pytest --cov-report=html --cov=Python_files .
@@ -113,23 +113,23 @@ test_py_job:
 pylint_test_job:
   stage: test_py
   allow_failure: true
-  image: python:3.10.0
+  image: python:3.9.9
   # variables:
-  #   pip3_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
+  #   pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   # cache:
   #   paths:
-  #     - .cache/pip3
+  #     - .cache/pip
   #     - venv/
 
 
   before_script: 
     - python3 --version
-    - pip3 install virtualenv 
+    - pip install virtualenv 
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
-    - pip3 --version
-    - pip3 install pylint
-    - pip3 install -r requirements.txt
+    - pip --version
+    - pip install pylint
+    - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
     - cd Rapport_Pylint
