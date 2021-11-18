@@ -1,4 +1,4 @@
-stages :  ## attention penser à mettre des jobs qui peuvent s'exectuer en parallèle 
+stages :  ## attention penser à mettre des jobs qui peuvent s'exectuer en parallèle
   - pylint_test
   - test_py
   - create_docker_image_gaml
@@ -79,23 +79,23 @@ test_py_job:
   allow_failure: true
   image: python:3.10.0
   # variables:
-  #   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  #   pip3_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
   # cache:
   #   paths:
-  #     - .cache/pip
+  #     - .cache/pip3
   #     - venv/
 
 
   before_script: 
     - python3 --version
-    - pip install virtualenv 
+    - pip3 install virtualenv 
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
-    - pip --version
-    - pip install pytest pytest-cov
-    - pip install pytest-html
-    # - pip install pylint
-    - pip install -r requirements.txt
+    - pip3 --version
+    - pip3 install pytest pytest-cov
+    - pip3 install pytest-html
+    # - pip3 install pylint
+    - pip3 install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
     - python3 -m pytest --cov-report=html --cov=Python_files .
@@ -115,21 +115,21 @@ pylint_test_job:
   allow_failure: true
   image: python:3.10.0
   # variables:
-  #   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  #   pip3_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip3"
   # cache:
   #   paths:
-  #     - .cache/pip
+  #     - .cache/pip3
   #     - venv/
 
 
   before_script: 
     - python3 --version
-    - pip install virtualenv 
+    - pip3 install virtualenv 
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
-    - pip --version
-    - pip install pylint
-    - pip install -r requirements.txt
+    - pip3 --version
+    - pip3 install pylint
+    - pip3 install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
     - cd Rapport_Pylint
