@@ -1,4 +1,4 @@
-stages :
+stages :  ## attention penser à mettre des jobs qui peuvent s'exectuer en parallèle 
   - pylint_test
   - test_py
   - create_docker_image_gaml
@@ -133,6 +133,6 @@ pylint_test_job:
   script: 
     - echo "starting lint for python code ... "
     - cd Rapport_Pylint
-    - sudo pylint -ry -sy ../Python_files/*.py --files-output=y
+    - pylint -ry -sy ../Python_files/*.py --files-output=y
 
 
