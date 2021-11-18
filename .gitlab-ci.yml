@@ -1,5 +1,5 @@
 stages :
-  # - pylint_test
+  - pylint_test
   - test_py
   - create_docker_image_gaml
   - create_docker_image_collector
@@ -111,7 +111,7 @@ test_py_job:
 
 
 pylint_test_job:
-  stage: py_test#parall
+  stage: py_test
   allow_failure: true
   image: python:3.10.0
   # variables:
@@ -132,6 +132,6 @@ pylint_test_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
-    - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
+    - sudo pylint -ry -sy Python_files/*.py >>  Rapport_Pylint/report.txt
 
 
