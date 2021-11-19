@@ -17,7 +17,7 @@ def predictions(params, history, alpha, mu, T = None):
     T        -- 1D-array of times (i.e ends of observation window)
     """
     if T : 
-        if not isinstance(T, float or int ) or T < 0:
+        if not isinstance(T, (float, int) ) or T < 0:
             raise Exception(" T must be an float or int greater than 0")
 
     if not isinstance(params, np.ndarray) :
@@ -32,10 +32,11 @@ def predictions(params, history, alpha, mu, T = None):
     if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")
     
-    if not isinstance(alpha, np.floating or float or int): 
+    if not isinstance(alpha, (int,float)): 
             raise Exception(" alpha must be an float or int ")
 
-    if not isinstance(mu, np.floating or float or int): 
+    if not isinstance(mu, (int,float)): 
+            print(type(mu))
             raise Exception(" mu must be an float or int ")
     p,beta = params
     
