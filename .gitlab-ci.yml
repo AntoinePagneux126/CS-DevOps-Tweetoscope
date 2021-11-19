@@ -84,12 +84,6 @@ test_py_job:
   stage: test_py
   allow_failure: true
   image: python:3
-  variables:
-    pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cache:
-    paths:
-      - .cache/pip
-      - venv/
 
 
   before_script: 
@@ -123,13 +117,6 @@ pylint_test_job:
   stage: test_py
   allow_failure: true
   image: python:3
-  variables:
-    pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cache:
-    paths:
-      - .cache/pip
-      - venv/
-
 
   before_script: 
     - python3 --version
