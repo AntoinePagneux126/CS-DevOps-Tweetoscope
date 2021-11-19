@@ -95,7 +95,7 @@ test_py_job:
     - pip --version
     - pip install pytest pytest-cov
     - pip install pytest-html
-    - pip install pylint
+    # - pip install pylint
     - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
@@ -138,8 +138,8 @@ pylint_job:
     - export PYTHONPATH=.
     # - rm -r Rapport_Pylint
     # - mkdir Rapport_Pylint
-    - pylint -ry -sy Python_files/*.py  #--output=Rapport_Pylint/report.txt
-    - echo $CI_JOB_ID
+    - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
+
   artifacts:
     untracked: false
     expire_in: 60 days
