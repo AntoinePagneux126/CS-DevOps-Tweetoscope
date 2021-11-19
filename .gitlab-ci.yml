@@ -136,8 +136,8 @@ pylint_job:
     - ls
     # - set -o noclobber
     - export PYTHONPATH=.
-    - rm -r Rapport_Pylint
-    - mkdir Rapport_Pylint
+    # - rm -r Rapport_Pylint
+    # - mkdir Rapport_Pylint
     - pylint -ry -sy Python_files/*.py  #--output=Rapport_Pylint/report.txt
     - echo $CI_JOB_ID
   artifacts:
