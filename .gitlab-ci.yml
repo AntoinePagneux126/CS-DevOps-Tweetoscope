@@ -102,11 +102,12 @@ test_py_job:
   script: 
     - echo "starting test for python coverage ... "
     - ls 
+    - set -o noclobber
     - python3 -m pytest --cov-report=html --cov=Python_files tests/
     # - python3 -m pytest --html=Rapport_coverage/rapport_cov.html --self-contained-html
     - echo "Code coverage finished ..."
-    - echo "starting lint for python code ... "
-    - pylint -ry -sy Python_files/*.py --output=Rapport_Pylint/report.txt
+    # - echo "starting lint for python code ... "
+    # - pylint -ry -sy Python_files/*.py --output=Rapport_Pylint/report.txt
 
   artifacts: 
     untracked : false
@@ -116,26 +117,27 @@ test_py_job:
     expire_in: 60 days
 
 
-# pylint_test_job:
-#   stage: test_py
-#   variables:
-#     CI_DEBUG_TRACE: "true"
-#   allow_failure: true
-#   image: python:3
+pylint_test_job:
+  stage: test_py
+  variables:
+    CI_DEBUG_TRACE: "true"
+  allow_failure: true
+  image: python:3
 
-#   before_script: 
-#     - python3 --version
-#     - pip install virtualenv 
-#     - python3 -m venv TweetoscopeVenv
-#     - source TweetoscopeVenv/bin/activate
-#     - pip --version
-#     - pip install pylint
-#     - pip install -r requirements.txt
-#   script: 
-#     - echo "starting lint for python code ... "
-#     - ls
-#     - pylint -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
-#     - echo $CI_JOB_ID
+  before_script: 
+    - python3 --version
+    - pip install virtualenv 
+    - python3 -m venv TweetoscopeVenv
+    - source TweetoscopeVenv/bin/activate
+    - pip --version
+    - pip install pylint
+    - pip install -r requirements.txt
+  script: 
+    - echo "starting lint for python code ... "
+    - ls
+    - set -o noclobber
+    - pylint -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
+    - echo $CI_JOB_ID
 
 
 
