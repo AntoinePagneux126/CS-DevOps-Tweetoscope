@@ -27,9 +27,6 @@ def test_hawkes_estim():
         HT.compute_MAP(cascade,"time error", 2.4, 10)
         assert(str(execinfo.value)==" t must be an float or int greater than 0")
 
-test_hawkes_estim()
-
-
 
 def test_hawkes_pred():
 
@@ -53,6 +50,10 @@ def test_hawkes_pred():
         assert(str(execinfo.value)=="beta must be a int or float greater than 0")
 
     with pytest.raises(Exception) as execinfo :
+        PT.predictions(np.array([1e-5,-6]),cascade,2.016,1)
+        assert(str(execinfo.value)=="beta must be a int or float greater than 0")
+
+    with pytest.raises(Exception) as execinfo :
         PT.predictions(np.array([1e-5,2e-6]),1,2.016,1)
         assert(str(execinfo.value)==" history must be an np.array with following shape : (n,2)")
     
@@ -63,5 +64,3 @@ def test_hawkes_pred():
     with pytest.raises(Exception) as execinfo :
         PT.predictions([1e-5,2e-6],cascade,2.016,"mu error")
         assert(str(execinfo.value)==" mu must be an float or int ")
-
-test_hawkes_pred()

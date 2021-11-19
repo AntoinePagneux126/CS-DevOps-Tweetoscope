@@ -36,7 +36,6 @@ def predictions(params, history, alpha, mu, T = None):
             raise Exception(" alpha must be an float or int ")
 
     if not isinstance(mu, (int,float)): 
-            print(type(mu))
             raise Exception(" mu must be an float or int ")
     p,beta = params
     
