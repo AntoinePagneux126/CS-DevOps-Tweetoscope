@@ -1,8 +1,36 @@
-FROM python
+FROM ubuntu
 
 RUN apt-get update
-RUN apt-get install git -y
+RUN apt-get install openjdk-11-jdk -y
+RUN apt-get install wget -y
+
+########################################################
+########       C++17 INSTALLATION        ###############
+########################################################
+
+RUN echo "  C++17 installation started..."
+RUN apt-get install gcc-7 g++-7 -y
+RUN apt install build-essential pkg-config python-dev python-six cython python-numpy coinor-libipopt1v5 coinor-libipopt-dev -y
+RUN apt install git-all -y
+RUN apt install cmake -y
+RUN apt-get install librdkafka-dev -y
+RUN apt-get install libboost-all-dev -y
+RUN apt-get install libssl-dev -y
+RUN apt-get install libcurl4 -y
+
+########################################################
+########       GET FILES NEEDED       #################
+########################################################
+
+RUN echo "Getting the files..."
 RUN git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
-RUN apt-get install python3-pip -y
-RUN pip3 install kafka-python
-CMD python3 Python_files/kafkaConsumer.py 
+WORKDIR tweetoscope_2021_11/collector
+RUN g++ -o tweet-collector tweet-collector.cpp
+## à voir si besoin (le fichier compilé est fourni normalemnt pas besoin de recompiler)
+
+########################################################
+########       RUNNING THE COLLECTOR      ##############
+########################################################
+
+RUN chmod +x ./tweet-collector
+CMD ./tweet-collector params.config
