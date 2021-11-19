@@ -55,7 +55,7 @@ if __name__=="__main__":
         cid=msg["cid"]
 
         logger.info(f"Predictions computation for {cid} ...")
-        # modifier predictions afin d'avoir G1 en valeur de sortire aussi et N_star
+        # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
         N,N_star,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
 
         send_sample= {

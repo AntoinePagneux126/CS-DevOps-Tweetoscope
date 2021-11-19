@@ -1,14 +1,17 @@
 stages :  ## attention penser à mettre des jobs qui peuvent s'exectuer en parallèle
-  - pylint_test
   - test_py
-  - create_docker_image_gaml
-  - create_docker_image_collector
-  - create_docker_image_estimator_py
-  - create_docker_image_predictor_py
+  - create_docker_image
+  ## to parallelize 
+  # - pylint_test
+  # - create_docker_image_gaml
+  # - create_docker_image_collector
+  # - create_docker_image_estimator_py
+  # - create_docker_image_predictor_py
 
 
 create_docker_image_gaml_job:
-  stage: create_docker_image_gaml
+  # stage: create_docker_image_gaml
+  stage : create_docker_image
   allow_failure: false
   image: docker:latest
   services:
@@ -24,7 +27,8 @@ create_docker_image_gaml_job:
     - echo " Image pushed !"
 
 create_docker_image_collector_job:
-  stage: create_docker_image_collector
+  # stage: create_docker_image_collector
+  stage : create_docker_image
   allow_failure: false
   image: docker:latest
   services:
@@ -40,7 +44,8 @@ create_docker_image_collector_job:
     - echo " Image pushed !"
 
 create_docker_image_estimator_py_job:
-  stage: create_docker_image_estimator_py
+  # stage: create_docker_image_estimator_py
+  stage : create_docker_image
   allow_failure: false
   image: docker:latest
   services:
@@ -57,7 +62,8 @@ create_docker_image_estimator_py_job:
 
 
 create_docker_image_predictor_py_job:
-  stage: create_docker_image_predictor_py
+  # stage: create_docker_image_predictor_py
+  stage : create_docker_image
   allow_failure: false
   image: docker:latest
   services:
@@ -132,7 +138,6 @@ pylint_test_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
-    - cd Rapport_Pylint
-    - pylint -ry -sy ../Python_files/*.py --files-output=y
+    - pylint -ry -sy ../Python_files/*.py >> Rapport_Pylint/report.txt
 
 

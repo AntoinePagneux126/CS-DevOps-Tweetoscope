@@ -16,19 +16,21 @@ def predictions(params, history, alpha, mu, T = None):
     mu       -- min value parameter of the power-law mark distribution
     T        -- 1D-array of times (i.e ends of observation window)
     """
-    if not isinstance(t, float or int ) or t < 0:
-            raise Exception(" n must be an float or int greater than 0")
+    if T : 
+        if not isinstance(T, float or int ) or T < 0:
+            raise Exception(" T must be an float or int greater than 0")
 
-    if not isinstance(params, tuple):
+    if not isinstance(params, np.ndarray) :
             raise Exception(" params must be a tuple")
     
-    if not isinstance(params[0], int) or not isinstance(params[0], float) : 
+    if not isinstance(params[0], np.floating) : 
+            print(type(params[0]))
             raise Exception ("p must be a int or float")
 
-    if not isinstance(params[1], int) or not isinstance(params[1], float) or params[1]<0: 
+    if not isinstance(params[0], np.floating)  or params[1]<0: 
             raise Exception ("beta must be a int or float greater than 0")
 
-    if not isinstance(history, np.array) or history.shape[1]!=2 : 
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")
 
     p,beta = params
@@ -59,4 +61,4 @@ def predictions(params, history, alpha, mu, T = None):
         n = i + 1
         G1 = p * Si * np.exp(-beta * (t - ti_prev))
         N[j,1] = n + G1 / (1. - n_star)
-    return N
+    return N,n_star,G1
