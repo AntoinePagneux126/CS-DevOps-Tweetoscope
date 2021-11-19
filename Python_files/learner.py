@@ -58,6 +58,7 @@ if __name__=="__main__" :
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
         X= msg.value["X"]
+        # TODO data set en append le X et W et si longueur du dataset dépasse un seuil on train
         model = RandomForestRegressor.fit(X,msg.value["W"])
 
         send ={
