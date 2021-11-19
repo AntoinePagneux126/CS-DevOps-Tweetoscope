@@ -84,7 +84,7 @@ def compute_MAP(history, t, alpha, mu,
     display      -- verbose flag to display optimization iterations (see 'disp' options of optim.optimize)
     """
     if not isinstance(t, float or int ) or t < 0:
-            raise Exception(" n must be an float or int greater than 0")
+            raise Exception(" t must be an float or int greater than 0")
 
     if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")
