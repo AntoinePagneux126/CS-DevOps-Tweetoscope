@@ -104,7 +104,7 @@ test_py_job:
     # - set -o noclobber
     - export PYTHON_PATH=.
     - echo "starting lint for python code ... "
-    - rmdir -r Rapport_Pylint
+    - rm -r Rapport_Pylint
     - mkdir Rapport_Pylint
     - pylint -ry -sy Python_files/*.py --output=Rapport_Pylint/report.txt
     - python3 -m pytest --cov-report=html --cov=Python_files tests/
