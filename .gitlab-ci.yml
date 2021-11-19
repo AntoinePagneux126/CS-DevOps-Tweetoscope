@@ -114,6 +114,7 @@ test_py_job:
     untracked : false
     paths :
       - coverage ## correspond au nom dans la section [html] du .coveragerc
+      - coverage/index.html
     expire_in: 60 days
 
 
