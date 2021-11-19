@@ -83,7 +83,7 @@ create_docker_image_predictor_py_job:
 test_py_job:
   stage: test_py
   allow_failure: true
-  image: python:3
+  image: python:3.9
   # variables:
   #   pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   # cache:
@@ -120,7 +120,7 @@ test_py_job:
 pylint_test_job:
   stage: test_py
   allow_failure: true
-  image: python:3
+  image: python:3.9
   # variables:
   #   pip_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   # cache:
