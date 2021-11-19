@@ -84,9 +84,8 @@ test_py_job:
   stage: test_py
   variables:
     CI_DEBUG_TRACE: "true"
-
   allow_failure: true
-  image: python:3
+  image: python:3.7
 
 
   before_script: 
@@ -122,7 +121,7 @@ pylint_test_job:
   variables:
     CI_DEBUG_TRACE: "true"
   allow_failure: true
-  image: python:3
+  image: python:3.7
 
   before_script: 
     - python3 --version
@@ -136,7 +135,7 @@ pylint_test_job:
     - echo "starting lint for python code ... "
     - ls
     - set -o noclobber
-    - pylint -d -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
     - echo $CI_JOB_ID
 
 
