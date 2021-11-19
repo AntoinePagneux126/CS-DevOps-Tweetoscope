@@ -87,7 +87,6 @@ test_py_job:
   allow_failure: true
   image: python:3.7
 
-
   before_script: 
     - python3 --version
     - pip install virtualenv 
@@ -104,44 +103,50 @@ test_py_job:
     # - set -o noclobber
     - export PYTHON_PATH=.
     - echo "starting lint for python code ... "
-    - rm -r Rapport_Pylint
-    - mkdir Rapport_Pylint
-    - pylint -ry -sy Python_files/*.py --output=Rapport_Pylint/report.txt
+
+    # - pylint -ry -sy Python_files/*.py --output=Rapport_Pylint/report.txt
     - python3 -m pytest --cov-report=html --cov=Python_files tests/
     # - python3 -m pytest --html=Rapport_coverage/rapport_cov.html --self-contained-html
     - echo "Code coverage finished ..."
-
-
+  coverage: '/Code coverage: \d+\.\d+/'
   artifacts: 
     untracked : false
     paths :
-      - coverage ## correspond au nom dans la section [html] du .coveragerc
       - coverage/index.html
     expire_in: 60 days
 
 
-# pylint_job:
-#   stage: test_py
-#   variables:
-#     CI_DEBUG_TRACE: "true"
-#   allow_failure: true
-#   image: python:3.7
+pylint_job:
+  stage: test_py
+  variables:
+    CI_DEBUG_TRACE: "true"
+  allow_failure: true
+  image: python:3.7
 
-#   before_script: 
-#     - python3 --version
-#     - pip install virtualenv 
-#     - python3 -m venv TweetoscopeVenv
-#     - source TweetoscopeVenv/bin/activate
-#     - pip --version
-#     - pip install pylint
-#     - pip install -r requirements.txt
-#   script: 
-#     - echo "starting lint for python code ... "
-#     - ls
-#     # - set -o noclobber
-#     - export PYTHONPATH=.
-#     - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
-#     - echo $CI_JOB_ID
+  before_script: 
+    - python3 --version
+    - pip install virtualenv 
+    - python3 -m venv TweetoscopeVenv
+    - source TweetoscopeVenv/bin/activate
+    - pip --version
+    - pip install pylint
+    - pip install -r requirements.txt
+  script: 
+    - echo "starting lint for python code ... "
+    - ls
+    # - set -o noclobber
+    - export PYTHONPATH=.
+    - rm -r Rapport_Pylint
+    - mkdir Rapport_Pylint
+    - pylint -ry -sy Python_files/*.py  #--output=Rapport_Pylint/report.txt
+    - echo $CI_JOB_ID
+  artifacts:
+    untracked: false
+    expire_in: 60 days
+    paths : 
+      - Rapport_Pylint/report.txt
+  
+
 
 
 
