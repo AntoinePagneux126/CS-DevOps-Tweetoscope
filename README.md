@@ -30,9 +30,9 @@ Our architecture ensure stability and safety because it relies on a well done Ku
 
 ## How to use 
 To set up and use our product you will have to do the following : 
-"""
+'''
 git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
-"""
+'''
 
 ## Conclusion
 To conclude, we can say that even if this project was time consuming we have learn so much on good practice to get scalability, relybility, and continuous integration/delivery. 
