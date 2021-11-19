@@ -1,5 +1,7 @@
 import sys, os , inspect
+
 import pytest
+import numpy as np
 
 current_dir= os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parent_dir= os.path.dirname(current_dir)
@@ -8,9 +10,9 @@ sys.path.insert(0,parent_dir)
 
 import Python_files.hawkes_tools as HT
 import Python_files.predictor_tools as PT
+import Python_files.hawkes_estimator as HE
+import Python_files.predictor as PE
 
-
-import numpy as np
 
 
 def test_hawkes_estim():
