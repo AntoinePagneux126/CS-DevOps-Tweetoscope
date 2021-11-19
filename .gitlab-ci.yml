@@ -136,7 +136,7 @@ pylint_test_job:
     - echo "starting lint for python code ... "
     - ls
     - set -o noclobber
-    - pylint -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
+    - pylint -d -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
     - echo $CI_JOB_ID
 
 
