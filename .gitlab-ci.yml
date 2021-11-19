@@ -134,7 +134,8 @@ pylint_test_job:
   script: 
     - echo "starting lint for python code ... "
     - ls
-    - pylint -ry -sy Python_files/*.py  -f text --output=Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py   --output=Rapport_Pylint/report.txt
+    - echo $CI_JOB_ID
 
 
 
