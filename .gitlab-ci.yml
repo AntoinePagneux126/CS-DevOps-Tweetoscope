@@ -139,6 +139,8 @@ pylint_test_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
-    - pylint -ry -sy ../Python_files/*.py >> Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py  -f text --output=Rapport_Pylint/report.txt
 
 
+
+    
