@@ -24,7 +24,6 @@ def predictions(params, history, alpha, mu, T = None):
             raise Exception(" params must be a tuple")
     
     if not isinstance(params[0], np.floating) : 
-            print(type(params[0]))
             raise Exception ("p must be a int or float")
 
     if not isinstance(params[0], np.floating)  or params[1]<0: 

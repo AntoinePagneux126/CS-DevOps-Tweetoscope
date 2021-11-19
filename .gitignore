@@ -4,3 +4,4 @@ Docker_files/DockerFile.Python
 TweetoVenv
 Python_files/__pycache__
 .ipynb_checkpoints
+tests/__pycache__
