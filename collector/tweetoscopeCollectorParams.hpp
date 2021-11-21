@@ -269,10 +269,10 @@ namespace tweetoscope
             source::idf                                 m_source;
 
             // Declare friend classes
-            friend  class   Processor;
-            friend  struct  CascadeRefComaparator;
+            // friend  class   Processor;
+            // friend  struct  CascadeRefComaparator;
             // Declare friend operators
-            friend  std::ostream& operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude); 
+            // friend  std::ostream& operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude); 
 
         public:
             // Constructor
@@ -286,12 +286,27 @@ namespace tweetoscope
             ~Cascade();
 
             // Methods
+            // Assessors
+            std::string                                 getId()                         const;
+            std::string                                 getMsg()                        const;
+            timestamp                                   getTimeOfFirstTweet()           const;
+            timestamp                                   getTimeOfLastTweet()            const;
+            std::vector<std::pair<timestamp, int>>      getpairsOfTimesAndMagnitudes()  const;
+            source::idf                                 getSource()                     const;
+            // Others
             void        operator+=(std::pair<tweet, std::string> &elt);
             bool        operator<(const cascade_ref &ref_other_cascade) const;
             cascade_ref makeRef(tweet &twt, std::string &key);
         };
 
         // Inlining methods of the Cascade class
+        inline  std::string                                 Cascade::getId()                         const  {return m_id;}
+        inline  std::string                                 Cascade::getMsg()                        const  {return m_msg;}
+        inline  timestamp                                   Cascade::getTimeOfFirstTweet()           const  {return m_timeOfFirstTweet;}
+        inline  timestamp                                   Cascade::getTimeOfLastTweet()            const  {return m_timeOfLastTweet;}
+        inline  std::vector<std::pair<timestamp, int>>      Cascade::getpairsOfTimesAndMagnitudes()  const  {return m_pairsOfTimesAndMagnitudes;}
+        inline  source::idf                                 Cascade::getSource()                     const  {return m_source;}
+        
         inline  Cascade::Cascade(const tweet &twt, const std::string &key) : m_id(key),
                                                                             m_msg(twt.msg),
                                                                             m_timeOfFirstTweet(twt.time),
@@ -341,9 +356,9 @@ namespace tweetoscope
             std::map<idf, cascade_wref>                     m_symbolTable;
 
             // Declare friend classes
-            friend  class   Cascade;
+            // friend  class   Cascade;
             // Declare friend operators
-            friend  std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude);
+            // friend  std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude);
 
         public:
             // Constructor
@@ -357,11 +372,24 @@ namespace tweetoscope
             ~Processor();
 
             // Methods
+            // Assessors
+            source::idf                                     getSource()         const;
+            timestamp                                       getSourceTime()     const;
+            priority_queue                                  getPriorityQueue()  const;
+            std::map<timestamp, std::queue<cascade_wref>>   getFIFO()           const;
+            std::map<idf, cascade_wref>                     getSymbolTable()    const;
+            // Others
             std::vector<std::string>    sendPartialCascade(const std::vector<std::size_t> &obs);
             std::vector<std::string>    sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size);
         };
 
         // Inlining methods of the Processor class
+        inline  source::idf                                     Processor::getSource()         const { return this -> m_source;}
+        inline  timestamp                                       Processor::getSourceTime()     const { return this -> m_sourceTime;}
+        inline  priority_queue                                  Processor::getPriorityQueue()  const { return this -> m_priorityQueue;}
+        inline  std::map<timestamp, std::queue<cascade_wref>>   Processor::getFIFO()           const { return this -> m_FIFO;}
+        inline  std::map<idf, cascade_wref>                     Processor::getSymbolTable()    const { return this -> m_symbolTable;}
+
         inline  Processor::Processor(const tweet &twt) : m_source(twt.source),
                                                         m_sourceTime(twt.time),
                                                         m_priorityQueue{},
@@ -382,11 +410,11 @@ namespace tweetoscope
                 {
                     cascade_wref wRefCascade        = this -> m_FIFO.at(t_obs).front();         // Take the last element of the FIFO
                     auto currentCascade             = wRefCascade.lock();                       // Take a weak pointer on it to be sure the shared pointer exists
-                    while ((this -> m_sourceTime - currentCascade->m_timeOfLastTweet) > t_obs)
+                    while (this -> m_sourceTime - currentCascade-> getTimeOfLastTweet() > t_obs)
                     {
-                        auto it = (currentCascade->m_pairsOfTimesAndMagnitudes).begin();
+                        auto it = (currentCascade-> getpairsOfTimesAndMagnitudes()).begin();
                         std::vector<std::pair<timestamp, int>> partialPairs;
-                        while ((it->first - currentCascade->m_timeOfLastTweet <= t_obs) && (it != (currentCascade->m_pairsOfTimesAndMagnitudes).end()))
+                        while ((it->first - currentCascade-> getTimeOfLastTweet() <= t_obs) && (it != (currentCascade-> getpairsOfTimesAndMagnitudes()).end()))
                         {
                             partialPairs.push_back(*it);
                             ++it;
@@ -394,8 +422,8 @@ namespace tweetoscope
                         std::ostringstream os;
                         os  << "{"
                             << "\"type\" : \"serie\""
-                            << ", \"cid\" : "      << currentCascade->m_id 
-                            << ", \"msg\": \""     << currentCascade->m_msg << '"' 
+                            << ", \"cid\" : "      << currentCascade->getId()
+                            << ", \"msg\": \""     << currentCascade->getMsg() << '"' 
                             << ", \"T_obs\" : "    << t_obs 
                             << ",\"tweets\" :"     << partialPairs 
                             << '}';
@@ -427,17 +455,17 @@ namespace tweetoscope
                 
                 auto    topCascade =   this ->  m_priorityQueue.top();
 
-                while ( this -> m_sourceTime - topCascade->m_timeOfLastTweet > end_time){
+                while ( this -> m_sourceTime - topCascade->getTimeOfLastTweet() > end_time){
                     
                     // Check the size of the cascade is greater than the min size required
                     // So, it can determine if the cascade should be considered
-                    if ( topCascade -> m_pairsOfTimesAndMagnitudes.size() > min_size ){
+                    if ( topCascade -> getpairsOfTimesAndMagnitudes().size() > min_size ){
                         std::ostringstream os;
                         os  << "{"
                             << "\"type\" : \"size\""
-                            << ", \"cid\" : "      << topCascade -> m_id 
-                            << ", \"n_tot\": \""   << topCascade -> m_pairsOfTimesAndMagnitudes.size() << '"' 
-                            << ", \"t_end\" : "    << topCascade -> m_timeOfLastTweet
+                            << ", \"cid\" : "      << topCascade -> getId() 
+                            << ", \"n_tot\": \""   << topCascade -> getpairsOfTimesAndMagnitudes().size() << '"' 
+                            << ", \"t_end\" : "    << topCascade -> getTimeOfLastTweet()
                             << '}';
                         
                         // Add porperties to the whole message and pop the last element of the queue
