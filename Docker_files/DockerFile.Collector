@@ -41,7 +41,7 @@ RUN echo "Getting the files..."
 RUN git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 WORKDIR tweetoscope_2021_11/collector
 RUN g++ -o tweet-collector tweet-collector.cpp -O3 -lcppkafka
-## à voir si besoin (le fichier compilé est fourni normalemnt pas besoin de recompiler)
+
 
 ########################################################
 ########       RUNNING THE COLLECTOR      ##############
