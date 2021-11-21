@@ -3,7 +3,7 @@ import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 
 topic_lecture="tweets"
-
+#topic_lecture="cascadeproperties"
 
 
 ## we have to put in the terminal the port 
