@@ -16,7 +16,6 @@ RUN apt-get install libboost-all-dev -y
 RUN apt-get install libssl-dev -y
 RUN apt-get install libcurl4 -y
 
-
 ########################################################
 ########       GAML INSTALLATION        ################
 ########################################################
@@ -48,6 +47,7 @@ WORKDIR /
 RUN git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 WORKDIR tweetoscope_2021_11/generator
 RUN g++ -o tweet-generator tweet-generator.cpp -O3 $(pkg-config --cflags --libs gaml) -lpthread -lcppkafka
+##Check if needed to commpile the file
 #Running the exe files
 RUN chmod +x ./tweet-generator
 CMD ./tweet-generator params-deploy.config
