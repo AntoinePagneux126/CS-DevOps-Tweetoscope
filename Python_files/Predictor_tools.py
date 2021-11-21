@@ -1,6 +1,6 @@
-    """
+"""
 This code is aimed to provide tools for prediction process. 
-    """
+"""
 
 
 

@@ -1,17 +1,19 @@
 stages :
-  - test_py
   - pylint_test
-  - create_docker_image
+  - test_py
+  - create_docker_image_gaml
+  - create_docker_image_collector
 
 
-create_docker_image_job:
-  stage: create_docker_image
+create_docker_image_gaml_job:
+  stage: create_docker_image_gaml
+  allow_failure: false
   image: docker:latest
   services:
     - docker:dind
   script:
     - cd Docker_files
-    - echo " Image build process starts ..."
+    - echo " Image GAML build process starts ..."
     - docker build -t $CI_REGISTRY_IMAGE/gengaml -f DockerFile.Gen_GAML .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -19,27 +21,81 @@ create_docker_image_job:
     - docker push $CI_REGISTRY_IMAGE/gengaml
     - echo " Image pushed !"
 
+create_docker_image_collector_job:
+  stage: create_docker_image_collector
+  allow_failure: false
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - cd Docker_files
+    - echo " Image Collector build process starts ..."
+    - docker build -t $CI_REGISTRY_IMAGE/collector -f DockerFile.Collector .
+    - echo " Docker login in process ... "
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo " Login done !"
+    - docker push $CI_REGISTRY_IMAGE/collector
+    - echo " Image pushed !"
+
+
 test_py_job:
   stage: test_py 
+  allow_failure: true
   image: python:latest
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  cache:
+    paths:
+      - .cache/pip
+      - venv/
+
+
   before_script: 
-    - pip install pytest pytest-cov 
-    - pip install requirements.txt
+    - python3 --version
+    - pip install virtualenv 
+    - python3 -m venv TweetoscopeVenv
+    - source TweetoscopeVenv/bin/activate
+    - pip --version
+    - pip install pytest pytest-cov
+    - pip install pytest-html
+    # - pip install pylint
+    - pip install -r requirements.txt
   script: 
-    - echo "starting test for python coverage"
-    - python3 -m pytest --cov report=html --cov=Python_files /tests/
+    - echo "starting test for python coverage ... "
+    - python3 -m pytest --cov-report=html --cov=Python_files .
+    - echo "Code coverage finished ..."
+    # - echo "starting lint for python code ... "
+    # - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
+
   artifacts: 
     untracked : false
     paths :
       - coverage ## correspond au nom dans la section [html] du .coveragerc
     expire_in: 60 days
 
-pylint_test_job : 
-  stage : pylint_test
+
+pylint_test_job:
+  stage: pylint_test
+  allow_failure: true
   image: python:latest
-  before_script : 
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  cache:
+    paths:
+      - .cache/pip
+      - venv/
+
+
+  before_script: 
+    - python3 --version
+    - pip install virtualenv 
+    - python3 -m venv TweetoscopeVenv
+    - source TweetoscopeVenv/bin/activate
+    - pip --version
     - pip install pylint
-    - pip install requirements.txt
-  script :
-    - cd Python_files
-    - pylint -ry -sy *.py >> ../Rapport_Pylint/report.txt
+    - pip install -r requirements.txt
+  script: 
+    - echo "starting lint for python code ... "
+    - pylint -ry -sy Python_files/*.py >> Rapport_Pylint/report.txt
+
+

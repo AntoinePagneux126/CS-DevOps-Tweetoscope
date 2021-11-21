@@ -1,3 +1,8 @@
-from tweetoscope_2021_11.Python_files.Hawkes_tools import loglikelihood
+# from Python_files.hawkes_tools import loglikelihood
 
-print("ok")
+print("ok passed in test_hawkes estim .py")
+
+
+def test_hawkes_estim():
+    assert isinstance(8.0,float)
+

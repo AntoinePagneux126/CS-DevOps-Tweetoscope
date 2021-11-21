@@ -1,6 +1,6 @@
-  """
+"""
 The aim of this code is to provide statistical tools for cascade's parameters estimation. 
-  """
+"""
 
 import numpy as np
 import matplotlib as mpl
