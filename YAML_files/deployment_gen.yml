@@ -18,5 +18,5 @@ spec:
     spec:
       containers:
       - name: generator-container
-        image: t126cl218/tweetoscope_2021_11:2.3
+        image: t126cl218/tweetoscope_2021_11:3.0
         imagePullPolicy: Always
