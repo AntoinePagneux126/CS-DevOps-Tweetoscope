@@ -222,23 +222,36 @@ namespace tweetoscope
     {
 
         // Definition of the two classes
-        class Processor;
-        class Cascade;               // Class for storing cascade information.
-        struct CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
+        class   Processor;
+        class   Cascade;               // Class for storing cascade information.
+        struct  CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
 
         // Definition of types like
-        using cascade_ref = std::shared_ptr<Cascade>;
-        using cascade_wref = std::weak_ptr<Cascade>;
-        using priority_queue = boost::heap::binomial_heap<cascade_ref, boost::heap::compare<CascadeRefComparator>>;
-        using idf = std::size_t;
+        using   cascade_ref       =   std::shared_ptr<Cascade>;
+        using   cascade_wref      =   std::weak_ptr<Cascade>;
+        using   priority_queue    =   boost::heap::binomial_heap<cascade_ref, boost::heap::compare<CascadeRefComparator>>;
+        using   idf               =   std::size_t;
+
+        // overloading of << operator
+        std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude){
+            os<< "[" ;
+            auto it_time_magnitude = time_magnitude.begin();
+            while (it_time_magnitude != time_magnitude.end() -1 ){
+                os<<" [" << it_time_magnitude -> first << ',' << it_time_magnitude -> second << "] ,";
+                ++ it_time_magnitude;
+            }
+            os<<" [" << it_time_magnitude -> first << ',' << it_time_magnitude -> second << "] ";
+            os<< "]";
+            return os;
+        }
 
         // Implementation of CascadeRefComparator class
-        struct CascadeRefComparator
+        struct  CascadeRefComparator
         {
-            bool operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
+                bool    operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
         };
 
-        inline bool CascadeRefComparator::operator()(cascade_ref ref_c1, cascade_ref ref_c2) const
+        inline  bool    CascadeRefComparator::operator()(cascade_ref ref_c1, cascade_ref ref_c2) const
         {
             return ref_c1 > ref_c2;
         }
@@ -248,32 +261,38 @@ namespace tweetoscope
         {
         private:
             // Attributes
-            std::string m_id;
-            std::string m_msg;
-            timestamp m_timeOfFirstTweet;
-            timestamp m_timeOfLastTweet;
-            std::vector<std::pair<timestamp, double>> m_pairsOfTimesAndMagnitudes;
-            source::idf m_source;
+            std::string                                 m_id;
+            std::string                                 m_msg;
+            timestamp                                   m_timeOfFirstTweet;
+            timestamp                                   m_timeOfLastTweet;
+            std::vector<std::pair<timestamp, int>>      m_pairsOfTimesAndMagnitudes;
+            source::idf                                 m_source;
+
+            // Declare friend classes
+            friend  class   Processor;
+            friend  struct  CascadeRefComaparator;
+            // Declare friend operators
+            friend  std::ostream& operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude); 
 
         public:
             // Constructor
             Cascade(const tweet &twt, const std::string &key);
-            Cascade(const Cascade &process) = default;
-            Cascade(Cascade &&process) = default;
-            Cascade &operator=(const Cascade &process) = default;
-            Cascade &operator=(Cascade &&process) = default;
+            Cascade(const Cascade &process)                     = default;
+            Cascade(Cascade &&process)                          = default;
+            Cascade &operator=(const Cascade &process)          = default;
+            Cascade &operator=(Cascade &&process)               = default;
 
             // Destructor
             ~Cascade();
 
             // Methods
-            void operator+=(const std::pair<tweet, std::string> &elt);
-            bool operator<(const cascade_ref &ref_other_cascade) const;
+            void        operator+=(std::pair<tweet, std::string> &elt);
+            bool        operator<(const cascade_ref &ref_other_cascade) const;
             cascade_ref makeRef(tweet &twt, std::string &key);
         };
 
         // Inlining methods of the Cascade class
-        inline Cascade::Cascade(const tweet &twt, const std::string &key) : m_id(key),
+        inline  Cascade::Cascade(const tweet &twt, const std::string &key) : m_id(key),
                                                                             m_msg(twt.msg),
                                                                             m_timeOfFirstTweet(twt.time),
                                                                             m_timeOfLastTweet(twt.time),
@@ -282,32 +301,30 @@ namespace tweetoscope
         {
         }
 
-        inline Cascade::~Cascade() {}
+        inline  Cascade::~Cascade() {}
 
-        inline void Cascade::operator+=(const std::pair<tweet, std::string> &elt)
-        { // string is the key
-            // We update the cascade object
-            /* to dev */
-            if (elt.second == m_id)
+        inline  void    Cascade::operator+=(std::pair<tweet, std::string> &elt)
+        { 
+            tweet&          twt =   elt.first;
+            std::string&    key =   elt.second;
+
+            if (key == m_id)
             {
-                timestamp t_time = elt.first.time;
-                double t_magnitude = elt.first.magnitude;
-                source::idf t_source = elt.first.source;
-                m_pairsOfTimesAndMagnitudes.push_back(std::pair<timestamp, double>(t_time, t_magnitude));
-                if (t_source == m_source && t_time > m_timeOfLastTweet)
+                this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
+
+                if (twt.source == this -> m_source && twt.source > this -> m_timeOfLastTweet)
                 {
-                    m_timeOfLastTweet = t_source;
-                    m_source = t_source;
+                    this -> m_timeOfLastTweet = twt.time;
                 }
             }
         }
 
-        inline bool Cascade::operator<(const cascade_ref &ref_other_cascade) const
+        inline  bool        Cascade::operator<(const cascade_ref &ref_other_cascade) const
         {
-            return m_timeOfLastTweet < ref_other_cascade->m_timeOfLastTweet;
+            return m_timeOfLastTweet < ref_other_cascade -> m_timeOfLastTweet;
         }
 
-        inline cascade_ref Cascade::makeRef(tweet &twt, std::string &key)
+        inline  cascade_ref Cascade::makeRef(tweet &twt, std::string &key)
         {
             return std::make_shared<Cascade>(twt, key);
         }
@@ -317,30 +334,35 @@ namespace tweetoscope
         {
         private:
             // Attributes
-            source::idf m_source;
-            timestamp m_sourceTime;
-            priority_queue m_priorityQueue;
-            std::map<timestamp, std::queue<cascade_wref>> m_FIFO;
-            std::map<idf, cascade_wref> m_symbolTable;
+            source::idf                                     m_source;
+            timestamp                                       m_sourceTime;
+            priority_queue                                  m_priorityQueue;
+            std::map<timestamp, std::queue<cascade_wref>>   m_FIFO;
+            std::map<idf, cascade_wref>                     m_symbolTable;
+
+            // Declare friend classes
+            friend  class   Cascade;
+            // Declare friend operators
+            friend  std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude);
 
         public:
             // Constructor
             Processor(const tweet &twt);
-            Processor(const Processor &process) = default;
-            Processor(Processor &&process) = default;
-            Processor &operator=(const Processor &process) = default;
-            Processor &operator=(Processor &&process) = default;
+            Processor(const Processor &process)             = default;
+            Processor(Processor &&process)                  = default;
+            Processor &operator=(const Processor &process)  = default;
+            Processor &operator=(Processor &&process)       = default;
 
             // Destructor
             ~Processor();
 
             // Methods
-            std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs) const;
-            std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size) const;
+            std::vector<std::string>    sendPartialCascade(const std::vector<std::size_t> &obs);
+            std::vector<std::string>    sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size);
         };
 
         // Inlining methods of the Processor class
-        inline Processor::Processor(const tweet &twt) : m_source(twt.source),
+        inline  Processor::Processor(const tweet &twt) : m_source(twt.source),
                                                         m_sourceTime(twt.time),
                                                         m_priorityQueue{},
                                                         m_FIFO{},
@@ -348,34 +370,47 @@ namespace tweetoscope
         {
         }
 
-        inline Processor::~Processor() {}
+        inline  Processor::~Processor() {}
 
-        inline std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs)
+        inline  std::vector<std::string>    Processor::sendPartialCascade(const std::vector<std::size_t> &obs)
         {
             //obs is a vector of time to send the cascade
             std::vector<std::string> partial_to_send;
-            for (auto t_obs : obs)
+            for (auto& t_obs : obs)
             {
-                if (!m_FIFO[t_obs].empty())
+                if (!this->m_FIFO.at(t_obs).empty())
                 {
-                    cascade_wref elem = m_FIFO[t_obs].front(); //last elem in FIFO
-                    auto w_cascade = elem.lock();              // to be sure the shared pointer exists
-                    while ((m_sourceTime - w_cascade->m_timeOfLastTweet) > t_obs)
+                    cascade_wref wRefCascade        = this -> m_FIFO.at(t_obs).front();         // Take the last element of the FIFO
+                    auto currentCascade             = wRefCascade.lock();                       // Take a weak pointer on it to be sure the shared pointer exists
+                    while ((this -> m_sourceTime - currentCascade->m_timeOfLastTweet) > t_obs)
                     {
-                        auto iterator = (w_cascade->m_pairsOfTimesAndMagnitudes).begin();
-                        std::vector<std::pair<timestamp, double>> partial_pairs;
-                        while ((iterator->first - w_cascade->m_timeOfLastTweet <= t_obs) && (iterator != (w_cascade->m_pairsOfTimesAndMagnitudes).end()))
+                        auto it = (currentCascade->m_pairsOfTimesAndMagnitudes).begin();
+                        std::vector<std::pair<timestamp, int>> partialPairs;
+                        while ((it->first - currentCascade->m_timeOfLastTweet <= t_obs) && (it != (currentCascade->m_pairsOfTimesAndMagnitudes).end()))
                         {
-                            partial_pairs.push_back(*iterator);
-                            ++iterator;
+                            partialPairs.push_back(*it);
+                            ++it;
                         }
-                        std::ostringstream ostr;
-                        ostr << "{"
-                             << "\"type\" : \"serie\""
-                             << ", \"cid\" : " << w_cascade->m_id << ", \"msg\": \"" << w_cascade->m_msg << '"' << ", \"T_obs\" : " << t_obs << ",\"tweets\" :" << partial_pairs << '}';
-                        std::string msg_series = ostr.str();
+                        std::ostringstream os;
+                        os  << "{"
+                            << "\"type\" : \"serie\""
+                            << ", \"cid\" : "      << currentCascade->m_id 
+                            << ", \"msg\": \""     << currentCascade->m_msg << '"' 
+                            << ", \"T_obs\" : "    << t_obs 
+                            << ",\"tweets\" :"     << partialPairs 
+                            << '}';
+
+                        std::string msg_series  =   os.str();
                         partial_to_send.push_back(msg_series);
-                        m_FIFO[t_obs].pop();
+                        this -> m_FIFO.at(t_obs).pop();   
+
+                        if ( ! this -> m_FIFO.at(t_obs).empty()){
+                            wRefCascade = this -> m_FIFO.at(t_obs).front();
+                            currentCascade = wRefCascade.lock();
+                        }
+                        else{
+                            break;
+                        }               
                     }
                 }
             }
@@ -383,10 +418,46 @@ namespace tweetoscope
             return partial_to_send;
         }
 
-        inline std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
+        inline  std::vector<std::string>    Processor::sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
         {
-            /* to dev */
-            return {"to dev"};
+            std::vector<std::string>    propertiesToSend;
+
+            // First check that priorityqueue is not empty
+            if(!this->m_priorityQueue.empty()){
+                
+                auto    topCascade =   this ->  m_priorityQueue.top();
+
+                while ( this -> m_sourceTime - topCascade->m_timeOfLastTweet > end_time){
+                    
+                    // Check the size of the cascade is greater than the min size required
+                    // So, it can determine if the cascade should be considered
+                    if ( topCascade -> m_pairsOfTimesAndMagnitudes.size() > min_size ){
+                        std::ostringstream os;
+                        os  << "{"
+                            << "\"type\" : \"size\""
+                            << ", \"cid\" : "      << topCascade -> m_id 
+                            << ", \"n_tot\": \""   << topCascade -> m_pairsOfTimesAndMagnitudes.size() << '"' 
+                            << ", \"t_end\" : "    << topCascade -> m_timeOfLastTweet
+                            << '}';
+                        
+                        // Add porperties to the whole message and pop the last element of the queue
+                        std::string msg_properties  =   os.str();
+                        propertiesToSend.push_back(msg_properties);
+                        this -> m_priorityQueue.pop();
+                    }
+
+                    // if priority queue is not empty, one affects another one cascade
+                    // which is at the top of que priority queue
+                    if( ! this -> m_priorityQueue.empty()){
+                        topCascade = m_priorityQueue.top();
+                    }
+                    else{
+                        break;
+                    }  
+                }
+                 
+            }
+            return propertiesToSend;
         }
 
     } //End of namespace cascade
