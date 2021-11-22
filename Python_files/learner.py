@@ -10,6 +10,8 @@ from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
 import os
 import numpy as np
+import pandas as pd
+import pickle
 from sklearn.ensemble import RandomForestRegressor
 
 import hawkes_tools as HT
@@ -52,20 +54,28 @@ if __name__=="__main__" :
     ################################################
 
     logger.info("Start reading in the samples topic...")
-
-
+    df=pd.Dataframe(columns=["T_obs", "X","W"])
+    models_dict={"600" :RandomForestRegressor() ,"1200": RandomForestRegressor(), "Others" : RandomForestRegressor()}
+    threshold={"600": 100, "1200" : 100, "Others":100}
     for msg in consumer : 
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
+        T_obs=msg.value["T_obs"]
         X= msg.value["X"]
-        # TODO data set en append le X et W et si longueur du dataset dépasse un seuil on train
-        model = RandomForestRegressor.fit(X,msg.value["W"])
+        W= msg.value["W"]
+        df.append(T_obs,X,W)
 
-        send ={
-            'type': 'parameters',
-            'n_obs' : msg.value["T_obs"],
-        }
-        logger.info(f"Sending estimated parameter for {cid}...")
-        producer.send(topic_writing, key = msg.value['T_obs'], value = send)
+        if len(df[df["T_obs"==T_obs]]) > threshold[T_obs]:
+            models_dict[T_obs].fit(df[df["T_obs"==T_obs]]["X"],df[df["T_obs"==T_obs]]["W"])
+            send ={
+                'type': 'parameters',
+                # 'n_obs' : msg.value["T_obs"],
+                'model' : pickle.dumps(models_dict[T_obs])
+            }
+            logger.info(f"Sending trained model for {T_obs} time windows lenght...")
+
+            producer.send(topic_writing, key = msg.value['T_obs'], value = send)
+            threshold[T_obs]+=100# restarting counter
+            
 
 

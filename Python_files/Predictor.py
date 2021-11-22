@@ -21,6 +21,7 @@ if __name__=="__main__":
     ################################################
 
     topic_reading="cascade_properties"
+    topic_reading_2="models"
     topic_writing_sample="samples"
     topic_writing_alert="alerts"
     topic_writing_stats="stats"
@@ -52,20 +53,19 @@ if __name__=="__main__":
     logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
-        # TODO modifie the lecture because --> myparams is a np array with p and beta
-        my_params=np.array([msg["p"],msg["beta"]])
+        my_params=msg["params"]
         cid=msg["cid"]
 
         logger.info(f"Predictions computation for {cid} ...")
         # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
         N,N_star,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
-
+      
         send_sample= {
           'type': 'sample',
           'cid': cid,
           'params': my_params,
           'X': [msg["beta"],N_star,G1],
-          'W' : 1,## équation à tourner isoler le facteur comme correction de l'erreur
+          'W' : (msg["n_supp"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
           }
         producer.send(topic_writing_sample, key =msg["T_obs"], value = send_sample)
 

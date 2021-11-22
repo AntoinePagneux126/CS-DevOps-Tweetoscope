@@ -73,7 +73,7 @@ if __name__=="__main__" :
         send ={
             'type': 'parameters',
             'n_obs' : msg.value["T_obs"],
-            'n_supp' : 0,## error in the subject
+            'n_supp' : None,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
         }
         logger.info(f"Sending estimated parameter for {cid}...")
