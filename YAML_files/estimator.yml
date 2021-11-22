@@ -1,0 +1,22 @@
+#########################################
+##########   Estimator     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estimator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estimator
+  template:
+    metadata:
+      name: estimator-pod
+      labels:
+        app: estimator
+    spec:
+      containers:
+      - name: estimator-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/estimator
+        imagePullPolicy: Always

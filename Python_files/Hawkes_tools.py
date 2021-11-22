@@ -3,9 +3,7 @@ The aim of this code is to provide statistical tools for cascade's parameters es
 """
 
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import pandas as pd
+from numpy.core.arrayprint import array2string
 import scipy.optimize as optim
 
 ################################################
@@ -21,6 +19,21 @@ def loglikelihood(params, history, t):
     history  -- (n,2) numpy array containing marked time points (t_i,m_i)  
     t        -- current time (i.e end of observation window)
     """
+
+    if not isinstance(t, (float, int) ) or t < 0:
+            raise Exception(" n must be an float or int greater than 0")
+
+    if not isinstance(params, np.ndarray):
+            raise Exception(" params must be a np.darray")
+
+    if not isinstance(params[0], (np.floating,float,int)):
+            raise Exception ("p must be a int or float")
+
+    if not isinstance(params[1], (np.floating,float, int)) and params[1]<0 :
+            raise Exception ("beta must be a int or float greater than 0")
+
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
+            raise Exception(" history must be an np.array with following shape : (n,2)")
     
     p,beta = params    
     
@@ -70,6 +83,12 @@ def compute_MAP(history, t, alpha, mu,
     max_n_star   -- maximum authorized value of the branching factor (defines the upper bound of p)
     display      -- verbose flag to display optimization iterations (see 'disp' options of optim.optimize)
     """
+    if not isinstance(t, (float,int) ) or t < 0:
+            raise Exception(" t must be an float or int greater than 0")
+
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
+            raise Exception(" history must be an np.array with following shape : (n,2)")
+
     
     # Compute prior moments
     mu_p, mu_beta, sig_p, sig_beta, corr = prior_params

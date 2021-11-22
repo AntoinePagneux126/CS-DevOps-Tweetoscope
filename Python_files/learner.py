@@ -10,6 +10,7 @@ from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
 import os
 import numpy as np
+from sklearn.ensemble import RandomForestRegressor
 
 import hawkes_tools as HT
 import logger
@@ -18,14 +19,14 @@ import logger
 
 if __name__=="__main__" : 
 
-    logger = logger.get_logger('estimator', broker_list="localhost::9092",debug=True)
+    logger = logger.get_logger('learner', broker_list="localhost::9092",debug=True)
     
     ################################################
     #######         Kafka Part              ########
     ################################################
 
-    topic_reading="cascade_series"
-    topic_writing="cascade_properties"
+    topic_reading="samples"
+    topic_writing="models"
 
 
     ## default value without typing anything in the terminal
@@ -50,31 +51,19 @@ if __name__=="__main__" :
     #######         Stats part              ########
     ################################################
 
-    # Constants given by Mishra et al 
-    mu,alpha=1 , 2.016
-    logger.info("Start reading in cascade serie topic...")
-    # for i in range(0,10): 
-    #     cascade=np.load(f"Python_files/Cascades/test_cascade_{i}.npy")
+    logger.info("Start reading in the samples topic...")
 
-    #     dico= {
-    #       "cid": i ,
-    #       "tweets" : cascade,
-    #       "T_obs" : cascade[-1,0],
-    #     }
 
     for msg in consumer : 
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
-        logger.info(f"Map computation for {cid} ...")
-        MAP_res=HT.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
-        p,beta=MAP_res[-1]
-        my_params=[p,beta]
+        X= msg.value["X"]
+        # TODO data set en append le X et W et si longueur du dataset dépasse un seuil on train
+        model = RandomForestRegressor.fit(X,msg.value["W"])
 
         send ={
             'type': 'parameters',
             'n_obs' : msg.value["T_obs"],
-            'n_supp' : 0,
-            'params' : my_params,
         }
         logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = msg.value['T_obs'], value = send)

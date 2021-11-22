@@ -2,6 +2,8 @@
 This code is aimed to provide tools for prediction process. 
 """
 
+import numpy as np
+
 
 
 def predictions(params, history, alpha, mu, T = None):
@@ -14,7 +16,27 @@ def predictions(params, history, alpha, mu, T = None):
     mu       -- min value parameter of the power-law mark distribution
     T        -- 1D-array of times (i.e ends of observation window)
     """
+    if T : 
+        if not isinstance(T, (float, int) ) or T < 0:
+            raise Exception(" T must be an float or int greater than 0")
 
+    if not isinstance(params, np.ndarray) :
+            raise Exception(" params must be a np.ndarray")
+    
+    if not isinstance(params[0], np.floating) : 
+            raise Exception ("p must be a int or float")
+
+    if not isinstance(params[0], np.floating)  or params[1]<0: 
+            raise Exception ("beta must be a int or float greater than 0")
+
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
+            raise Exception(" history must be an np.array with following shape : (n,2)")
+    
+    if not isinstance(alpha, (int,float)): 
+            raise Exception(" alpha must be an float or int ")
+
+    if not isinstance(mu, (int,float)): 
+            raise Exception(" mu must be an float or int ")
     p,beta = params
     
     tis = history[:,0]
@@ -43,4 +65,4 @@ def predictions(params, history, alpha, mu, T = None):
         n = i + 1
         G1 = p * Si * np.exp(-beta * (t - ti_prev))
         N[j,1] = n + G1 / (1. - n_star)
-    return N
+    return N,n_star,G1

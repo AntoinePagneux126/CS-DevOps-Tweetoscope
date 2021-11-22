@@ -1,0 +1,22 @@
+#########################################
+##########   Predictor     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: predictor-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: predictor
+  template:
+    metadata:
+      name: predictor-pod
+      labels:
+        app: predictor
+    spec:
+      containers:
+      - name: predictor-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/predictor
+        imagePullPolicy: Always

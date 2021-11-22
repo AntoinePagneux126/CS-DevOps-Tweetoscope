@@ -1,0 +1,9 @@
+FROM python
+
+RUN apt-get update
+RUN apt-get install git -y
+RUN git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
+RUN apt-get install python3-pip -y
+RUN pip3 install -r requirements.txt
+
+CMD python3 Python_files/predictor.py
