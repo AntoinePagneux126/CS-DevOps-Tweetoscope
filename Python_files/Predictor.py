@@ -52,6 +52,7 @@ if __name__=="__main__":
     logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
+        # TODO modifie the lecture because --> myparams is a np array with p and beta
         my_params=np.array([msg["p"],msg["beta"]])
         cid=msg["cid"]
 

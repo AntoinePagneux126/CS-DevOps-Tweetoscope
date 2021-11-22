@@ -68,12 +68,12 @@ if __name__=="__main__" :
         logger.info(f"Map computation for {cid} ...")
         MAP_res=HT.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
-        my_params=[p,beta]
+        my_params=np.array([p,beta])
 
         send ={
             'type': 'parameters',
             'n_obs' : msg.value["T_obs"],
-            'n_supp' : 0,
+            'n_supp' : 0,## error in the subject
             'params' : my_params,
         }
         logger.info(f"Sending estimated parameter for {cid}...")
