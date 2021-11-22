@@ -59,7 +59,7 @@ spec:
     - name: KAFKA_ADVERTISED_HOST_NAME
       value: kafka
     - name: KAFKA_CREATE_TOPICS
-      value: "tweets:3:1 , cascade_series:1:1 , cascade_properties:1:1 ,samples:1:1 , alerts:1:1 , stats:1:1 , logs:1:1"
+      value: "tweets:3:1 , cascade_series:1:1 , cascade_properties:1:1 ,samples:1:1 , alerts:1:1 , stats:1:1 , logs:1:1, models:1:1"
     - name: HOST_IP
       valueFrom:
         fieldRef:
