@@ -77,5 +77,6 @@ if __name__=="__main__" :
         }
         logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = msg.value['T_obs'], value = send)
+        producer.flush()
 
 

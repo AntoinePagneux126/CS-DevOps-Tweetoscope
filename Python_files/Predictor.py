@@ -88,4 +88,5 @@ if __name__=="__main__":
           'ARE' : error, 
         }
         producer.send(topic_writing_stats, key =None, value = send_stats)
+        producer.flush()
         logger.info(f"Messages sended post predictions for {cid}...")
