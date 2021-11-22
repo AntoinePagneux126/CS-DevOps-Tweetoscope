@@ -42,7 +42,7 @@ if __name__=="__main__":
     producer = KafkaProducer(
       bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
       value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
-      key_serializer=str.encode                                 # How to serialize the key
+      # key_serializer=str.encode                                 # How to serialize the key
     )
 
     
