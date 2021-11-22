@@ -42,7 +42,7 @@ if __name__=="__main__":
     producer = KafkaProducer(
       bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
       value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
-      # key_serializer=str.encode                                 # How to serialize the key
+      key_serializer=str.encode                                 # How to serialize the key
     )
 
     
@@ -67,7 +67,7 @@ if __name__=="__main__":
           'X': [msg["beta"],N_star,G1],
           'W' : (msg["n_supp"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
           }
-        producer.send(topic_writing_sample, key =msg["T_obs"], value = send_sample)
+        producer.send(topic_writing_sample, key =str(msg["T_obs"]), value = send_sample)
 
         # to be tuned to make it nicer
         send_alert={
@@ -77,7 +77,7 @@ if __name__=="__main__":
           'n_tot': N,
         }
 
-        producer.send(topic_writing_alert, key =msg["T_obs"], value = send_alert)
+        producer.send(topic_writing_alert, key =str(msg["T_obs"]), value = send_alert)
         
 
         error = 0 # to be implemented
@@ -87,6 +87,6 @@ if __name__=="__main__":
           'T_obs': msg["T_obs"],
           'ARE' : error, 
         }
-        producer.send(topic_writing_stats, key =None, value = send_stats)
+        producer.send(topic_writing_stats, key ="None", value = send_stats)
         producer.flush()
         logger.info(f"Messages sended post predictions for {cid}...")
