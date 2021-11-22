@@ -65,7 +65,7 @@ if __name__=="__main__" :
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
         logger.info(f"Map computation for {cid} ...")
-        MAP_res=HT.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
+        MAP_res=HT.compute_MAP(history=np.array(msg.value['tweets']),t=msg.value['T_obs'],alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
         my_params=[p,beta]
 
