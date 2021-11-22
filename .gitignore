@@ -1,7 +1,7 @@
 .vscode
 .pytest_cache
 Docker_files/DockerFile.Python
-TweetoVenv
+TweetoVenv/
 Python_files/__pycache__
 .ipynb_checkpoints
 tests/__pycache__
@@ -10,3 +10,4 @@ tests/__pycache__
 Python_files/Cascades
 tests/.DS_Store
 .gitignore
+.vscode/
