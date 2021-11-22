@@ -20,7 +20,7 @@ if __name__=="__main__":
     #######         Kafka Part              ########
     ################################################
 
-    topic_reading="cascade_properties"
+    topic_reading="cascadeproperties"
     topic_reading_2="models"
     topic_writing_sample="samples"
     topic_writing_alert="alerts"
@@ -53,7 +53,7 @@ if __name__=="__main__":
     logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
-        my_params=msg["params"]
+        my_params=np.array(msg["params"])
         cid=msg["cid"]
 
         logger.info(f"Predictions computation for {cid} ...")

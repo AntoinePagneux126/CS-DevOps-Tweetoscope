@@ -24,8 +24,8 @@ if __name__=="__main__" :
     #######         Kafka Part              ########
     ################################################
 
-    topic_reading="cascade_series"
-    topic_writing="cascade_properties"
+    topic_reading="cascadeseries"
+    topic_writing="cascadeproperties"
 
 
     ## default value without typing anything in the terminal
@@ -37,7 +37,6 @@ if __name__=="__main__" :
     consumer = KafkaConsumer(topic_reading,                   # Topic name
       bootstrap_servers = args.broker_list,                        # List of brokers passed from the command line
       value_deserializer=lambda v: json.loads(v.decode('utf-8')),  # How to deserialize the value from a binary buffer
-      key_deserializer= lambda v: v.decode()                       # How to deserialize the key (if any)
     )
 
     producer = KafkaProducer(
@@ -68,7 +67,7 @@ if __name__=="__main__" :
         logger.info(f"Map computation for {cid} ...")
         MAP_res=HT.compute_MAP(history=msg.value['tweets'],t=msg.value['T_obs'],alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
-        my_params=np.array([p,beta])
+        my_params=[p,beta]
 
         send ={
             'type': 'parameters',
