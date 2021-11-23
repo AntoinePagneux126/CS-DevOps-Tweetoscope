@@ -457,7 +457,7 @@ namespace tweetoscope
 
                     // loop while time beetwen the source time and time of the last tweet
                     // is still higher than observation time
-                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) > t_obs)
+                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) < t_obs)
                     {
                         auto it = currentCascade-> m_pairsOfTimesAndMagnitudes.begin();
                         std::vector<std::pair<timestamp, int>> partialPairsTimesMagnitudes;

@@ -18,7 +18,7 @@ import logger
 
 if __name__=="__main__" : 
 
-    logger = logger.get_logger('estimator', broker_list="localhost::9092",debug=True)
+    #logger = logger.get_logger('estimator', broker_list="localhost::9092",debug=True)
     
     ################################################
     #######         Kafka Part              ########
@@ -51,7 +51,7 @@ if __name__=="__main__" :
 
     # Constants given by Mishra et al 
     mu,alpha=1 , 2.016
-    logger.info("Start reading in cascade serie topic...")
+    #logger.info("Start reading in cascade serie topic...")
     # for i in range(0,10): 
     #     cascade=np.load(f"Python_files/Cascades/test_cascade_{i}.npy")
 
@@ -64,8 +64,11 @@ if __name__=="__main__" :
     for msg in consumer : 
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
-        logger.info(f"Map computation for {cid} ...")
-        MAP_res=HT.compute_MAP(history=np.array(msg.value['tweets']),t=msg.value['T_obs'],alpha=alpha, mu=mu)
+        #logger.info(f"Map computation for {cid} ...")
+        history=np.array(msg.value['tweets'])
+        print(history)
+        print(type(history),type(history[0,0]),type(history[0,1]))
+        MAP_res=HT.compute_MAP(history=np.array(msg.value['tweets']),t=float(np.array(msg.value['tweets'])[-1,0]),alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
         my_params=[p,beta]
 
@@ -74,8 +77,10 @@ if __name__=="__main__" :
             'n_obs' : msg.value["T_obs"],
             'n_supp' : None,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
+            'cid': cid,
+            'tweets':msg.value['tweets'],
         }
-        logger.info(f"Sending estimated parameter for {cid}...")
+        #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
         producer.flush()
 
