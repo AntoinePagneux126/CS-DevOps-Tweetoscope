@@ -64,7 +64,7 @@ if __name__=="__main__":
           'type': 'sample',
           'cid': cid,
           'params': my_params,
-          'X': [msg["beta"],N_star,G1],
+          'X': [my_params[1],N_star,G1],
           'W' : (msg["n_supp"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
           }
         producer.send(topic_writing_sample, key =str(msg["T_obs"]), value = send_sample)
