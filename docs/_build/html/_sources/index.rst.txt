@@ -20,3 +20,11 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+The so called tweetoscope 3rd year project as part of MDS_SDI mention and aimed to predict 
+tweet popularity. All of it is based on fundamentals knowledges from SAE, Advanced C++, ML 
+and statistical models.
+
+--------------------------------------
+
+.. image:: logo_cs.png
