@@ -222,36 +222,38 @@ namespace tweetoscope
     {
 
         // Definition of the two classes
-        class   Processor;
-        class   Cascade;               // Class for storing cascade information.
-        struct  CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
+        class Processor;
+        class Cascade;               // Class for storing cascade information.
+        struct CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
 
         // Definition of types like
-        using   cascade_ref       =   std::shared_ptr<Cascade>;
-        using   cascade_wref      =   std::weak_ptr<Cascade>;
-        using   priority_queue    =   boost::heap::binomial_heap<cascade_ref, boost::heap::compare<CascadeRefComparator>>;
-        using   idf               =   std::size_t;
+        using cascade_ref = std::shared_ptr<Cascade>;
+        using cascade_wref = std::weak_ptr<Cascade>;
+        using priority_queue = boost::heap::binomial_heap<cascade_ref, boost::heap::compare<CascadeRefComparator> >;
+        using idf = std::size_t;
 
         // overloading of << operator
-        std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude){
-            os<< "[" ;
+        std::ostream &operator<<(std::ostream &os, std::vector<std::pair<timestamp, int> > &time_magnitude)
+        {
+            os << "[";
             auto it_time_magnitude = time_magnitude.begin();
-            while (it_time_magnitude != time_magnitude.end() -1 ){
-                os<<" [" << it_time_magnitude -> first << ',' << it_time_magnitude -> second << "] ,";
-                ++ it_time_magnitude;
+            while (it_time_magnitude != time_magnitude.end() - 1)
+            {
+                os << " [" << it_time_magnitude->first << ',' << it_time_magnitude->second << "] ,";
+                ++it_time_magnitude;
             }
-            os<<" [" << it_time_magnitude -> first << ',' << it_time_magnitude -> second << "] ";
-            os<< "]";
+            os << " [" << it_time_magnitude->first << ',' << it_time_magnitude->second << "] ";
+            os << "]";
             return os;
         }
 
         // Implementation of CascadeRefComparator class
-        struct  CascadeRefComparator
+        struct CascadeRefComparator
         {
-                bool    operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
+            bool operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
         };
 
-        inline  bool    CascadeRefComparator::operator()(cascade_ref ref_c1, cascade_ref ref_c2) const
+        inline bool CascadeRefComparator::operator()(cascade_ref ref_c1, cascade_ref ref_c2) const
         {
             return ref_c1 > ref_c2;
         }
@@ -261,104 +263,92 @@ namespace tweetoscope
         {
         private:
             // Attributes
-            std::string                                 m_id;
-            std::string                                 m_msg = "";
-            timestamp                                   m_timeOfFirstTweet;
-            timestamp                                   m_timeOfLastTweet;
-            std::vector<std::pair<timestamp, int>>      m_pairsOfTimesAndMagnitudes;
-            source::idf                                 m_source;
+            std::string m_id;
+            std::string m_msg = "";
+            timestamp m_timeOfFirstTweet;
+            timestamp m_timeOfLastTweet;
+            std::vector<std::pair<timestamp, int> > m_pairsOfTimesAndMagnitudes;
+            source::idf m_source;
 
             // Declare friend classes
-            friend  class   Processor;
-            friend  struct  CascadeRefComaparator;
+            friend class Processor;
+            friend struct CascadeRefComaparator;
             // Declare friend operators
-            friend  std::ostream& operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude); 
+            friend std::ostream &operator<<(std::ostream &os, std::vector<std::pair<timestamp, int> > &time_magnitude);
 
         public:
             // Constructor
             Cascade(const tweet &twt, const std::string &key);
-            Cascade(const Cascade &process)                     = default;
-            Cascade(Cascade &&process)                          = default;
-            Cascade &operator=(const Cascade &process)          = default;
-            Cascade &operator=(Cascade &&process)               = default;
+            Cascade(const Cascade &process) = default;
+            Cascade(Cascade &&process) = default;
+            Cascade &operator=(const Cascade &process) = default;
+            Cascade &operator=(Cascade &&process) = default;
 
             // Destructor
             ~Cascade();
 
             // Methods
             // Assessors
-            std::string                                 getId()                         const;
-            std::string                                 getMsg()                        const;
-            timestamp                                   getTimeOfFirstTweet()           const;
-            timestamp                                   getTimeOfLastTweet()            const;
-            std::vector<std::pair<timestamp, int>>      getpairsOfTimesAndMagnitudes()  const;
-            source::idf                                 getSource()                     const;
+            std::string getId() const;
+            std::string getMsg() const;
+            timestamp getTimeOfFirstTweet() const;
+            timestamp getTimeOfLastTweet() const;
+            std::vector<std::pair<timestamp, int> > getpairsOfTimesAndMagnitudes() const;
+            source::idf getSource() const;
             // Others
-            void        addTweetToCascade(const tweet& twt, const std::string& key);
-            void        operator+=(std::pair<tweet, std::string> &elt);
-            bool        operator<(const cascade_ref &ref_other_cascade) const;
+            void addTweetToCascade(const tweet &twt, const std::string &key);
+            void operator+=(std::pair<tweet, std::string> &elt);
+            bool operator<(const cascade_ref &ref_other_cascade) const;
         };
 
         // Inlining methods of the Cascade class
-        inline  std::string                                 Cascade::getId()                         const  {return m_id;}
-        inline  std::string                                 Cascade::getMsg()                        const  {return m_msg;}
-        inline  timestamp                                   Cascade::getTimeOfFirstTweet()           const  {return m_timeOfFirstTweet;}
-        inline  timestamp                                   Cascade::getTimeOfLastTweet()            const  {return m_timeOfLastTweet;}
-        inline  std::vector<std::pair<timestamp, int>>      Cascade::getpairsOfTimesAndMagnitudes()  const  {return m_pairsOfTimesAndMagnitudes;}
-        inline  source::idf                                 Cascade::getSource()                     const  {return m_source;}
-        
-        inline  Cascade::Cascade(const tweet &twt, const std::string &key) : m_id(key),
+        inline std::string Cascade::getId() const { return m_id; }
+        inline std::string Cascade::getMsg() const { return m_msg; }
+        inline timestamp Cascade::getTimeOfFirstTweet() const { return m_timeOfFirstTweet; }
+        inline timestamp Cascade::getTimeOfLastTweet() const { return m_timeOfLastTweet; }
+        inline std::vector<std::pair<timestamp, int> > Cascade::getpairsOfTimesAndMagnitudes() const { return m_pairsOfTimesAndMagnitudes; }
+        inline source::idf Cascade::getSource() const { return m_source; }
+
+        inline Cascade::Cascade(const tweet &twt, const std::string &key) : m_id(key),
                                                                             m_msg(twt.msg),
                                                                             m_timeOfFirstTweet(twt.time),
                                                                             m_timeOfLastTweet(twt.time),
                                                                             m_pairsOfTimesAndMagnitudes({std::make_pair(twt.time, twt.magnitude)}),
                                                                             m_source(twt.source)
-        {}
-
-        inline  Cascade::~Cascade() {}
-
-        inline  void    Cascade::addTweetToCascade(const tweet& twt, const std::string& key){
-
-            this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
-            this -> m_timeOfLastTweet = twt.time;
-
-            // Antoine : J'ai fait la modif mais j'ai pas de le temps de test la compilation
-            // tu me diras si ca marche
-
-            /*if (key == this -> m_id)
-            {
-                this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
-
-                if (twt.source == this -> m_source && twt.source > this -> m_timeOfLastTweet)
-                {
-                    this -> m_timeOfLastTweet = twt.time;
-                }
-            }*/
-            
+        {
         }
 
-        inline  void    Cascade::operator+=(std::pair<tweet, std::string> &elt)
-        { 
-            tweet&          twt =   elt.first;
-            std::string&    key =   elt.second;
+        inline Cascade::~Cascade() {}
 
-            if (key == this -> m_id)
+        inline void Cascade::addTweetToCascade(const tweet &twt, const std::string &key)
+        {
+
+            this->m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
+            this->m_timeOfLastTweet = twt.time;
+        }
+
+        inline void Cascade::operator+=(std::pair<tweet, std::string> &elt)
+        {
+            tweet &twt = elt.first;
+            std::string &key = elt.second;
+
+            if (key == this->m_id)
             {
-                this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
+                this->m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
 
-                if (twt.source == this -> m_source && twt.source > this -> m_timeOfLastTweet)
+                if (twt.source == this->m_source && twt.source > this->m_timeOfLastTweet)
                 {
-                    this -> m_timeOfLastTweet = twt.time;
+                    this->m_timeOfLastTweet = twt.time;
                 }
             }
         }
 
-        inline  bool        Cascade::operator<(const cascade_ref &ref_other_cascade) const
+        inline bool Cascade::operator<(const cascade_ref &ref_other_cascade) const
         {
-            return m_timeOfLastTweet < ref_other_cascade -> getTimeOfLastTweet();
+            return m_timeOfLastTweet < ref_other_cascade->getTimeOfLastTweet();
         }
 
-        inline  cascade_ref makeRef(tweet& twt, std::string& key)
+        inline cascade_ref makeRef(tweet &twt, std::string &key)
         {
             return std::make_shared<Cascade>(twt, key);
         }
@@ -368,50 +358,50 @@ namespace tweetoscope
         {
         private:
             // Attributes
-            source::idf                                     m_source;
-            timestamp                                       m_sourceTime;
-            priority_queue                                  m_priorityQueue;
-            std::map<timestamp, std::queue<cascade_wref>>   m_FIFO;
-            std::map<std::string, cascade_wref>             m_symbolTable;
+            source::idf m_source;
+            timestamp m_sourceTime;
+            priority_queue m_priorityQueue;
+            std::map<timestamp, std::queue<cascade_wref> > m_FIFO;
+            std::map<std::string, cascade_wref> m_symbolTable;
 
             // Declare friend classes
-            friend  class   Cascade;
+            friend class Cascade;
             // Declare friend operators
-            friend  std::ostream&   operator<<(std::ostream& os, std::vector<std::pair<timestamp,int>>& time_magnitude);
+            friend std::ostream &operator<<(std::ostream &os, std::vector<std::pair<timestamp, int> > &time_magnitude);
 
         public:
             // Constructor
             Processor(const tweet &twt);
-            Processor(const Processor &process)             = default;
-            Processor(Processor &&process)                  = default;
-            Processor &operator=(const Processor &process)  = default;
-            Processor &operator=(Processor &&process)       = default;
+            Processor(const Processor &process) = default;
+            Processor(Processor &&process) = default;
+            Processor &operator=(const Processor &process) = default;
+            Processor &operator=(Processor &&process) = default;
 
             // Destructor
             ~Processor();
 
             // Methods
-                // Assessors
-                    // Get
-                    source::idf                                     getSource()         const;
-                    timestamp                                       getSourceTime()     const;
-                    priority_queue                                  getPriorityQueue()  const;
-                    std::map<timestamp, std::queue<cascade_wref>>   getFIFO()           const;
-                    std::map<std::string, cascade_wref>             getSymbolTable()    const;
-                    // Set
-                    void                                            setSourceTime(const timestamp& src_time);
-                // Others
-                    void                        addToFIFO(const int& pos, const cascade_wref& weak_ref_cascade);
-                    void                        addToSymbolTable(const std::string& key, const cascade_wref& weak_ref_cascade);
-                    auto                        addToPriorityQueue(const cascade_ref& sh_ref_cascade);
-                    void                        decreasePriorityQueue(const priority_queue::handle_type& elt, const cascade_ref& sh_ref_cascade);
-                    std::vector<std::string>    sendPartialCascade(const std::vector<std::size_t> &obs);
-                    std::vector<std::string>    sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size);
+            // Assessors
+            // Get
+            source::idf getSource() const;
+            timestamp getSourceTime() const;
+            priority_queue getPriorityQueue() const;
+            std::map<timestamp, std::queue<cascade_wref> > getFIFO() const;
+            std::map<std::string, cascade_wref> getSymbolTable() const;
+            // Set
+            void setSourceTime(const timestamp &src_time);
+            // Others
+            void addToFIFO(const int &pos, const cascade_wref &weak_ref_cascade);
+            void addToSymbolTable(const std::string &key, const cascade_wref &weak_ref_cascade);
+            auto addToPriorityQueue(const cascade_ref &sh_ref_cascade);
+            void decreasePriorityQueue(const priority_queue::handle_type &elt, const cascade_ref &sh_ref_cascade);
+            std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs);
+            std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size);
         };
 
         // Inlining methods of the Processor class
-        
-        inline  Processor::Processor(const tweet &twt) : m_source(twt.source),
+
+        inline Processor::Processor(const tweet &twt) : m_source(twt.source),
                                                         m_sourceTime(twt.time),
                                                         m_priorityQueue{},
                                                         m_FIFO{},
@@ -419,124 +409,133 @@ namespace tweetoscope
         {
         }
 
-        inline  Processor::~Processor() {}
+        inline Processor::~Processor() {}
 
-        inline  source::idf                                     Processor::getSource()         const { return this -> m_source;}
-        inline  timestamp                                       Processor::getSourceTime()     const { return this -> m_sourceTime;}
-        inline  priority_queue                                  Processor::getPriorityQueue()  const { return this -> m_priorityQueue;}
-        inline  std::map<timestamp, std::queue<cascade_wref>>   Processor::getFIFO()           const { return this -> m_FIFO;}
-        inline  std::map<std::string, cascade_wref>             Processor::getSymbolTable()    const { return this -> m_symbolTable;}
-        
-        inline  void                                            Processor::setSourceTime(const timestamp& src_time) {this -> m_sourceTime = src_time;}
+        inline source::idf Processor::getSource() const { return this->m_source; }
+        inline timestamp Processor::getSourceTime() const { return this->m_sourceTime; }
+        inline priority_queue Processor::getPriorityQueue() const { return this->m_priorityQueue; }
+        inline std::map<timestamp, std::queue<cascade_wref> > Processor::getFIFO() const { return this->m_FIFO; }
+        inline std::map<std::string, cascade_wref> Processor::getSymbolTable() const { return this->m_symbolTable; }
 
-        inline  void                        Processor::addToFIFO(const int& t_obs, const cascade_wref& weak_ref_cascade){
+        inline void Processor::setSourceTime(const timestamp &src_time) { this->m_sourceTime = src_time; }
+
+        inline void Processor::addToFIFO(const int &t_obs, const cascade_wref &weak_ref_cascade)
+        {
             this->m_FIFO[t_obs].push(weak_ref_cascade);
         }
 
-        inline  void                        Processor::addToSymbolTable(const std::string& key,const cascade_wref& weak_ref_cascade){
-            this->m_symbolTable.insert(std::make_pair(key,weak_ref_cascade));
+        inline void Processor::addToSymbolTable(const std::string &key, const cascade_wref &weak_ref_cascade)
+        {
+            this->m_symbolTable.insert(std::make_pair(key, weak_ref_cascade));
         }
 
-        inline  auto                        Processor::addToPriorityQueue(const cascade_ref& sh_ref_cascade){
-            return this -> m_priorityQueue.push(sh_ref_cascade); 
+        inline auto Processor::addToPriorityQueue(const cascade_ref &sh_ref_cascade)
+        {
+            return this->m_priorityQueue.push(sh_ref_cascade);
         }
 
-        inline  void                        Processor::decreasePriorityQueue(const priority_queue::handle_type& elt, const cascade_ref& sh_ref_cascade){
-            this -> m_priorityQueue.decrease(elt, sh_ref_cascade);
+        inline void Processor::decreasePriorityQueue(const priority_queue::handle_type &elt, const cascade_ref &sh_ref_cascade)
+        {
+            this->m_priorityQueue.decrease(elt, sh_ref_cascade);
         }
 
-
-        inline  std::vector<std::string>    Processor::sendPartialCascade(const std::vector<std::size_t> &obs)
+        inline std::vector<std::string> Processor::sendPartialCascade(const std::vector<std::size_t> &obs)
         {
             //obs is a vector of time to send the cascade
             std::vector<std::string> seriesToSend;
-            for (auto& t_obs : obs)
+            for (auto &t_obs : obs)
             {
                 std::vector<std::string> ids;
                 if (!this->m_FIFO[t_obs].empty())
                 {
-                    cascade_wref wRefCascade        = this -> m_FIFO[t_obs].front();         // Take the last element of the FIFO
-                    //std::cout<< "lock: " <<wRefCascade.lock()<<std::endl;
-                    auto currentCascade             = wRefCascade.lock();                       // Take a weak pointer on it to be sure the shared pointer exists
-                    //std::cout<< currentCascade->m_pairsOfTimesAndMagnitudes<<std::endl;
+                    cascade_wref wRefCascade = this->m_FIFO[t_obs].front(); // Take the last element of the FIFO
+                    auto currentCascade = wRefCascade.lock();               // Take a weak pointer on it to be sure the shared pointer exists
                     // loop while time beetwen the source time and time of the last tweet
                     // is still higher than observation time
-                    if (currentCascade == 0){
+                    if (currentCascade == 0)
+                    {
                         break;
                     }
-                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) >= t_obs)
+                    while ((this->m_sourceTime - currentCascade->m_timeOfFirstTweet) >= t_obs)
                     {
-                        //std::cout << "3 boucle while" <<std::endl;
-                        auto it = currentCascade-> m_pairsOfTimesAndMagnitudes.begin();
-                        std::vector<std::pair<timestamp, int>> partialPairsTimesMagnitudes;
-                        while ((it->first - currentCascade-> m_timeOfFirstTweet <= t_obs) & (it != currentCascade-> m_pairsOfTimesAndMagnitudes.end()))
+                        auto it = currentCascade->m_pairsOfTimesAndMagnitudes.begin();
+                        std::vector<std::pair<timestamp, int> > partialPairsTimesMagnitudes;
+                        while ((it->first - currentCascade->m_timeOfFirstTweet <= t_obs) & (it != currentCascade->m_pairsOfTimesAndMagnitudes.end()))
                         {
-                            //std::cout << "4 boucle while" <<std::endl;
                             partialPairsTimesMagnitudes.push_back(*it);
                             ++it;
                         }
                         std::ostringstream os;
-                        os  << "{"
-                            << "\"type\" : \"serie\""
-                            << ", \"cid\" : "      << currentCascade->getId()
-                            << ", \"msg\": \""     << currentCascade->getMsg() << '"' 
-                            << ", \"T_obs\" : "    << t_obs 
-                            << ",\"tweets\" :"     << partialPairsTimesMagnitudes 
-                            << '}';
+                        os << "{"
+                           << "\"type\" : \"serie\""
+                           << ", \"cid\" : " << currentCascade->getId()
+                           << ", \"msg\": \"" << currentCascade->getMsg() << '"'
+                           << ", \"T_obs\" : " << t_obs
+                           << ",\"tweets\" :" << partialPairsTimesMagnitudes
+                           << '}';
 
-                        std::string msg_series  =   os.str();
+                        std::string msg_series = os.str();
                         // Check if the key is not duplicated
 
-                        if (std::count(ids.begin(), ids.end(),currentCascade->m_id)){
-                            std::cout << "Duplicated key : "<< currentCascade->getId() << " , T_obs : "<< t_obs << std::endl;
+                        if (std::count(ids.begin(), ids.end(), currentCascade->m_id))
+                        {
+                            std::cout << "Duplicated key : " << currentCascade->getId() << " , T_obs : " << t_obs << std::endl;
                         }
-                        else{
-                            std::cout << msg_series <<std::endl;
+                        else
+                        {
+                            std::cout << msg_series << std::endl;
                             seriesToSend.push_back(msg_series);
                             ids.push_back(currentCascade->m_id);
                         }
-                        this -> m_FIFO[t_obs].pop();
-                        if (!(this -> m_FIFO[t_obs].empty())){
-                            wRefCascade = this -> m_FIFO[t_obs].front();
+                        this->m_FIFO[t_obs].pop();
+                        if (!(this->m_FIFO[t_obs].empty()))
+                        {
+                            wRefCascade = this->m_FIFO[t_obs].front();
                             auto currentCascade = wRefCascade.lock();
                         }
-                        else{
+                        else
+                        {
                             break;
                         }
-                    }  
+                    }
                 }
             }
             return seriesToSend;
         }
 
-        inline  std::vector<std::string>    Processor::sendTerminatedCascade(timestamp& end_time, const std::size_t& min_size)
+        inline std::vector<std::string> Processor::sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size)
         {
-            std::vector<std::string>    propertiesToSend;
+            std::vector<std::string> propertiesToSend;
             // First check that priorityqueue is not empty
-            if(!(this->m_priorityQueue.empty())){
-                auto    topCascade =   this ->  m_priorityQueue.top();
-                while ((this -> m_sourceTime - topCascade->m_timeOfLastTweet) > end_time){
+            if (!(this->m_priorityQueue.empty()))
+            {
+                auto topCascade = this->m_priorityQueue.top();
+                while ((this->m_sourceTime - topCascade->m_timeOfLastTweet) > end_time)
+                {
                     // Check the size of the cascade is greater than the min size required
                     // So, it can determine if the cascade should be considered
-                    if ( topCascade -> m_pairsOfTimesAndMagnitudes.size() > min_size ){
+                    if (topCascade->m_pairsOfTimesAndMagnitudes.size() > min_size)
+                    {
                         std::ostringstream os;
-                        os  << "{"
-                            << "\"type\" : \"size\""
-                            << ", \"cid\" : "      << topCascade -> m_id
-                            << ", \"n_tot\": \""   << topCascade -> m_pairsOfTimesAndMagnitudes.size() << '"' 
-                            << ", \"t_end\" : "    << topCascade -> m_timeOfLastTweet
-                            << '}';
+                        os << "{"
+                           << "\"type\" : \"size\""
+                           << ", \"cid\" : " << topCascade->m_id
+                           << ", \"n_tot\": \"" << topCascade->m_pairsOfTimesAndMagnitudes.size() << '"'
+                           << ", \"t_end\" : " << topCascade->m_timeOfLastTweet
+                           << '}';
                         // Add porperties to the whole message and pop the last element of the queue
-                        std::string msg_properties  =   os.str();
+                        std::string msg_properties = os.str();
                         propertiesToSend.push_back(msg_properties);
                     }
-                    this -> m_priorityQueue.pop();
+                    this->m_priorityQueue.pop();
                     // if priority queue is not empty, one affects another one cascade
                     // which is at the top of que priority queue
-                    if(!(this -> m_priorityQueue.empty())){
+                    if (!(this->m_priorityQueue.empty()))
+                    {
                         topCascade = m_priorityQueue.top();
                     }
-                    else{
+                    else
+                    {
                         break;
                     }
                 }
