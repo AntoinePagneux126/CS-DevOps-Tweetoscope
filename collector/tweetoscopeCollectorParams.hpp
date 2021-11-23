@@ -319,10 +319,13 @@ namespace tweetoscope
 
         inline  void    Cascade::addTweetToCascade(const tweet& twt, const std::string& key){
 
-            //this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
-            //this -> m_timeOfLastTweet = twt.time;
+            this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
+            this -> m_timeOfLastTweet = twt.time;
 
-            if (key == this -> m_id)
+            // Antoine : J'ai fait la modif mais j'ai pas de le temps de test la compilation
+            // tu me diras si ca marche
+
+            /*if (key == this -> m_id)
             {
                 this -> m_pairsOfTimesAndMagnitudes.push_back(std::make_pair(twt.time, twt.magnitude));
 
@@ -330,7 +333,7 @@ namespace tweetoscope
                 {
                     this -> m_timeOfLastTweet = twt.time;
                 }
-            }
+            }*/
             
         }
 
@@ -454,10 +457,10 @@ namespace tweetoscope
                 {
                     cascade_wref wRefCascade        = this -> m_FIFO[t_obs].front();         // Take the last element of the FIFO
                     auto currentCascade             = wRefCascade.lock();                       // Take a weak pointer on it to be sure the shared pointer exists
-
+                    //std::cout<< currentCascade->m_pairsOfTimesAndMagnitudes<<std::endl;
                     // loop while time beetwen the source time and time of the last tweet
                     // is still higher than observation time
-                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) < t_obs)
+                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) > t_obs)
                     {
                         auto it = currentCascade-> m_pairsOfTimesAndMagnitudes.begin();
                         std::vector<std::pair<timestamp, int>> partialPairsTimesMagnitudes;
