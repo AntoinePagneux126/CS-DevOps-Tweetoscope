@@ -53,6 +53,7 @@ if __name__=="__main__":
     #logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
+        print(msg)
         my_params=np.array(msg["params"])
         cid=msg["cid"]
 

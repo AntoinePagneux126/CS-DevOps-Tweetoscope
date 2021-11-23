@@ -38,12 +38,14 @@ if __name__=="__main__" :
       bootstrap_servers = args.broker_list,                        # List of brokers passed from the command line
       value_deserializer=lambda v: json.loads(v.decode('utf-8')),  # How to deserialize the value from a binary buffer
     )
+    print("consumer created")
 
     producer = KafkaProducer(
       bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
       value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
       key_serializer=str.encode                                 # How to serialize the key
     )
+    print("producer created")
 
     ################################################
     #######         Stats part              ########
@@ -62,6 +64,7 @@ if __name__=="__main__" :
     #     }
 
     for msg in consumer : 
+        print(1)
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
         #logger.info(f"Map computation for {cid} ...")
@@ -75,7 +78,7 @@ if __name__=="__main__" :
         send ={
             'type': 'parameters',
             'n_obs' : msg.value["T_obs"],
-            'n_supp' : None,## sended by Matthieu and Antoine once the cascade is ended
+            #'n_supp' : None,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
             'cid': cid,
             'tweets':msg.value['tweets'],
