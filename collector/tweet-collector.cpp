@@ -93,10 +93,12 @@ int main(int argc, char *argv[])
             auto init_key = tweetoscope::cascade::idf(std::stoi(msg.get_key()));
             auto istr = std::istringstream(std::string(msg.get_payload()));
             istr >> Twt;
+            //std::cout << Twt.source<<"  "<< Twt.type<<std::endl;
 
             //  Creating processor of the source if not already created
             auto key = std::to_string(init_key);
             if (mapIdfProcessor.find(Twt.source)==mapIdfProcessor.end()){
+                //std::cout<<"coukar's"<<std::endl;
                 std::cout<< "-------------------------------" << std::endl;
                 std::cout<< "Creating processor" << std::endl;
                 std::cout<< "-------------------------------" << std::endl;
@@ -107,6 +109,7 @@ int main(int argc, char *argv[])
             // Instanciation of a processor from the tweets source
             tweetoscope::cascade::Processor* Processor = &mapIdfProcessor.at(Twt.source);
             if(Twt.type=="tweet"){
+                //td::cout<<"coukars'ss"<<std::endl;
                 // Set the source time
                 Processor->setSourceTime(Twt.time);
                 // Create a shared pointer on cascade
@@ -126,6 +129,7 @@ int main(int argc, char *argv[])
                 Processor -> addToSymbolTable(key, weakRefCascade);
             }
             else{
+                //std::cout<<"in the else"<<std::endl;
                 tweetoscope::cascade::cascade_wref weakRefCascade = Processor->getSymbolTable()[key];
                 if (auto refCascade = weakRefCascade.lock(); refCascade){
                     refCascade -> addTweetToCascade(Twt, key);
@@ -136,8 +140,11 @@ int main(int argc, char *argv[])
                     throw std::invalid_argument( "Cascade has too many shared pointers");
                 }
             }
+            //std::cout<<"out of the else"<<std::endl;
             // Partial Cascades : series
+            //std::cout<<"before serie tosend "<<std::endl;
             std::vector<std::string>    seriesToSend = Processor->sendPartialCascade(obs);
+            //std::cout<<"after series tosend"<<std::endl;
             for(auto& msg_series : seriesToSend){  
                 std::cout<< "Sending Partial Cascades : " << msg_series << std::endl;
                 PartialMessageBuilder.payload(msg_series); 
@@ -160,35 +167,51 @@ int main(int argc, char *argv[])
                 }
             }
             // Terminated Cascades : properties
+            //std::cout<<"before properties tosend "<<std::endl;
             std::vector<std::string>  propertiesToSend = Processor-> sendTerminatedCascade(end_time, params.cascade.min_cascade_size);
+            //std::cout<<"after properties tosend"<<std::endl;
             for(auto& msg_properties : propertiesToSend){
+                //std::cout<<"1"<<std::endl;
                 std::cout<< "Sending Terminated Cascades : " << msg_properties <<std::endl;
-                TerminatedMessageBuilder.payload(msg_properties); 
+                //std::cout<<"2"<<std::endl;
+                TerminatedMessageBuilder.payload(msg_properties);
+                //std::cout<<"3"<<std::endl;
                 int i = 0;
                 for(auto T_obs : obs){
+                    //std::cout<<"4 for"<<std::endl;
                     auto T_obs_key = std::to_string(T_obs);
                     TerminatedMessageBuilder.partition(i);
                     i++;
                     TerminatedMessageBuilder.key(T_obs_key);
+                    //std::cout<<"5"<<std::endl;
                     try{
                         // Try to send message
+                        //std::cout<<"6 try"<<std::endl;
                         Producer.produce(TerminatedMessageBuilder);
+                        //std::cout<<"7 try"<<std::endl;
                     } 
                     catch (const cppkafka::HandleException& e) {
+                        //std::cout<<"8 catch"<<std::endl;
                         std::ostringstream ostr2;
                         ostr2 << e.what();
                         std::string error {ostr2.str()};
+                        //std::cout<<"9"<<std::endl;
                         if (error.compare("Queue full") != 0) { 
+                            //std::cout<<"10 if"<<std::endl;
                             std::chrono::milliseconds timeout(3000);	
                             Producer.flush(timeout);
-                            Producer.produce(TerminatedMessageBuilder);
+                            //Producer.produce(TerminatedMessageBuilder);
+                            //std::cout<<"11 end if"<<std::endl;
                         } 
                         else {
+                            //std::cout<<"12 else"<<std::endl;
                             std::cout << "Something went wrong: " << e.what() << std::endl;
+                            //std::cout<<"13 end else"<<std::endl;
                         }
                     }
                 }
             }
+            //std::cout<<"after properties for"<<std::endl;
         }
     }   
     return 0;

@@ -311,7 +311,7 @@ namespace tweetoscope
                                                                             m_msg(twt.msg),
                                                                             m_timeOfFirstTweet(twt.time),
                                                                             m_timeOfLastTweet(twt.time),
-                                                                            m_pairsOfTimesAndMagnitudes{std::make_pair(twt.time, twt.magnitude)},
+                                                                            m_pairsOfTimesAndMagnitudes({std::make_pair(twt.time, twt.magnitude)}),
                                                                             m_source(twt.source)
         {}
 
@@ -456,16 +456,22 @@ namespace tweetoscope
                 if (!this->m_FIFO[t_obs].empty())
                 {
                     cascade_wref wRefCascade        = this -> m_FIFO[t_obs].front();         // Take the last element of the FIFO
+                    //std::cout<< "lock: " <<wRefCascade.lock()<<std::endl;
                     auto currentCascade             = wRefCascade.lock();                       // Take a weak pointer on it to be sure the shared pointer exists
                     //std::cout<< currentCascade->m_pairsOfTimesAndMagnitudes<<std::endl;
                     // loop while time beetwen the source time and time of the last tweet
                     // is still higher than observation time
-                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) > t_obs)
+                    if (currentCascade == 0){
+                        break;
+                    }
+                    while ((this -> m_sourceTime - currentCascade-> m_timeOfFirstTweet) >= t_obs)
                     {
+                        //std::cout << "3 boucle while" <<std::endl;
                         auto it = currentCascade-> m_pairsOfTimesAndMagnitudes.begin();
                         std::vector<std::pair<timestamp, int>> partialPairsTimesMagnitudes;
                         while ((it->first - currentCascade-> m_timeOfFirstTweet <= t_obs) & (it != currentCascade-> m_pairsOfTimesAndMagnitudes.end()))
                         {
+                            //std::cout << "4 boucle while" <<std::endl;
                             partialPairsTimesMagnitudes.push_back(*it);
                             ++it;
                         }
@@ -485,6 +491,7 @@ namespace tweetoscope
                             std::cout << "Duplicated key : "<< currentCascade->getId() << " , T_obs : "<< t_obs << std::endl;
                         }
                         else{
+                            std::cout << msg_series <<std::endl;
                             seriesToSend.push_back(msg_series);
                             ids.push_back(currentCascade->m_id);
                         }
@@ -495,9 +502,9 @@ namespace tweetoscope
                         }
                         else{
                             break;
-                        }   
+                        }
                     }  
-                } 
+                }
             }
             return seriesToSend;
         }
