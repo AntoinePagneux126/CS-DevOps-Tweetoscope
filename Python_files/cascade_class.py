@@ -4,8 +4,7 @@ import numpy as np
 import scipy.optimize as optim
 
 class Cascade : 
-    def __init__(self,json) : 
-
+    def __init__(self,json):
     ##############################################
     ###########   Given Attributes  ##############
     ##############################################
@@ -110,6 +109,7 @@ class Cascade :
         LL -= p * (np.sum(mis) - np.exp(logA))
 
         return LL
+        
     def compute_MAP(self,
                 prior_params = [ 0.02, 0.0002, 0.01, 0.001, -0.1],
                 max_n_star = 1, display=False):
