@@ -54,44 +54,45 @@ if __name__=="__main__":
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
         print(msg)
-        my_params=np.array(msg["params"])
-        cid=msg["cid"]
+        if msg["type"]=="parameters":
+          my_params=np.array(msg["params"])
+          cid=msg["cid"]
 
-        #logger.info(f"Predictions computation for {cid} ...")
-        # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
-        N,N_star,G1= prd.predictions(params=my_params, history = np.array(msg["tweets"]), alpha=2.016,mu=1)
-        if G1 ==0:
-          G1=1e-6
-        send_sample= {
-          'type': 'sample',
-          'cid': cid,
-          'params': msg["params"],
-          'X': [my_params[1],N_star,G1],
-          'W' : (msg["n_tot"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
+          #logger.info(f"Predictions computation for {cid} ...")
+          # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
+          N,N_star,G1= prd.predictions(params=my_params, history = np.array(msg["tweets"]), alpha=2.016,mu=1)
+          if G1 ==0:
+            G1=1e-6
+          send_sample= {
+            'type': 'sample',
+            'cid': cid,
+            'params': msg["params"],
+            'X': [my_params[1],N_star,G1],
+            'W' : (msg["n_tot"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
+            }
+          producer.send(topic_writing_sample, key =str(np.array(msg["tweets"])[-1,0]), value = send_sample)
+
+          # to be tuned to make it nicer
+          '''
+          send_alert={
+            'type': 'alert',
+            'to display' :'very hot topic, follow up with it',
+            'cid': cid,
+            'n_tot': N,
           }
-        producer.send(topic_writing_sample, key =str(np.array(msg["tweets"])[-1,0]), value = send_sample)
 
-        # to be tuned to make it nicer
-        '''
-        send_alert={
-          'type': 'alert',
-          'to display' :'very hot topic, follow up with it',
-          'cid': cid,
-          'n_tot': N,
-        }
+          producer.send(topic_writing_alert, key =str(msg["T_obs"]), value = send_alert)
+          
 
-        producer.send(topic_writing_alert, key =str(msg["T_obs"]), value = send_alert)
-        
-
-        error = 0 # to be implemented
-        send_stats={
-          'type': 'stats',
-          'cid' :cid, 
-          'T_obs': msg["T_obs"],
-          'ARE' : error, 
-        }
-        producer.send(topic_writing_stats, key ="None", value = send_stats)
-        
-        #logger.info(f"Messages sended post predictions for {cid}...")
-        '''
-        producer.flush()
+          error = 0 # to be implemented
+          send_stats={
+            'type': 'stats',
+            'cid' :cid, 
+            'T_obs': msg["T_obs"],
+            'ARE' : error, 
+          }
+          producer.send(topic_writing_stats, key ="None", value = send_stats)
+          
+          #logger.info(f"Messages sended post predictions for {cid}...")
+          '''
+          producer.flush()
