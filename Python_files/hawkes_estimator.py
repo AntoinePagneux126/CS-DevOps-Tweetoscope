@@ -70,7 +70,7 @@ if __name__=="__main__" :
         history=np.array(msg.value['tweets'])
         
         starting_date=history[0,0]## origine date 
-        for i in history[:,0] : 
+        for i in range(len(history[:,0])) : 
           history[i,0]-=starting_date
         print(history)
         MAP_res=HT.compute_MAP(history=history,t=float(history[-1,0]),alpha=alpha, mu=mu)
@@ -83,7 +83,7 @@ if __name__=="__main__" :
             'n_tot' : 0,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
             'cid': cid,
-            'tweets':msg.value['tweets'],
+            'tweets':history.to_list(),
         }
         #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
