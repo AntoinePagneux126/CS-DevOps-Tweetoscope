@@ -68,8 +68,12 @@ if __name__=="__main__" :
         cid=msg.value["cid"]
         #logger.info(f"Map computation for {cid} ...")
         history=np.array(msg.value['tweets'])
+        
+        starting_date=history[0,0]## origine date 
+        for i in history[:,0] : 
+          history[i,0]-=starting_date
         print(history)
-        MAP_res=HT.compute_MAP(history=np.array(msg.value['tweets']),t=float(np.array(msg.value['tweets'])[-1,0]),alpha=alpha, mu=mu)
+        MAP_res=HT.compute_MAP(history=history,t=float(history[-1,0]),alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
         my_params=[p,beta]
 
