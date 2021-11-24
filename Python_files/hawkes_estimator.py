@@ -83,7 +83,7 @@ if __name__=="__main__" :
             'n_tot' : 0,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
             'cid': cid,
-            'tweets':history.to_list(),
+            'tweets':history.tolist(),
         }
         #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
