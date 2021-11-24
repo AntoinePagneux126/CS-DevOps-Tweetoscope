@@ -64,13 +64,11 @@ if __name__=="__main__" :
     #     }
 
     for msg in consumer : 
-        print(1)
         # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
         #logger.info(f"Map computation for {cid} ...")
         history=np.array(msg.value['tweets'])
         print(history)
-        print(type(history),type(history[0,0]),type(history[0,1]))
         MAP_res=HT.compute_MAP(history=np.array(msg.value['tweets']),t=float(np.array(msg.value['tweets'])[-1,0]),alpha=alpha, mu=mu)
         p,beta=MAP_res[-1]
         my_params=[p,beta]
@@ -78,7 +76,7 @@ if __name__=="__main__" :
         send ={
             'type': 'parameters',
             'n_obs' : msg.value["T_obs"],
-            #'n_supp' : None,## sended by Matthieu and Antoine once the cascade is ended
+            'n_tot' : 0,## sended by Matthieu and Antoine once the cascade is ended
             'params' : my_params,
             'cid': cid,
             'tweets':msg.value['tweets'],

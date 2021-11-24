@@ -60,17 +60,19 @@ if __name__=="__main__":
         #logger.info(f"Predictions computation for {cid} ...")
         # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
         N,N_star,G1= prd.predictions(params=my_params, history = np.array(msg["tweets"]), alpha=2.016,mu=1)
-      
+        if G1 ==0:
+          G1=1e-6
         send_sample= {
           'type': 'sample',
           'cid': cid,
-          'params': my_params,
+          'params': msg["params"],
           'X': [my_params[1],N_star,G1],
-          'W' : (msg["n_supp"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
+          'W' : (msg["n_tot"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
           }
-        producer.send(topic_writing_sample, key =str(msg["T_obs"]), value = send_sample)
+        producer.send(topic_writing_sample, key =str(np.array(msg["tweets"])[-1,0]), value = send_sample)
 
         # to be tuned to make it nicer
+        '''
         send_alert={
           'type': 'alert',
           'to display' :'very hot topic, follow up with it',
@@ -89,5 +91,7 @@ if __name__=="__main__":
           'ARE' : error, 
         }
         producer.send(topic_writing_stats, key ="None", value = send_stats)
-        producer.flush()
+        
         #logger.info(f"Messages sended post predictions for {cid}...")
+        '''
+        producer.flush()
