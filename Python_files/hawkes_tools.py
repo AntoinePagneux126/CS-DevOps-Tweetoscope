@@ -83,8 +83,8 @@ def compute_MAP(history, t, alpha, mu,
     max_n_star   -- maximum authorized value of the branching factor (defines the upper bound of p)
     display      -- verbose flag to display optimization iterations (see 'disp' options of optim.optimize)
     """
-    if not isinstance(t, (float,int) ) or t < 0:
-            raise Exception(" t must be an float or int greater than 0")
+    #if not isinstance(t, (float,int) ) or t < 0:
+      #      raise Exception(" t must be an float or int greater than 0")
 
     if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
             raise Exception(" history must be an np.array with following shape : (n,2)")

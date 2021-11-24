@@ -15,7 +15,7 @@ import logger
 
 if __name__=="__main__": 
 
-    logger = logger.get_logger('predictor', broker_list="localhost::9092",debug=True)
+    #logger = logger.get_logger('predictor', broker_list="localhost::9092",debug=True)
     ################################################
     #######         Kafka Part              ########
     ################################################
@@ -26,7 +26,7 @@ if __name__=="__main__":
     topic_writing_alert="alerts"
     topic_writing_stats="stats"
 
-    logger.info("Setting up kafka consumer & producer for predictor part...")
+    #logger.info("Setting up kafka consumer & producer for predictor part...")
 
 
     parser = argparse.ArgumentParser()
@@ -50,26 +50,29 @@ if __name__=="__main__":
     ################################################
     #####         Prediction Part              #####
     ################################################
-    logger.info("Start reading in cascade properties topic...")
+    #logger.info("Start reading in cascade properties topic...")
     for msg in consumer : 
         msg=msg.value # which will be remplaced by our object in a near future 
+        print(msg)
         my_params=np.array(msg["params"])
         cid=msg["cid"]
 
-        logger.info(f"Predictions computation for {cid} ...")
+        #logger.info(f"Predictions computation for {cid} ...")
         # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
-        N,N_star,G1= prd.predictions(params=my_params, history = msg["tweets"], alpha=2.016,mu=1)
-      
+        N,N_star,G1= prd.predictions(params=my_params, history = np.array(msg["tweets"]), alpha=2.016,mu=1)
+        if G1 ==0:
+          G1=1e-6
         send_sample= {
           'type': 'sample',
           'cid': cid,
-          'params': my_params,
-          'X': [msg["beta"],N_star,G1],
-          'W' : (msg["n_supp"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
+          'params': msg["params"],
+          'X': [my_params[1],N_star,G1],
+          'W' : (msg["n_tot"]-msg["n_obs"])*(1-N_star)/G1,# based on true result
           }
-        producer.send(topic_writing_sample, key =str(msg["T_obs"]), value = send_sample)
+        producer.send(topic_writing_sample, key =str(np.array(msg["tweets"])[-1,0]), value = send_sample)
 
         # to be tuned to make it nicer
+        '''
         send_alert={
           'type': 'alert',
           'to display' :'very hot topic, follow up with it',
@@ -88,5 +91,7 @@ if __name__=="__main__":
           'ARE' : error, 
         }
         producer.send(topic_writing_stats, key ="None", value = send_stats)
+        
+        #logger.info(f"Messages sended post predictions for {cid}...")
+        '''
         producer.flush()
-        logger.info(f"Messages sended post predictions for {cid}...")
