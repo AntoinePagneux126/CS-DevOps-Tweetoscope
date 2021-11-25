@@ -5,7 +5,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: collector-deployment
-  namespace : cpusdi1_20-ns
+  namespace : cpusdi1-20-ns
 spec:
   replicas: 1
   selector:
