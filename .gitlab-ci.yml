@@ -82,11 +82,11 @@ create_docker_image_predictor_py_job:
 
 test_py_job:
   stage: test_py
-  variables:
-    CI_DEBUG_TRACE: "true"
+  # variables:
+  #   CI_DEBUG_TRACE: "true"
   allow_failure: true
   image: python:3.7
-  coverage: '/coverage: \d+\.\d+/'
+  coverage: '/TOTAL.*\s+(\d+%)$/'
   before_script: 
     - python3 --version
     - pip install virtualenv 
@@ -97,12 +97,13 @@ test_py_job:
     - pip install pytest-html
     - pip install -r requirements.txt
   script: 
-    - echo "starting test for python coverage ... "
+    # - echo "starting test for python coverage ... "
     - export PYTHON_PATH=.
-    - python3 -m pytest --cov-report=html --cov=Python_files tests/
+    # - python3 -m pytest --cov-report=html --cov=Python_files tests/
     # - python3 -m pytest --html=Rapport_coverage/rapport_cov.html --self-contained-html
-    - echo "Code coverage finished ..."
+  
     - python3 -m pytest --cov=Python_files tests/
+    - echo "Code coverage finished ..."
   artifacts: 
     untracked : false
     paths :
