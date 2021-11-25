@@ -109,7 +109,7 @@ test_py_job:
     # - python3 -m pytest --html=Rapport_coverage/rapport_cov.html --self-contained-html
     - echo "Code coverage finished ..."
   # coverage: '/Code coverage: \d+\.\d+/'
-  coverage : '/TOTAL.*\s+(\d+%)$/'
+  coverage: '/TOTAL\s+\d+\s+\d+\s+(\d+%)/'
   artifacts: 
     untracked : false
     paths :
