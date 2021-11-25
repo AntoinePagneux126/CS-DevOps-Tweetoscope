@@ -133,7 +133,7 @@ pylint_job:
     # - rm -r Rapport_Pylint
     # - mkdir Rapport_Pylint
     # - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
-    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint--exit
+    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint-exit
 
   artifacts:
     untracked: false
