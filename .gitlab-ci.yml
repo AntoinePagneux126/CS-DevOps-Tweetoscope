@@ -108,7 +108,8 @@ test_py_job:
     - python3 -m pytest --cov-report=html --cov=Python_files tests/
     # - python3 -m pytest --html=Rapport_coverage/rapport_cov.html --self-contained-html
     - echo "Code coverage finished ..."
-  coverage: '/Code coverage: \d+\.\d+/'
+  # coverage: '/Code coverage: \d+\.\d+/'
+  coverage : *TOTAL.*\s+(\d+%)$*
   artifacts: 
     untracked : false
     paths :
