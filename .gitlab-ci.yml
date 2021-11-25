@@ -138,7 +138,8 @@ pylint_job:
     - export PYTHONPATH=.
     # - rm -r Rapport_Pylint
     # - mkdir Rapport_Pylint
-    - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
+    # - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
+    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt
 
   artifacts:
     untracked: false
