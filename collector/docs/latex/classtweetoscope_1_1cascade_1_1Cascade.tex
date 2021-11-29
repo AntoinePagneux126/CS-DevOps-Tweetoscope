@@ -1,0 +1,294 @@
+\hypertarget{classtweetoscope_1_1cascade_1_1Cascade}{}\doxysection{tweetoscope\+::cascade\+::Cascade Class Reference}
+\label{classtweetoscope_1_1cascade_1_1Cascade}\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_ad8ce9d7918f22882a72d2bb307c72b48}{Cascade}} (const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&twt, const std\+::string \&key)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object from a tweet (std\+::string) and a key (std\+::string) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_afe4e84f333113a1dc26327240bd7a1e3}{Cascade}} (const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&process)=default
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by copy. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a4c887b8f52e7876b0f213faca09b9f26}{Cascade}} (\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&\&process)=default
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by displacement (move) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_ab8ee39b79413cb193904114b028e9811}{operator=}} (const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&process)=default
+\begin{DoxyCompactList}\small\item\em Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopy. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a063432ce0966bfa0648f4a3b9fb5650c}{operator=}} (\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&\&process)=default
+\begin{DoxyCompactList}\small\item\em Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopying the right value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_ab3447e2d24a13dd8e812567e0e0bddbf}\label{classtweetoscope_1_1cascade_1_1Cascade_ab3447e2d24a13dd8e812567e0e0bddbf}} 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_ab3447e2d24a13dd8e812567e0e0bddbf}{$\sim$\+Cascade}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_ac75c17b4926da2228454e5e404785c14}{get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Get the Id object. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a8ef063f880760b8c1a92d90570a388a8}{get\+Msg}} () const
+\begin{DoxyCompactList}\small\item\em Get the Msg object. \end{DoxyCompactList}\item 
+timestamp \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_abc53146e65a883df8594227b7be2d329}{get\+Time\+Of\+First\+Tweet}} () const
+\begin{DoxyCompactList}\small\item\em Get the Time Of First Tweet object. \end{DoxyCompactList}\item 
+timestamp \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_afa738eb5334f99feb3d6c53861e527df}{get\+Time\+Of\+Last\+Tweet}} () const
+\begin{DoxyCompactList}\small\item\em Get the Time Of Last Tweet object. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a1ac793b7713d0e2d7455c1b9a9514200}{getpairs\+Of\+Times\+And\+Magnitudes}} () const
+\begin{DoxyCompactList}\small\item\em Get the pair (Times, magnitude) from a \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object. \end{DoxyCompactList}\item 
+source\+::idf \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_aec72e4b0ae9042f9a8b69312bf973bcd}{get\+Source}} () const
+\begin{DoxyCompactList}\small\item\em Get the Source object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a83a9a7c8c9d4feab45d9067d159e320c}{add\+Tweet\+To\+Cascade}} (const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&twt, const std\+::string \&key)
+\begin{DoxyCompactList}\small\item\em Add a tweet to a cascade object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a39b9b5b3559132601a4dc0756a76e33e}{operator+=}} (std\+::pair$<$ \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}}, std\+::string $>$ \&elt)
+\begin{DoxyCompactList}\small\item\em Overload operator += to add a tweet and its key to a cascade. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_a366e81f6b0c8216b098c333f2a92b508}{operator$<$}} (const cascade\+\_\+ref \&ref\+\_\+other\+\_\+cascade) const
+\begin{DoxyCompactList}\small\item\em Overload operator $<$ to compare the cascade object from its sharepointer reference with another reference of a cascade. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_af37dcfbfcb6939b2878353a117ef691a}\label{classtweetoscope_1_1cascade_1_1Cascade_af37dcfbfcb6939b2878353a117ef691a}} 
+class {\bfseries Processor}
+\item 
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_af704f622f35b1729fd03d3b8e59d2d1f}\label{classtweetoscope_1_1cascade_1_1Cascade_af704f622f35b1729fd03d3b8e59d2d1f}} 
+struct {\bfseries Cascade\+Ref\+Comaparator}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade_aeadaa6ca77a27cf9eef97246e86252da}{operator$<$$<$}} (std\+::ostream \&os, std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ \&time\+\_\+magnitude)
+\begin{DoxyCompactList}\small\item\em Overload operator $<$$<$ to add time and magnitude to an output to print. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_ad8ce9d7918f22882a72d2bb307c72b48}\label{classtweetoscope_1_1cascade_1_1Cascade_ad8ce9d7918f22882a72d2bb307c72b48}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!Cascade@{Cascade}}
+\index{Cascade@{Cascade}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{Cascade()}{Cascade()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Cascade\+::\+Cascade (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&}]{twt,  }\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object from a tweet (std\+::string) and a key (std\+::string) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em twt} & \\
+\hline
+{\em key} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_afe4e84f333113a1dc26327240bd7a1e3}\label{classtweetoscope_1_1cascade_1_1Cascade_afe4e84f333113a1dc26327240bd7a1e3}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!Cascade@{Cascade}}
+\index{Cascade@{Cascade}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{Cascade()}{Cascade()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Cascade\+::\+Cascade (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by copy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a4c887b8f52e7876b0f213faca09b9f26}\label{classtweetoscope_1_1cascade_1_1Cascade_a4c887b8f52e7876b0f213faca09b9f26}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!Cascade@{Cascade}}
+\index{Cascade@{Cascade}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{Cascade()}{Cascade()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Cascade\+::\+Cascade (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&\&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by displacement (move) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a83a9a7c8c9d4feab45d9067d159e320c}\label{classtweetoscope_1_1cascade_1_1Cascade_a83a9a7c8c9d4feab45d9067d159e320c}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!addTweetToCascade@{addTweetToCascade}}
+\index{addTweetToCascade@{addTweetToCascade}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{addTweetToCascade()}{addTweetToCascade()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Cascade\+::add\+Tweet\+To\+Cascade (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&}]{twt,  }\item[{const std\+::string \&}]{key }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a tweet to a cascade object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em twt} & \\
+\hline
+{\em key} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_ac75c17b4926da2228454e5e404785c14}\label{classtweetoscope_1_1cascade_1_1Cascade_ac75c17b4926da2228454e5e404785c14}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getId@{getId}}
+\index{getId@{getId}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily std\+::string tweetoscope\+::cascade\+::\+Cascade\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Id object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a8ef063f880760b8c1a92d90570a388a8}\label{classtweetoscope_1_1cascade_1_1Cascade_a8ef063f880760b8c1a92d90570a388a8}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getMsg@{getMsg}}
+\index{getMsg@{getMsg}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getMsg()}{getMsg()}}
+{\footnotesize\ttfamily std\+::string tweetoscope\+::cascade\+::\+Cascade\+::get\+Msg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Msg object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a1ac793b7713d0e2d7455c1b9a9514200}\label{classtweetoscope_1_1cascade_1_1Cascade_a1ac793b7713d0e2d7455c1b9a9514200}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getpairsOfTimesAndMagnitudes@{getpairsOfTimesAndMagnitudes}}
+\index{getpairsOfTimesAndMagnitudes@{getpairsOfTimesAndMagnitudes}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getpairsOfTimesAndMagnitudes()}{getpairsOfTimesAndMagnitudes()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ tweetoscope\+::cascade\+::\+Cascade\+::getpairs\+Of\+Times\+And\+Magnitudes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the pair (Times, magnitude) from a \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::pair$<$timestamp, int$>$ $>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_aec72e4b0ae9042f9a8b69312bf973bcd}\label{classtweetoscope_1_1cascade_1_1Cascade_aec72e4b0ae9042f9a8b69312bf973bcd}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getSource@{getSource}}
+\index{getSource@{getSource}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getSource()}{getSource()}}
+{\footnotesize\ttfamily source\+::idf tweetoscope\+::cascade\+::\+Cascade\+::get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Source object. 
+
+\begin{DoxyReturn}{Returns}
+source\+::idf 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_abc53146e65a883df8594227b7be2d329}\label{classtweetoscope_1_1cascade_1_1Cascade_abc53146e65a883df8594227b7be2d329}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getTimeOfFirstTweet@{getTimeOfFirstTweet}}
+\index{getTimeOfFirstTweet@{getTimeOfFirstTweet}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getTimeOfFirstTweet()}{getTimeOfFirstTweet()}}
+{\footnotesize\ttfamily timestamp tweetoscope\+::cascade\+::\+Cascade\+::get\+Time\+Of\+First\+Tweet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Time Of First Tweet object. 
+
+\begin{DoxyReturn}{Returns}
+timestamp 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_afa738eb5334f99feb3d6c53861e527df}\label{classtweetoscope_1_1cascade_1_1Cascade_afa738eb5334f99feb3d6c53861e527df}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!getTimeOfLastTweet@{getTimeOfLastTweet}}
+\index{getTimeOfLastTweet@{getTimeOfLastTweet}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{getTimeOfLastTweet()}{getTimeOfLastTweet()}}
+{\footnotesize\ttfamily timestamp tweetoscope\+::cascade\+::\+Cascade\+::get\+Time\+Of\+Last\+Tweet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Time Of Last Tweet object. 
+
+\begin{DoxyReturn}{Returns}
+timestamp 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a39b9b5b3559132601a4dc0756a76e33e}\label{classtweetoscope_1_1cascade_1_1Cascade_a39b9b5b3559132601a4dc0756a76e33e}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Cascade\+::operator+= (\begin{DoxyParamCaption}\item[{std\+::pair$<$ \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}}, std\+::string $>$ \&}]{elt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overload operator += to add a tweet and its key to a cascade. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a366e81f6b0c8216b098c333f2a92b508}\label{classtweetoscope_1_1cascade_1_1Cascade_a366e81f6b0c8216b098c333f2a92b508}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool tweetoscope\+::cascade\+::\+Cascade\+::operator$<$ (\begin{DoxyParamCaption}\item[{const cascade\+\_\+ref \&}]{ref\+\_\+other\+\_\+cascade }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overload operator $<$ to compare the cascade object from its sharepointer reference with another reference of a cascade. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ref\+\_\+other\+\_\+cascade} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_a063432ce0966bfa0648f4a3b9fb5650c}\label{classtweetoscope_1_1cascade_1_1Cascade_a063432ce0966bfa0648f4a3b9fb5650c}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!operator=@{operator=}}
+\index{operator=@{operator=}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}}\& tweetoscope\+::cascade\+::\+Cascade\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&\&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopying the right value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_ab8ee39b79413cb193904114b028e9811}\label{classtweetoscope_1_1cascade_1_1Cascade_ab8ee39b79413cb193904114b028e9811}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!operator=@{operator=}}
+\index{operator=@{operator=}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}}\& tweetoscope\+::cascade\+::\+Cascade\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} \&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}}\& 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Cascade_aeadaa6ca77a27cf9eef97246e86252da}\label{classtweetoscope_1_1cascade_1_1Cascade_aeadaa6ca77a27cf9eef97246e86252da}} 
+\index{tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!tweetoscope::cascade::Cascade@{tweetoscope::cascade::Cascade}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ \&}]{time\+\_\+magnitude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overload operator $<$$<$ to add time and magnitude to an output to print. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & \\
+\hline
+{\em time\+\_\+magnitude} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::ostream\& 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tweetoscope\+Collector\+Params.\+hpp\end{DoxyCompactItemize}
