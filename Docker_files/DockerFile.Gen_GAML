@@ -50,4 +50,4 @@ RUN g++ -o tweet-generator tweet-generator.cpp -O3 $(pkg-config --cflags --libs 
 ##Check if needed to commpile the file
 #Running the exe files
 RUN chmod +x ./tweet-generator
-CMD ./tweet-generator params-deploy.config
+CMD ./tweet-generator params.config
