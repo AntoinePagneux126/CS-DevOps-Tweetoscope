@@ -5,3 +5,5 @@ omit =
     Python_files/hawkes_estimator.py
     Python_files/predictor.py
     Python_files/logger.py
+    Python_files/learner.py
+    Python_files/predictor_v2.py
