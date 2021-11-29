@@ -29,22 +29,37 @@ namespace tweetoscope
     {
         namespace section
         {
+            /**
+             * @brief Kafka class
+             * 
+             */
             struct Kafka
             {
                 std::string brokers;
             };
-
+            /**
+             * @brief Topic class
+             * 
+             */
             struct Topic
             {
                 std::string in, out_series, out_properties;
             };
 
+            /**
+             * @brief Times class
+             * 
+             */
             struct Times
             {
                 std::vector<std::size_t> observation;
                 std::size_t terminated;
             };
 
+            /**
+             * @brief Cascade class
+             * 
+             */
             struct Cascade
             {
 
@@ -52,6 +67,10 @@ namespace tweetoscope
             };
         }
 
+        /**
+         * @brief collector class
+         * 
+         */
         struct collector
         {
         private:
@@ -84,6 +103,12 @@ namespace tweetoscope
             section::Times times;
             section::Cascade cascade;
 
+
+            /**
+             * @brief Construct a new collector object
+             * 
+             * @param config_filename 
+             */
             collector(const std::string &config_filename)
             {
                 std::ifstream ifs(config_filename.c_str()); //.c_str renvoie A pointer to the c-string representation of the string object's value.
@@ -129,6 +154,13 @@ namespace tweetoscope
             }
         };
 
+        /**
+         * @brief Overload operator << to show collector parameters
+         * 
+         * @param os 
+         * @param c 
+         * @return std::ostream& 
+         */
         inline std::ostream &operator<<(std::ostream &os, const collector &c)
         {
             os << "[kafka]" << std::endl
@@ -162,6 +194,10 @@ namespace tweetoscope
         using idf = std::size_t;
     }
 
+    /**
+     * @brief Structure tweet, objet with tweet parameters
+     * 
+     */
     struct tweet
     {
         std::string type = "";
@@ -172,6 +208,12 @@ namespace tweetoscope
         std::string info = "";
     };
 
+    /**
+     * @brief Get the string val object
+     * 
+     * @param is 
+     * @return std::string 
+     */
     inline std::string get_string_val(std::istream &is)
     {
         char c;
@@ -181,6 +223,13 @@ namespace tweetoscope
         return value;
     }
 
+    /**
+     * @brief Overload >> operator to add a tweet to an istream
+     * 
+     * @param is 
+     * @param t 
+     * @return std::istream& 
+     */
     inline std::istream &operator>>(std::istream &is, tweet &t)
     {
         // A tweet is  : {"type" : "tweet"|"retweet",
@@ -222,8 +271,21 @@ namespace tweetoscope
     {
 
         // Definition of the two classes
+        /**
+         * @brief Processor class to manage Cascades
+         * 
+         */
         class Processor;
+        /**
+         * @brief Cascade class to handle a casdade
+         * 
+         */
         class Cascade;               // Class for storing cascade information.
+
+        /**
+         * @brief CascadeRefComparator class to compare Cascade from a sharepointer that references a cascade
+         * 
+         */
         struct CascadeRefComparator; // Definition of a class of comparison functor for boost queues.
 
         // Definition of types like
@@ -233,6 +295,13 @@ namespace tweetoscope
         using idf = std::size_t;
 
         // overloading of << operator
+        /**
+         * @brief Overload operator << to add time and magnitude to an output to print
+         * 
+         * @param os 
+         * @param time_magnitude 
+         * @return std::ostream& 
+         */
         std::ostream &operator<<(std::ostream &os, std::vector<std::pair<timestamp, int> > &time_magnitude)
         {
             os << "[";
@@ -248,8 +317,20 @@ namespace tweetoscope
         }
 
         // Implementation of CascadeRefComparator class
+        /**
+         * @brief CascadeRefComparator class
+         * 
+         */
         struct CascadeRefComparator
         {
+            /**
+             * @brief Overload () operator
+             * 
+             * @param ref_c1 
+             * @param ref_c2 
+             * @return true 
+             * @return false 
+             */
             bool operator()(cascade_ref ref_c1, cascade_ref ref_c2) const;
         };
 
@@ -277,27 +358,108 @@ namespace tweetoscope
             friend std::ostream &operator<<(std::ostream &os, std::vector<std::pair<timestamp, int> > &time_magnitude);
 
         public:
-            // Constructor
+            // Constructors
+            /**
+             * @brief Construct a new Cascade object from a tweet (std::string) and a key (std::string)
+             * 
+             * @param twt 
+             * @param key 
+             */
             Cascade(const tweet &twt, const std::string &key);
+            /**
+             * @brief Construct a new Cascade object by copy
+             * 
+             * @param process 
+             */
             Cascade(const Cascade &process) = default;
+            /**
+             * @brief Construct a new Cascade object by displacement (move)
+             * 
+             * @param process 
+             */
             Cascade(Cascade &&process) = default;
+            
+            /**
+             * @brief Overload operateur = to construct a new Cascade object by recopy
+             * 
+             * @param process 
+             * @return Cascade& 
+             */
             Cascade &operator=(const Cascade &process) = default;
+            /**
+             * @brief Overload operateur = to construct a new Cascade object by recopying the right value
+             * 
+             * @param process 
+             * @return Cascade& 
+             */
             Cascade &operator=(Cascade &&process) = default;
 
             // Destructor
+            /**
+             * @brief Destroy the Cascade object
+             * 
+             */
             ~Cascade();
 
             // Methods
             // Assessors
+            /**
+             * @brief Get the Id object
+             * 
+             * @return std::string 
+             */
             std::string getId() const;
+            /**
+             * @brief Get the Msg object
+             * 
+             * @return std::string 
+             */
             std::string getMsg() const;
+            /**
+             * @brief Get the Time Of First Tweet object
+             * 
+             * @return timestamp 
+             */
             timestamp getTimeOfFirstTweet() const;
+            /**
+             * @brief Get the Time Of Last Tweet object
+             * 
+             * @return timestamp 
+             */
             timestamp getTimeOfLastTweet() const;
+            /**
+             * @brief Get the pair (Times, magnitude) from a Cascade object
+             * 
+             * @return std::vector<std::pair<timestamp, int> > 
+             */
             std::vector<std::pair<timestamp, int> > getpairsOfTimesAndMagnitudes() const;
+            /**
+             * @brief Get the Source object
+             * 
+             * @return source::idf 
+             */
             source::idf getSource() const;
             // Others
+            /**
+             * @brief Add a tweet to a cascade object
+             * 
+             * @param twt 
+             * @param key 
+             */
             void addTweetToCascade(const tweet &twt, const std::string &key);
+            /**
+             * @brief Overload operator += to add a tweet and its key to a cascade
+             * 
+             * @param elt 
+             */
             void operator+=(std::pair<tweet, std::string> &elt);
+            /**
+             * @brief Overload operator < to compare the cascade object from its sharepointer reference with another reference of a cascade
+             * 
+             * @param ref_other_cascade 
+             * @return true 
+             * @return false 
+             */
             bool operator<(const cascade_ref &ref_other_cascade) const;
         };
 
@@ -371,31 +533,129 @@ namespace tweetoscope
 
         public:
             // Constructor
+            /**
+             * @brief Construct a new Processor object from a tweet
+             * 
+             * @param twt 
+             */
             Processor(const tweet &twt);
+            /**
+             * @brief Construct a new Processor object by copy
+             * 
+             * @param process 
+             */
             Processor(const Processor &process) = default;
+            /**
+             * @brief Construct a new Processor object by displacement
+             * 
+             * @param process 
+             */
             Processor(Processor &&process) = default;
+            /**
+             * @brief Overload operateur = to construct a new Cascade object by recopy
+             * 
+             * @param process 
+             * @return Processor& 
+             */
             Processor &operator=(const Processor &process) = default;
+            /**
+             * @brief Overload operateur = to construct a new Cascade object by recopying its right value
+             * 
+             * @param process 
+             * @return Processor& 
+             */
             Processor &operator=(Processor &&process) = default;
 
             // Destructor
+            /**
+             * @brief Destroy the Processor object
+             * 
+             */
             ~Processor();
 
             // Methods
             // Assessors
             // Get
+            /**
+             * @brief Get the Source object
+             * 
+             * @return source::idf 
+             */
             source::idf getSource() const;
+            /**
+             * @brief Get the Source Time object
+             * 
+             * @return timestamp 
+             */
             timestamp getSourceTime() const;
+            /**
+             * @brief Get the Priority Queue object
+             * 
+             * @return priority_queue 
+             */
             priority_queue getPriorityQueue() const;
+            /**
+             * @brief Get the FIFO object
+             * 
+             * @return std::map<timestamp, std::queue<cascade_wref> > 
+             */
             std::map<timestamp, std::queue<cascade_wref> > getFIFO() const;
+            /**
+             * @brief Get the Symbol Table object
+             * 
+             * @return std::map<std::string, cascade_wref> 
+             */
             std::map<std::string, cascade_wref> getSymbolTable() const;
             // Set
+            /**
+             * @brief Set the Source Time object
+             * 
+             * @param src_time 
+             */
             void setSourceTime(const timestamp &src_time);
             // Others
+            /**
+             * @brief Add a cascade of a tweet to the FIFO from its weak reference
+             * 
+             * @param pos 
+             * @param weak_ref_cascade 
+             */
             void addToFIFO(const int &pos, const cascade_wref &weak_ref_cascade);
+            /**
+             * @brief Add a cascade of a tweet to the Symbole Table from its weak reference and the key of the tweet
+             * 
+             * @param key 
+             * @param weak_ref_cascade 
+             */
             void addToSymbolTable(const std::string &key, const cascade_wref &weak_ref_cascade);
+            /**
+             * @brief Add a cascade of a tweet to the Priority Queue from its the share pointer of the reference
+             * 
+             * @param sh_ref_cascade 
+             * @return auto 
+             */
             auto addToPriorityQueue(const cascade_ref &sh_ref_cascade);
+            /**
+             * @brief Remove a Cascade of the Priority Queue from the share pointer that references the cascade object
+             * 
+             * @param elt 
+             * @param sh_ref_cascade 
+             */
             void decreasePriorityQueue(const priority_queue::handle_type &elt, const cascade_ref &sh_ref_cascade);
+            /**
+             * @brief Method to send a serie which is a partial cascade
+             * 
+             * @param obs 
+             * @return std::vector<std::string> 
+             */
             std::vector<std::string> sendPartialCascade(const std::vector<std::size_t> &obs);
+            /**
+             * @brief Method to send properties which correspond to a terminated cascade
+             * 
+             * @param end_time 
+             * @param min_size 
+             * @return std::vector<std::string> 
+             */
             std::vector<std::string> sendTerminatedCascade(timestamp &end_time, const std::size_t &min_size);
         };
 
