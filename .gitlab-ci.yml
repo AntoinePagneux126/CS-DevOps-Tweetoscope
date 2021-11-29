@@ -125,7 +125,7 @@ pylint_job:
     - source TweetoscopeVenv/bin/activate
     - pip --version
     - pip install pylint
-    - pylint-exit
+    - pip install pylint-exit
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
