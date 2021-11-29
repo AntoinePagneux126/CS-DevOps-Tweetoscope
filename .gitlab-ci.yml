@@ -125,6 +125,7 @@ pylint_job:
     - source TweetoscopeVenv/bin/activate
     - pip --version
     - pip install pylint
+    - pylint-exit
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
@@ -133,7 +134,7 @@ pylint_job:
     # - rm -r Rapport_Pylint
     # - mkdir Rapport_Pylint
     # - pylint -ry -sy Python_files/*.py  --output=Rapport_Pylint/report.txt
-    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint-exit
+    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint-exit $?
 
   artifacts:
     untracked: false
