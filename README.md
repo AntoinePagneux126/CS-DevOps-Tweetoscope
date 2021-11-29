@@ -34,5 +34,31 @@ To set up and use our product you will have to do the following :
 git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 ```
 
+Minikube deployment
+
+
+```
+minikube start
+kubectl apply -f deployment_base.yml
+kubectl apply -f tweetoscope_local.yml
+```
+
+
+Intercell deployment 
+
+```
+ssh cpusdi1_20@phome.metz.supelec.fr
+ssh ic25
+kubectl -n cpusdi1-20-ns apply -f deployment_base_intercell.yml
+kubectl -n cpusdi1-20-ns apply -f tweetoscope_intercell.yml
+```
+
+You can appreciate created pods by using 
+
+```
+kubectl -n cpusdi1-20-ns get pods -o wide
+kubectl -n cpusdi1-20-ns describe  pod's_name
+```
+
 ## Conclusion
 To conclude, we can say that even if this project was time consuming we have learn so much on good practice to get scalability, relybility, and continuous integration/delivery. 
