@@ -1,0 +1,93 @@
+#########################################
+########    Generator     ###############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      name: generator-pod
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: generator-container
+        image: matthbriet/gen:latest
+        imagePullPolicy: Always
+---
+#########################################
+##########   Collector     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      name: collector-pod
+      labels:
+        app: collector
+    spec:
+      containers:
+      - name: collector-container
+        image: matthbriet/collector:latest
+        imagePullPolicy: Always
+---
+
+#########################################
+##########   Estimator     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estimator-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estimator
+  template:
+    metadata:
+      name: estimator-pod
+      labels:
+        app: estimator
+    spec:
+      containers:
+      - name: estimator-container
+        image: matthbriet/estimator:latest
+        imagePullPolicy: Always
+---
+
+#########################################
+##########   Predictor     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: predictor-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: predictor
+  template:
+    metadata:
+      name: predictor-pod
+      labels:
+        app: predictor
+    spec:
+      containers:
+      - name: predictor-container
+        image: matthbriet/predictor:latest
+        imagePullPolicy: Always
