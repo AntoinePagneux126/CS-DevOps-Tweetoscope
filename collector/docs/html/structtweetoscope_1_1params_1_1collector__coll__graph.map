@@ -1,0 +1,7 @@
+<map id="tweetoscope::params::collector" name="tweetoscope::params::collector">
+<area shape="rect" id="node1" title="collector class" alt="" coords="273,104,436,145"/>
+<area shape="rect" id="node2" href="$structtweetoscope_1_1params_1_1section_1_1Kafka.html" title="Kafka class." alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node3" href="$structtweetoscope_1_1params_1_1section_1_1Cascade.html" title="Cascade class." alt="" coords="5,71,168,112"/>
+<area shape="rect" id="node4" href="$structtweetoscope_1_1params_1_1section_1_1Topic.html" title="Topic class." alt="" coords="5,136,168,177"/>
+<area shape="rect" id="node5" href="$structtweetoscope_1_1params_1_1section_1_1Times.html" title="Times class." alt="" coords="5,201,168,243"/>
+</map>

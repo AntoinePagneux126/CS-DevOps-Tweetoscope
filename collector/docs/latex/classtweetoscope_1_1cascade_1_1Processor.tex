@@ -1,0 +1,352 @@
+\hypertarget{classtweetoscope_1_1cascade_1_1Processor}{}\doxysection{tweetoscope\+::cascade\+::Processor Class Reference}
+\label{classtweetoscope_1_1cascade_1_1Processor}\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_af6f0ab5a3cddefee6dc22fdf8bfb99d2}{Processor}} (const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&twt)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object from a tweet. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a377dbe1ac02f03b23307de826c6515da}{Processor}} (const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&process)=default
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object by copy. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_abb3d878402a335d6b9328f6221a51092}{Processor}} (\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&\&process)=default
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object by displacement. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_af05c514e5057b91d3cee2927e4b7737b}{operator=}} (const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&process)=default
+\begin{DoxyCompactList}\small\item\em Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopy. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a854cce6727da8c8ad7abba22c2bfdbc7}{operator=}} (\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&\&process)=default
+\begin{DoxyCompactList}\small\item\em Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopying its right value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a7c97aaf8fbd0e5d2cbbfbf2d87cb1ed3}\label{classtweetoscope_1_1cascade_1_1Processor_a7c97aaf8fbd0e5d2cbbfbf2d87cb1ed3}} 
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a7c97aaf8fbd0e5d2cbbfbf2d87cb1ed3}{$\sim$\+Processor}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object. \end{DoxyCompactList}\item 
+source\+::idf \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a66705f2dd32ce2826528e9e837d8beb8}{get\+Source}} () const
+\begin{DoxyCompactList}\small\item\em Get the Source object. \end{DoxyCompactList}\item 
+timestamp \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_aa877321f0eb90875b88bd3b02467a3b4}{get\+Source\+Time}} () const
+\begin{DoxyCompactList}\small\item\em Get the Source Time object. \end{DoxyCompactList}\item 
+priority\+\_\+queue \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a70b40f942e479cc84f6029b30aec5c1b}{get\+Priority\+Queue}} () const
+\begin{DoxyCompactList}\small\item\em Get the Priority Queue object. \end{DoxyCompactList}\item 
+std\+::map$<$ timestamp, std\+::queue$<$ cascade\+\_\+wref $>$ $>$ \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_aa74cffb543bdb1bac8c0cec32d027499}{get\+FIFO}} () const
+\begin{DoxyCompactList}\small\item\em Get the FIFO object. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, cascade\+\_\+wref $>$ \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a6508399f57f260d780edcd299cc1043e}{get\+Symbol\+Table}} () const
+\begin{DoxyCompactList}\small\item\em Get the Symbol Table object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a88cc93bb3b94f2f99828380201c4ee51}{set\+Source\+Time}} (const timestamp \&src\+\_\+time)
+\begin{DoxyCompactList}\small\item\em Set the Source Time object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a32a648821c3e0d6150016de6f5c4f445}{add\+To\+FIFO}} (const int \&pos, const cascade\+\_\+wref \&weak\+\_\+ref\+\_\+cascade)
+\begin{DoxyCompactList}\small\item\em Add a cascade of a tweet to the FIFO from its weak reference. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a14ddd96d4769fdf21bfacbdd229abc66}{add\+To\+Symbol\+Table}} (const std\+::string \&key, const cascade\+\_\+wref \&weak\+\_\+ref\+\_\+cascade)
+\begin{DoxyCompactList}\small\item\em Add a cascade of a tweet to the Symbole Table from its weak reference and the key of the tweet. \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a909a820c40e2c35a07dca2589e085604}{add\+To\+Priority\+Queue}} (const cascade\+\_\+ref \&sh\+\_\+ref\+\_\+cascade)
+\begin{DoxyCompactList}\small\item\em Add a cascade of a tweet to the Priority Queue from its the share pointer of the reference. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_af761c072694dcc158fae655262ef54fb}{decrease\+Priority\+Queue}} (const priority\+\_\+queue\+::handle\+\_\+type \&elt, const cascade\+\_\+ref \&sh\+\_\+ref\+\_\+cascade)
+\begin{DoxyCompactList}\small\item\em Remove a \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} of the Priority Queue from the share pointer that references the cascade object. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a4c4789bb11667cade5b107739e988414}{send\+Partial\+Cascade}} (const std\+::vector$<$ std\+::size\+\_\+t $>$ \&obs)
+\begin{DoxyCompactList}\small\item\em Method to send a serie which is a partial cascade. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_a41d698ab4164e93e79d75221aba3ee49}{send\+Terminated\+Cascade}} (timestamp \&end\+\_\+time, const std\+::size\+\_\+t \&min\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Method to send properties which correspond to a terminated cascade. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a7c5a0e7c607758901a7a563eb0e3be1c}\label{classtweetoscope_1_1cascade_1_1Processor_a7c5a0e7c607758901a7a563eb0e3be1c}} 
+class {\bfseries Cascade}
+\item 
+std\+::ostream \& \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor_aeadaa6ca77a27cf9eef97246e86252da}{operator$<$$<$}} (std\+::ostream \&os, std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ \&time\+\_\+magnitude)
+\begin{DoxyCompactList}\small\item\em Overload operator $<$$<$ to add time and magnitude to an output to print. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_af6f0ab5a3cddefee6dc22fdf8bfb99d2}\label{classtweetoscope_1_1cascade_1_1Processor_af6f0ab5a3cddefee6dc22fdf8bfb99d2}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!Processor@{Processor}}
+\index{Processor@{Processor}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{Processor()}{Processor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Processor\+::\+Processor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structtweetoscope_1_1tweet}{tweet}} \&}]{twt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object from a tweet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em twt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a377dbe1ac02f03b23307de826c6515da}\label{classtweetoscope_1_1cascade_1_1Processor_a377dbe1ac02f03b23307de826c6515da}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!Processor@{Processor}}
+\index{Processor@{Processor}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{Processor()}{Processor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Processor\+::\+Processor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object by copy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_abb3d878402a335d6b9328f6221a51092}\label{classtweetoscope_1_1cascade_1_1Processor_abb3d878402a335d6b9328f6221a51092}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!Processor@{Processor}}
+\index{Processor@{Processor}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{Processor()}{Processor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily tweetoscope\+::cascade\+::\+Processor\+::\+Processor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&\&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} object by displacement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a32a648821c3e0d6150016de6f5c4f445}\label{classtweetoscope_1_1cascade_1_1Processor_a32a648821c3e0d6150016de6f5c4f445}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!addToFIFO@{addToFIFO}}
+\index{addToFIFO@{addToFIFO}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{addToFIFO()}{addToFIFO()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Processor\+::add\+To\+FIFO (\begin{DoxyParamCaption}\item[{const int \&}]{pos,  }\item[{const cascade\+\_\+wref \&}]{weak\+\_\+ref\+\_\+cascade }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a cascade of a tweet to the FIFO from its weak reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & \\
+\hline
+{\em weak\+\_\+ref\+\_\+cascade} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a909a820c40e2c35a07dca2589e085604}\label{classtweetoscope_1_1cascade_1_1Processor_a909a820c40e2c35a07dca2589e085604}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!addToPriorityQueue@{addToPriorityQueue}}
+\index{addToPriorityQueue@{addToPriorityQueue}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{addToPriorityQueue()}{addToPriorityQueue()}}
+{\footnotesize\ttfamily auto tweetoscope\+::cascade\+::\+Processor\+::add\+To\+Priority\+Queue (\begin{DoxyParamCaption}\item[{const cascade\+\_\+ref \&}]{sh\+\_\+ref\+\_\+cascade }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a cascade of a tweet to the Priority Queue from its the share pointer of the reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sh\+\_\+ref\+\_\+cascade} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+auto 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a14ddd96d4769fdf21bfacbdd229abc66}\label{classtweetoscope_1_1cascade_1_1Processor_a14ddd96d4769fdf21bfacbdd229abc66}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!addToSymbolTable@{addToSymbolTable}}
+\index{addToSymbolTable@{addToSymbolTable}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{addToSymbolTable()}{addToSymbolTable()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Processor\+::add\+To\+Symbol\+Table (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key,  }\item[{const cascade\+\_\+wref \&}]{weak\+\_\+ref\+\_\+cascade }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Add a cascade of a tweet to the Symbole Table from its weak reference and the key of the tweet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & \\
+\hline
+{\em weak\+\_\+ref\+\_\+cascade} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_af761c072694dcc158fae655262ef54fb}\label{classtweetoscope_1_1cascade_1_1Processor_af761c072694dcc158fae655262ef54fb}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!decreasePriorityQueue@{decreasePriorityQueue}}
+\index{decreasePriorityQueue@{decreasePriorityQueue}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{decreasePriorityQueue()}{decreasePriorityQueue()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Processor\+::decrease\+Priority\+Queue (\begin{DoxyParamCaption}\item[{const priority\+\_\+queue\+::handle\+\_\+type \&}]{elt,  }\item[{const cascade\+\_\+ref \&}]{sh\+\_\+ref\+\_\+cascade }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Remove a \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} of the Priority Queue from the share pointer that references the cascade object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em elt} & \\
+\hline
+{\em sh\+\_\+ref\+\_\+cascade} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_aa74cffb543bdb1bac8c0cec32d027499}\label{classtweetoscope_1_1cascade_1_1Processor_aa74cffb543bdb1bac8c0cec32d027499}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!getFIFO@{getFIFO}}
+\index{getFIFO@{getFIFO}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{getFIFO()}{getFIFO()}}
+{\footnotesize\ttfamily std\+::map$<$ timestamp, std\+::queue$<$ cascade\+\_\+wref $>$ $>$ tweetoscope\+::cascade\+::\+Processor\+::get\+FIFO (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the FIFO object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::map$<$timestamp, std\+::queue$<$cascade\+\_\+wref$>$ $>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a70b40f942e479cc84f6029b30aec5c1b}\label{classtweetoscope_1_1cascade_1_1Processor_a70b40f942e479cc84f6029b30aec5c1b}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!getPriorityQueue@{getPriorityQueue}}
+\index{getPriorityQueue@{getPriorityQueue}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{getPriorityQueue()}{getPriorityQueue()}}
+{\footnotesize\ttfamily priority\+\_\+queue tweetoscope\+::cascade\+::\+Processor\+::get\+Priority\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Priority Queue object. 
+
+\begin{DoxyReturn}{Returns}
+priority\+\_\+queue 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a66705f2dd32ce2826528e9e837d8beb8}\label{classtweetoscope_1_1cascade_1_1Processor_a66705f2dd32ce2826528e9e837d8beb8}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!getSource@{getSource}}
+\index{getSource@{getSource}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{getSource()}{getSource()}}
+{\footnotesize\ttfamily source\+::idf tweetoscope\+::cascade\+::\+Processor\+::get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Source object. 
+
+\begin{DoxyReturn}{Returns}
+source\+::idf 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_aa877321f0eb90875b88bd3b02467a3b4}\label{classtweetoscope_1_1cascade_1_1Processor_aa877321f0eb90875b88bd3b02467a3b4}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!getSourceTime@{getSourceTime}}
+\index{getSourceTime@{getSourceTime}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{getSourceTime()}{getSourceTime()}}
+{\footnotesize\ttfamily timestamp tweetoscope\+::cascade\+::\+Processor\+::get\+Source\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Source Time object. 
+
+\begin{DoxyReturn}{Returns}
+timestamp 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a6508399f57f260d780edcd299cc1043e}\label{classtweetoscope_1_1cascade_1_1Processor_a6508399f57f260d780edcd299cc1043e}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!getSymbolTable@{getSymbolTable}}
+\index{getSymbolTable@{getSymbolTable}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{getSymbolTable()}{getSymbolTable()}}
+{\footnotesize\ttfamily std\+::map$<$ std\+::string, cascade\+\_\+wref $>$ tweetoscope\+::cascade\+::\+Processor\+::get\+Symbol\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the Symbol Table object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::map$<$std\+::string, cascade\+\_\+wref$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_af05c514e5057b91d3cee2927e4b7737b}\label{classtweetoscope_1_1cascade_1_1Processor_af05c514e5057b91d3cee2927e4b7737b}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!operator=@{operator=}}
+\index{operator=@{operator=}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}}\& tweetoscope\+::cascade\+::\+Processor\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a854cce6727da8c8ad7abba22c2bfdbc7}\label{classtweetoscope_1_1cascade_1_1Processor_a854cce6727da8c8ad7abba22c2bfdbc7}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!operator=@{operator=}}
+\index{operator=@{operator=}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}}\& tweetoscope\+::cascade\+::\+Processor\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}} \&\&}]{process }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+Overload operateur = to construct a new \mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Cascade}{Cascade}} object by recopying its right value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em process} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classtweetoscope_1_1cascade_1_1Processor}{Processor}}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a4c4789bb11667cade5b107739e988414}\label{classtweetoscope_1_1cascade_1_1Processor_a4c4789bb11667cade5b107739e988414}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!sendPartialCascade@{sendPartialCascade}}
+\index{sendPartialCascade@{sendPartialCascade}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{sendPartialCascade()}{sendPartialCascade()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ tweetoscope\+::cascade\+::\+Processor\+::send\+Partial\+Cascade (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::size\+\_\+t $>$ \&}]{obs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Method to send a serie which is a partial cascade. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::string$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a41d698ab4164e93e79d75221aba3ee49}\label{classtweetoscope_1_1cascade_1_1Processor_a41d698ab4164e93e79d75221aba3ee49}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!sendTerminatedCascade@{sendTerminatedCascade}}
+\index{sendTerminatedCascade@{sendTerminatedCascade}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{sendTerminatedCascade()}{sendTerminatedCascade()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ tweetoscope\+::cascade\+::\+Processor\+::send\+Terminated\+Cascade (\begin{DoxyParamCaption}\item[{timestamp \&}]{end\+\_\+time,  }\item[{const std\+::size\+\_\+t \&}]{min\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Method to send properties which correspond to a terminated cascade. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em end\+\_\+time} & \\
+\hline
+{\em min\+\_\+size} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::string$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_a88cc93bb3b94f2f99828380201c4ee51}\label{classtweetoscope_1_1cascade_1_1Processor_a88cc93bb3b94f2f99828380201c4ee51}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!setSourceTime@{setSourceTime}}
+\index{setSourceTime@{setSourceTime}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{setSourceTime()}{setSourceTime()}}
+{\footnotesize\ttfamily void tweetoscope\+::cascade\+::\+Processor\+::set\+Source\+Time (\begin{DoxyParamCaption}\item[{const timestamp \&}]{src\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the Source Time object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src\+\_\+time} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classtweetoscope_1_1cascade_1_1Processor_aeadaa6ca77a27cf9eef97246e86252da}\label{classtweetoscope_1_1cascade_1_1Processor_aeadaa6ca77a27cf9eef97246e86252da}} 
+\index{tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!tweetoscope::cascade::Processor@{tweetoscope::cascade::Processor}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{std\+::vector$<$ std\+::pair$<$ timestamp, int $>$ $>$ \&}]{time\+\_\+magnitude }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overload operator $<$$<$ to add time and magnitude to an output to print. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & \\
+\hline
+{\em time\+\_\+magnitude} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::ostream\& 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+tweetoscope\+Collector\+Params.\+hpp\end{DoxyCompactItemize}
