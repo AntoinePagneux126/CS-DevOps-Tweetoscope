@@ -1,0 +1,97 @@
+#########################################
+########    Generator     ###############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: generator-deployment
+  namespace: cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: generator
+  template:
+    metadata:
+      name: generator-pod
+      labels:
+        app: generator
+    spec:
+      containers:
+      - name: generator-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/gengaml
+        imagePullPolicy: Always
+---
+#########################################
+##########   Collector     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collector-deployment
+  namespace : cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      name: collector-pod
+      labels:
+        app: collector
+    spec:
+      containers:
+      - name: collector-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/collector
+        imagePullPolicy: Always
+---
+
+#########################################
+##########   Estimator     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estimator-deployment
+  namespace : cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: estimator
+  template:
+    metadata:
+      name: estimator-pod
+      labels:
+        app: estimator
+    spec:
+      containers:
+      - name: estimator-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/estimator
+        imagePullPolicy: Always
+---
+
+#########################################
+##########   Predictor     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: predictor-deployment
+  namespace: cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: predictor
+  template:
+    metadata:
+      name: predictor-pod
+      labels:
+        app: predictor
+    spec:
+      containers:
+      - name: predictor-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/predictor
+        imagePullPolicy: Always

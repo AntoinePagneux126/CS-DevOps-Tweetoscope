@@ -27,7 +27,7 @@ spec:
   containers:
   - name: zookeeper-container
     image: zookeeper
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
 #########################################
 ########    Kafka container     #########
 #########################################
@@ -56,7 +56,7 @@ spec:
   containers:
   - name: kafka-container
     image: wurstmeister/kafka
-    imagePullPolicy: Always
+    imagePullPolicy: IfNotPresent
     stdin: true
     tty: true
     env:

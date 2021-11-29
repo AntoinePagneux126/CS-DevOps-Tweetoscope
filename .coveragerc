@@ -1,0 +1,7 @@
+[run]
+branch = True
+omit =
+    Python_files/cascade_class.py
+    Python_files/hawkes_estimator.py
+    Python_files/predictor.py
+    Python_files/logger.py
