@@ -66,5 +66,23 @@ kubectl -n cpusdi1-20-ns get pods -o wide
 kubectl -n cpusdi1-20-ns describe  pod's_name
 ```
 
+### Fault Tolerance 
+You will be able to appreciate the fault tolerance through this command. Indeed you will notice that Kubernetes has recreated a pod on a new ip and a new node.
+
+```
+kubectl -n cpusdi1-20-ns delete pod nom_du_pod
+kubectl -n cpusdi1-20-ns get pods -o wide
+```
+
+### Scalability 
+
+You will be able to appreciate the fault tolerance through this command. Indeed you will notice that Kubernetes has recreated a pod on a new ip and a new node.
+
+```
+kubectl -n cpusdi1-20-ns get deployments
+kubectl -n cpusdi1-20-ns scale --replicas=3 deployment/nom_deployment
+kubectl -n cpusdi1-20-ns get pods -o wide
+```
+
 ## Conclusion
 To conclude, we can say that even if this project was time consuming we have learn so much on good practice to get scalability, relybility, and continuous integration/delivery. 
