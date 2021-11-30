@@ -20,6 +20,8 @@
   - [Architecture & overview](#architecture--overview)
   - [How to use](#how-to-use)
     - [Instruction for installation](#instruction-for-installation)
+    - [Fault tolerance](#fault-tolerance)
+    - [Scalability](#scalability)
   - [Conclusion](#conclusion)
 
 ## Introduction
@@ -117,6 +119,7 @@ Repo's architecture :
 
 
 ## How to use 
+### Instruction for installation
 To set up and use our product you will have to do the following : 
 ```
 git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
