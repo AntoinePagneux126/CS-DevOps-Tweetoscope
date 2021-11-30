@@ -99,12 +99,7 @@ Repo's architecture :
 │   ├── logger.py
 │   ├── predictor.py
 │   ├── predictor_tools.py
-│   ├── predictor_v2.py
-│   └── __pycache__
-│       ├── hawkes_tools.cpython-38.pyc
-│       ├── Hawkes_tools.cpython-38.pyc
-│       ├── logger.cpython-38.pyc
-│       └── predictor_tools.cpython-38.pyc
+│   └── predictor_v2.py
 ├── Rapport_Pylint
 │   └── report.txt
 ├── README.md
