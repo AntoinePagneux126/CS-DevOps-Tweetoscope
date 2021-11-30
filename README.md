@@ -25,6 +25,7 @@
 ## Introduction
 Here you are to see the so called tweetoscope 3rd year project as part of MDS_SDI mention and aimed to predict tweet popularity. All of it is based on fundamentals knowledges from SAE, Advanced C++, ML and statistical models courses. We want to detect as soon as possible tweets that are likely to become popular, where popularity of a tweet is defined as the number of times this tweet will be retweeted, i.e. forwarded by users to their followers. Because retweets propagate with a cascade effect, a tweet and all retweets it triggered, build up what is hereafter called a cascade. Once we are able to predict popularities of tweets, it is straight-forward to identify the most promising tweets with the highest expected popularity. So to summarize, the problem is to guess the final size of cascades, just by observing the beginning of it during a given observation time window, like, say, the ten first minutes.
 
+
 ## Code documentation 
 * You can access to python code documentation in `docs/_build/hmtl/index.html`
 * You can access to python coverage report in `coverage/index.html`
@@ -33,6 +34,11 @@ Here you are to see the so called tweetoscope 3rd year project as part of MDS_SD
 
 ## Architecture & overview
 Our architecture ensure stability and safety because it relies on a well done Kubernetes x Docker collaboration. Moreover we have used agile methods, like ci-cd gitlab features.
+Repo's architecture : 
+```
+
+```
+
 
 
 ## How to use 
@@ -46,6 +52,7 @@ Minikube deployment
 
 ```
 minikube start
+git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 cd tweetoscope_2021_11/YAML_files
 kubectl apply -f deployment_base.yml
 kubectl apply -f tweetoscope_local.yml
@@ -57,6 +64,7 @@ Intercell deployment
 ```
 ssh cpusdi1_20@phome.metz.supelec.fr
 ssh ic25
+git clone https://gitlab-student.centralesupelec.fr/tanguy.colleville/tweetoscope_2021_11.git
 cd tweetoscope_2021_11/YAML_files
 kubectl -n cpusdi1-20-ns apply -f deployment_base_intercell.yml
 kubectl -n cpusdi1-20-ns apply -f tweetoscope_intercell.yml
