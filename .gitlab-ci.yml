@@ -105,10 +105,10 @@ test_py_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting test for python coverage ... "
-    # - export PYTHON_PATH=.
-    - python3 -m pytest --cov-report=html --cov=Python_files tests/
+    # to have a html file but the badge would not work
+    # - python3 -m pytest --cov-report=html --cov=Python_files tests/
   
-    # - python3 -m pytest --cov=Python_files tests/
+    - python3 -m pytest --cov=Python_files tests/
     - echo "Code coverage finished ..."
   artifacts: 
     untracked : false
