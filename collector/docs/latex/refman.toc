@@ -1,0 +1,64 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Class Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Class List}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Class Documentation}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::cascade\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Cascade Class Reference}{3}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Constructor \& Destructor Documentation}{4}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.1}Cascade()\hspace {0.1cm}{\footnotesize \ttfamily [1/3]}}{4}{subsubsection.2.1.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1.2}Cascade()\hspace {0.1cm}{\footnotesize \ttfamily [2/3]}}{4}{subsubsection.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.1.3}Cascade()\hspace {0.1cm}{\footnotesize \ttfamily [3/3]}}{4}{subsubsection.2.1.1.3}%
+\contentsline {subsection}{\numberline {2.1.2}Member Function Documentation}{5}{subsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.1}addTweetToCascade()}{5}{subsubsection.2.1.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.2.2}getId()}{5}{subsubsection.2.1.2.2}%
+\contentsline {subsubsection}{\numberline {2.1.2.3}getMsg()}{5}{subsubsection.2.1.2.3}%
+\contentsline {subsubsection}{\numberline {2.1.2.4}getpairsOfTimesAndMagnitudes()}{6}{subsubsection.2.1.2.4}%
+\contentsline {subsubsection}{\numberline {2.1.2.5}getSource()}{6}{subsubsection.2.1.2.5}%
+\contentsline {subsubsection}{\numberline {2.1.2.6}getTimeOfFirstTweet()}{6}{subsubsection.2.1.2.6}%
+\contentsline {subsubsection}{\numberline {2.1.2.7}getTimeOfLastTweet()}{6}{subsubsection.2.1.2.7}%
+\contentsline {subsubsection}{\numberline {2.1.2.8}operator+=()}{6}{subsubsection.2.1.2.8}%
+\contentsline {subsubsection}{\numberline {2.1.2.9}operator$<$()}{7}{subsubsection.2.1.2.9}%
+\contentsline {subsubsection}{\numberline {2.1.2.10}operator=()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{7}{subsubsection.2.1.2.10}%
+\contentsline {subsubsection}{\numberline {2.1.2.11}operator=()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{7}{subsubsection.2.1.2.11}%
+\contentsline {subsection}{\numberline {2.1.3}Friends And Related Function Documentation}{8}{subsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.3.1}operator$<$$<$}{8}{subsubsection.2.1.3.1}%
+\contentsline {section}{\numberline {2.2}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::params\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::section\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Cascade Struct Reference}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Detailed Description}{9}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::cascade\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Cascade\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Ref\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Comparator Struct Reference}{9}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Detailed Description}{9}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Member Function Documentation}{9}{subsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.2.1}operator()()}{9}{subsubsection.2.3.2.1}%
+\contentsline {section}{\numberline {2.4}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::params\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::collector Struct Reference}{10}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Detailed Description}{10}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Constructor \& Destructor Documentation}{11}{subsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.2.1}collector()}{11}{subsubsection.2.4.2.1}%
+\contentsline {section}{\numberline {2.5}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::params\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::section\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Kafka Struct Reference}{11}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Detailed Description}{11}{subsection.2.5.1}%
+\contentsline {section}{\numberline {2.6}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::cascade\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Processor Class Reference}{12}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Constructor \& Destructor Documentation}{12}{subsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.1}Processor()\hspace {0.1cm}{\footnotesize \ttfamily [1/3]}}{13}{subsubsection.2.6.1.1}%
+\contentsline {subsubsection}{\numberline {2.6.1.2}Processor()\hspace {0.1cm}{\footnotesize \ttfamily [2/3]}}{13}{subsubsection.2.6.1.2}%
+\contentsline {subsubsection}{\numberline {2.6.1.3}Processor()\hspace {0.1cm}{\footnotesize \ttfamily [3/3]}}{13}{subsubsection.2.6.1.3}%
+\contentsline {subsection}{\numberline {2.6.2}Member Function Documentation}{13}{subsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.2.1}addToFIFO()}{13}{subsubsection.2.6.2.1}%
+\contentsline {subsubsection}{\numberline {2.6.2.2}addToPriorityQueue()}{14}{subsubsection.2.6.2.2}%
+\contentsline {subsubsection}{\numberline {2.6.2.3}addToSymbolTable()}{14}{subsubsection.2.6.2.3}%
+\contentsline {subsubsection}{\numberline {2.6.2.4}decreasePriorityQueue()}{14}{subsubsection.2.6.2.4}%
+\contentsline {subsubsection}{\numberline {2.6.2.5}getFIFO()}{15}{subsubsection.2.6.2.5}%
+\contentsline {subsubsection}{\numberline {2.6.2.6}getPriorityQueue()}{15}{subsubsection.2.6.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.2.7}getSource()}{15}{subsubsection.2.6.2.7}%
+\contentsline {subsubsection}{\numberline {2.6.2.8}getSourceTime()}{16}{subsubsection.2.6.2.8}%
+\contentsline {subsubsection}{\numberline {2.6.2.9}getSymbolTable()}{16}{subsubsection.2.6.2.9}%
+\contentsline {subsubsection}{\numberline {2.6.2.10}operator=()\hspace {0.1cm}{\footnotesize \ttfamily [1/2]}}{16}{subsubsection.2.6.2.10}%
+\contentsline {subsubsection}{\numberline {2.6.2.11}operator=()\hspace {0.1cm}{\footnotesize \ttfamily [2/2]}}{16}{subsubsection.2.6.2.11}%
+\contentsline {subsubsection}{\numberline {2.6.2.12}sendPartialCascade()}{17}{subsubsection.2.6.2.12}%
+\contentsline {subsubsection}{\numberline {2.6.2.13}sendTerminatedCascade()}{17}{subsubsection.2.6.2.13}%
+\contentsline {subsubsection}{\numberline {2.6.2.14}setSourceTime()}{18}{subsubsection.2.6.2.14}%
+\contentsline {subsection}{\numberline {2.6.3}Friends And Related Function Documentation}{18}{subsection.2.6.3}%
+\contentsline {subsubsection}{\numberline {2.6.3.1}operator$<$$<$}{18}{subsubsection.2.6.3.1}%
+\contentsline {section}{\numberline {2.7}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::params\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::section\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Times Struct Reference}{18}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Detailed Description}{19}{subsection.2.7.1}%
+\contentsline {section}{\numberline {2.8}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::params\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::section\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::Topic Struct Reference}{19}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}Detailed Description}{19}{subsection.2.8.1}%
+\contentsline {section}{\numberline {2.9}tweetoscope\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}::tweet Struct Reference}{19}{section.2.9}%
+\contentsline {subsection}{\numberline {2.9.1}Detailed Description}{19}{subsection.2.9.1}%
+\contentsline {chapter}{Index}{21}{section*.14}%
