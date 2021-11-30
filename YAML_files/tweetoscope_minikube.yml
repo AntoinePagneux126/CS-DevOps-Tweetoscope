@@ -91,3 +91,28 @@ spec:
       - name: predictor-container
         image: matthbriet/predictor:latest
         imagePullPolicy: Always
+
+---
+
+#########################################
+##########   Learner       ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learner-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: learner
+  template:
+    metadata:
+      name: learner-pod
+      labels:
+        app: learner
+    spec:
+      containers:
+      - name: learner-container
+        image: matthbriet/learner:latest
+        imagePullPolicy: Always
