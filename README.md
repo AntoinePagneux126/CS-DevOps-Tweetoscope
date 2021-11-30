@@ -10,6 +10,7 @@
 
 ## Useful links 
 * Our Workspace : [Here](https://tanguycolleville.notion.site/Tweetoscope_2021_11-4ee9e24f4bf14f8aa0896e83d75d0862)
+* Our video link : [Here]()
 
 ## Summary
   - [Authors ](#authors-)
@@ -45,6 +46,7 @@ Minikube deployment
 
 ```
 minikube start
+cd tweetoscope_2021_11/YAML_files
 kubectl apply -f deployment_base.yml
 kubectl apply -f tweetoscope_local.yml
 ```
@@ -55,6 +57,7 @@ Intercell deployment
 ```
 ssh cpusdi1_20@phome.metz.supelec.fr
 ssh ic25
+cd tweetoscope_2021_11/YAML_files
 kubectl -n cpusdi1-20-ns apply -f deployment_base_intercell.yml
 kubectl -n cpusdi1-20-ns apply -f tweetoscope_intercell.yml
 ```
@@ -76,7 +79,7 @@ kubectl -n cpusdi1-20-ns get pods -o wide
 
 ### Scalability 
 
-You will be able to appreciate the fault tolerance through this command. Indeed you will notice that Kubernetes has recreated a pod on a new ip and a new node.
+You will be able to appreciate the scalability through this command. Indeed you will notice that Kubernetes has scaled the node as many as replicas we wanted.
 
 ```
 kubectl -n cpusdi1-20-ns get deployments
