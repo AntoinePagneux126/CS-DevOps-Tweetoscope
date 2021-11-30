@@ -34,9 +34,89 @@ Here you are to see the so called tweetoscope 3rd year project as part of MDS_SD
 
 ## Architecture & overview
 Our architecture ensure stability and safety because it relies on a well done Kubernetes x Docker collaboration. Moreover we have used agile methods, like ci-cd gitlab features.
+Tweetoscope's architecture : 
+![architecture](https://pennerath.pages.centralesupelec.fr/tweetoscope/graphviz-images/ead74cb4077631acad74606a761525fe2a3228c1.svg)
+
+
 Repo's architecture : 
 ```
-
+.
+├── collector
+│   ├── docs
+│   │   ├── html
+│   │   └── latex
+│   ├── Doxyfile
+│   ├── params.config
+│   ├── params-deploy.config
+│   ├── tweet-collector
+│   ├── tweet-collector.cpp
+│   └── tweetoscopeCollectorParams.hpp
+├── coverage
+│   ├── coverage_html.js
+│   ├── favicon_32.png
+│   ├── index.html
+│   ├── keybd_closed.png
+│   ├── keybd_open.png
+│   ├── status.json
+│   └── style.css
+├── Data
+│   ├── CSV
+│   │   ├── news-data.csv
+│   │   └── news-index.csv
+│   └── Index
+│       ├── cascades.idx
+│       └── tweets.idx
+├── Docker_files
+│   ├── DockerFile.Collector
+│   ├── DockerFile.Estimator
+│   ├── DockerFile.Gen_GAML
+│   ├── DockerFile.Learner
+│   ├── DockerFile.Predictor
+│   └── DockerFile.Python
+├── docs
+│   ├── _build
+│   │   ├── doctrees
+│   │   └── html
+│   ├── conf.py
+│   ├── index.rst
+│   ├── logo_cs.png
+│   ├── make.bat
+│   ├── Makefile
+│   ├── modules.rst
+│   └── Python_files.rst
+├── generator
+│   ├── params.config
+│   ├── params-deploy.config
+│   ├── tweet-generator
+│   ├── tweet-generator.cpp
+│   └── tweetoscopeGenerator.hpp
+├── Python_files
+│   ├── cascade_class.py
+│   ├── hawkes_estimator.py
+│   ├── hawkes_tools.py
+│   ├── __init__.py
+│   ├── learner.py
+│   ├── logger.py
+│   ├── predictor.py
+│   ├── predictor_tools.py
+│   ├── predictor_v2.py
+│   └── __pycache__
+│       ├── hawkes_tools.cpython-38.pyc
+│       ├── Hawkes_tools.cpython-38.pyc
+│       ├── logger.cpython-38.pyc
+│       └── predictor_tools.cpython-38.pyc
+├── Rapport_Pylint
+│   └── report.txt
+├── README.md
+├── requirements.txt
+├── tests
+│   ├── test_cascade.npy
+│   └── test_hawkes.py
+└── YAML_files
+    ├── deployment_base_intercell.yml
+    ├── deployment_base_minikube.yml
+    ├── tweetoscope_intercell.yml
+    └── tweetoscope_minikube.yml
 ```
 
 
