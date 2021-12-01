@@ -37,8 +37,8 @@ if __name__=="__main__" :
 
     consumer = KafkaConsumer(topic_reading,                   # Topic name
       bootstrap_servers = args.broker_list,                        # List of brokers passed from the command line
-      value_deserializer=lambda v: json.loads(v.decode('utf-8')),  # How to deserialize the value from a binary buffer
-    )
+      value_deserializer=lambda v: json.loads(v.decode('utf-8')))  # How to deserialize the value from a binary buffer
+    
     print("consumer created")
 
     producer = KafkaProducer(
