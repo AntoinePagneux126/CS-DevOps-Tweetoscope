@@ -131,7 +131,7 @@ pylint_job:
     - python3 -m venv TweetoscopeVenv
     - source TweetoscopeVenv/bin/activate
     - pip --version
-    - pip install pylint pylint-exit anybadge
+    - pip install pylint pylint-exit anybadge tee
     - pip install -r requirements.txt
   script: 
     - mkdir ./pylint
