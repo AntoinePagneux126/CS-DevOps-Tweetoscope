@@ -1,6 +1,7 @@
 stages :  ## parallezing tasks
   - test_py
   - create_docker_image
+  - create_docs
 
 
 
@@ -135,7 +136,6 @@ pylint_job:
     - pip install -r requirements.txt
   script: 
     - echo "starting lint for python code ... "
-    - ls
     - set -o noclobber
     - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint-exit $?
 
@@ -144,8 +144,27 @@ pylint_job:
     expire_in: 60 days
     paths : 
       - Rapport_Pylint/report.txt
-  
 
+create_docs_job:
+  stage: create_docs
+  variables:
+    CI_DEBUG_TRACE: "true"
+  allow_failure: true
+  image: python:3.7
+
+  before_script: 
+    - python3 --version
+    - pip install virtualenv 
+    - python3 -m venv TweetoscopeVenv
+    - source TweetoscopeVenv/bin/activate
+    - pip --version
+    - pip install Sphinx 
+    - pip install -r requirements.txt
+  script: 
+    - echo "starting docs generation for python code ... "
+    - cd docs
+    - sphinx-apidoc -o . ../Python_files
+    - make html
 
 
 
