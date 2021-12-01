@@ -21,6 +21,9 @@ create_docker_image_gaml_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/gengaml
     - echo " Image pushed !"
+  only : 
+      changes :
+          - Docker_files/DockerFile.Gen_GAML
 
 create_docker_image_collector_job:
   stage : create_docker_image
@@ -37,6 +40,10 @@ create_docker_image_collector_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/collector
     - echo " Image pushed !"
+  only : 
+    changes :
+      - Docker_files/DockerFile.Collector
+      - collector/*
 
 create_docker_image_estimator_py_job:
   stage : create_docker_image
@@ -53,6 +60,11 @@ create_docker_image_estimator_py_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/estimator
     - echo " Image pushed !"
+  only : 
+    changes :
+      - Docker_files/DockerFile.Estimator
+      - Python_files/hawkes_estimator.py
+      - Python_files/logger.py
 
 
 create_docker_image_predictor_py_job:
@@ -70,6 +82,11 @@ create_docker_image_predictor_py_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/predictor
     - echo " Image pushed !"
+  only : 
+    changes :
+      - Docker_files/DockerFile.Predictor
+      - Python_files/hawkes_predictor.py
+      - Python_files/logger.py
 
 
 create_docker_image_learner_py_job:
@@ -87,6 +104,11 @@ create_docker_image_learner_py_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/learner
     - echo " Image pushed !"
+  only : 
+    changes :
+      - Docker_files/DockerFile.Learner
+      - Python_files/learner.py
+
 create_docker_image_logger_py_job:
   stage : create_docker_image
   allow_failure: false
@@ -102,6 +124,10 @@ create_docker_image_logger_py_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/logger
     - echo " Image pushed !"
+  only : 
+    changes :
+      - Docker_files/DockerFile.Logger
+      - Python_files/logger.py
 
 
 
@@ -131,6 +157,9 @@ test_py_job:
     paths :
       - coverage/index.html
     expire_in: 60 days
+  only : 
+    changes :
+      - Docker_files/*
 
 
 pylint_job:
@@ -159,6 +188,9 @@ pylint_job:
     expire_in: 60 days
     paths : 
       - Rapport_Pylint/report.txt
+  only : 
+    changes :
+      - Docker_files/*
 
 
 create_docs_job:
@@ -182,7 +214,9 @@ create_docs_job:
     - cd docs
     - sphinx-apidoc -o . ../Python_files
     - make html
-
+  only : 
+    changes :
+      - Docker_files/*
 
 
     
