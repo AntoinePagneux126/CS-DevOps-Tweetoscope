@@ -69,6 +69,7 @@ spec:
       - name: logger-container
         image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/logger
         imagePullPolicy: Always
+        tty: true
 ---
 #########################################
 ##########   Estimator     ##############

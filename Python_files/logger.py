@@ -163,8 +163,8 @@ class Logger:
         for i,col in enumerate(self.columns):
             width = col['length'] if col['length'] is not None else remaining_width
             lines = values[i].split("\n")
-            lines = [ l for line in lines for l in textwrap.wrap(line,width)]
-            format_string ="{{:{}{}}}".format(col['align'], width)
+            lines = [ l for line in lines for l in textwrap.wrap(line,abs(width))]
+            format_string ="{{:{}{}}}".format(col['align'], abs(width))
             format_strings.append(format_string)
             max_lines_nb = max(max_lines_nb, len(lines))
             all_lines.append(lines)
