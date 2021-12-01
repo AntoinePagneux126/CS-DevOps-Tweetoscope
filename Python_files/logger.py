@@ -211,7 +211,7 @@ if __name__ == '__main__':
                         " of brokers\n"
                         " - a comma separated list of brokers, e.g. "
                         " localhost:9091,localhost:9092\n",
-                        required=False)
+                        required=True)
     parser.add_argument('--logs_topic', type=str,
                         default=default_log_topic,
                         help='The topic for listening to logs')
