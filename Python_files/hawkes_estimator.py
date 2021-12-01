@@ -30,7 +30,8 @@ if __name__=="__main__" :
 
     ## default value without typing anything in the terminal
     parser = argparse.ArgumentParser()
-    parser.add_argument('--broker-list', type=str, help="the broker list", default="localhost:9092")
+    # parser.add_argument('--broker-list', type=str, help="the broker list", default="localhost:9092")
+    parser.add_argument('--broker-list', type=str, help="the broker list", default="kafka-service:9092")
     args = parser.parse_args()  # Parse arguments
 
 
