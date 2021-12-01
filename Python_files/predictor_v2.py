@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--broker-list', type=str,
-                        help="the broker list", default="localhost:9092")
+                        help="the broker list", default="kafka-service:9092")
     args = parser.parse_args()  # Parse arguments
 
     consumer = KafkaConsumer(topic_reading,                   # Topic name
@@ -68,12 +68,11 @@ if __name__ == "__main__":
     logger.info("Start reading in cascade properties topic...")
     logger.info("using learner...")
     for msg in consumer:
-        msg = msg.value  # which will be remplaced by our object in a near future
+        msg = msg.value 
         my_params = msg["params"]
         cid = msg["cid"]
 
         logger.info(f"Predictions computation for {cid} ...")
-        # modifier predictions afin d'avoir G1 en valeur de sortie aussi et N_star
         N, N_star, G1 = prd.predictions(
             params=my_params, history=msg["tweets"], alpha=2.016, mu=1)
         if len(consumer_model) != 0 or consumer_model != None:
@@ -94,7 +93,7 @@ if __name__ == "__main__":
         producer.send(topic_writing_sample,
                       key=msg["T_obs"], value=send_sample)
 
-        # to be tuned to make it nicer
+        # TODO to be tuned to make it nicer
         send_alert = {
             'type': 'alert',
             'to display': 'very hot topic, follow up with it',
