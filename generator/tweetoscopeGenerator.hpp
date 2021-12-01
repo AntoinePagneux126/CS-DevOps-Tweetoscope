@@ -70,6 +70,10 @@ namespace tweetoscope {
     return param_of_keyword(keyword);
   }
 
+  /**
+   * @brief 
+   * 
+   */
   struct Params {
   public:
 
