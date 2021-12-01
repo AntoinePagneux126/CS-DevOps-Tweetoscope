@@ -152,9 +152,7 @@ test_py_job:
     paths :
       - coverage/index.html
     expire_in: 60 days
-  only : 
-    changes :
-      - Docker_files/*
+
 
 
 pylint_job:
@@ -183,9 +181,7 @@ pylint_job:
     expire_in: 60 days
     paths : 
       - Rapport_Pylint/report.txt
-  only : 
-    changes :
-      - Docker_files/*
+
 
 
 create_docs_job:
@@ -209,9 +205,6 @@ create_docs_job:
     - cd docs
     - sphinx-apidoc -o . ../Python_files
     - make html
-  only : 
-    changes :
-      - Docker_files/*
 
 
     
