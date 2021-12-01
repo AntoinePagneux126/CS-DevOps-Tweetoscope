@@ -44,7 +44,7 @@ if __name__ == "__main__":
         # List of brokers passed from the command line
         bootstrap_servers=args.broker_list,
         # How to serialize the value to a binary buffer
-        value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+        value_serializer=lambda v: pickle.dumps(v).encode('utf-8'),
         # How to serialize the key
         key_serializer=str.encode
     )
