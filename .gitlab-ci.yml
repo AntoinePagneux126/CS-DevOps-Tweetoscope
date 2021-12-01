@@ -65,8 +65,6 @@ create_docker_image_estimator_py_job:
     changes :
       - Docker_files/DockerFile.Estimator
       - Python_files/hawkes_estimator.py
-      - Python_files/logger.py
-
 
 create_docker_image_predictor_py_job:
   stage : create_docker_image
@@ -87,7 +85,6 @@ create_docker_image_predictor_py_job:
     changes :
       - Docker_files/DockerFile.Predictor
       - Python_files/hawkes_predictor.py
-      - Python_files/logger.py
 
 
 create_docker_image_learner_py_job:

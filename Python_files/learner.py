@@ -7,9 +7,8 @@ import argparse                   # To parse command line arguments
 import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
-import os
-import numpy as np
 import pandas as pd
+import time
 import pickle
 from sklearn.ensemble import RandomForestRegressor
 
@@ -18,8 +17,6 @@ import logger
 
 if __name__ == "__main__":
 
-    logger = logger.get_logger(
-        'learner', broker_list="kafka-service:9092", debug=True)
 
     ################################################
     #######         Kafka Part              ########
@@ -28,10 +25,9 @@ if __name__ == "__main__":
     topic_reading = "samples"
     topic_writing = "models"
 
-    # default value without typing anything in the terminal
     parser = argparse.ArgumentParser()
     parser.add_argument('--broker-list', type=str,
-                        help="the broker list", default="localhost:9092")
+                        help="the broker list", default="kafka-service:9092")
     args = parser.parse_args()  # Parse arguments
 
     consumer = KafkaConsumer(topic_reading,                   # Topic name
@@ -51,6 +47,10 @@ if __name__ == "__main__":
         value_serializer=lambda v: json.dumps(v).encode('utf-8'),
         # How to serialize the key
         key_serializer=str.encode
+    )
+    producer_log = KafkaProducer(
+      bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
+      value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
     )
 
     ################################################
@@ -83,3 +83,12 @@ if __name__ == "__main__":
 
             producer.send(topic_writing, key=msg.value['T_obs'], value=send)
             threshold[T_obs] += 100  # restarting counter
+
+            msg_log={
+            't': time.time(),
+            'level' : "DEBUG",
+            'source' : "learner",
+            'message': f"sended message",
+        }
+            producer_log.send("logs", value=msg_log)
+        producer.flush()
