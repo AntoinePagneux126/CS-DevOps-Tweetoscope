@@ -48,4 +48,4 @@ RUN g++ -o tweet-collector tweet-collector.cpp -O3 -lcppkafka
 ########################################################
 
 RUN chmod +x ./tweet-collector
-CMD ./tweet-collector params.config
+CMD ./tweet-collector params-deploy.config
