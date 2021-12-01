@@ -155,7 +155,7 @@ class Logger:
                 remaining_width -= col['length']
             remaining_width -= 2 + lsep
             values.append(val)
-        remaining_width = abs(int(remaining_width / len(self.elastic_columns)))
+        remaining_width = int(remaining_width / len(self.elastic_columns))
         
         all_lines = []
         format_strings = []
