@@ -15,7 +15,7 @@ import logger
 
 if __name__=="__main__": 
 
-    #logger = logger.get_logger('predictor', broker_list="localhost::9092",debug=True)
+    #logger = logger.get_logger('predictor', broker_list="kafka-service:9092",debug=True)
     ################################################
     #######         Kafka Part              ########
     ################################################
