@@ -124,11 +124,6 @@ create_docker_image_logger_py_job:
     - echo " Login done !"
     - docker push $CI_REGISTRY_IMAGE/logger
     - echo " Image pushed !"
-  only : 
-    changes :
-      - Docker_files/DockerFile.Logger
-      - Python_files/logger.py
-
 
 
 test_py_job:
