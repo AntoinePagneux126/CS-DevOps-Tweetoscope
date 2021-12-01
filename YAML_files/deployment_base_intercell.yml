@@ -74,5 +74,7 @@ spec:
       valueFrom:
         fieldRef:
           fieldPath: status.podIP
+    - name: KAFKA_ADVERTISED_HOST_NAME 
+      value: "kafka-service"
     - name: KAFKA_ADVERTISED_LISTENERS        
       value: "PLAINTEXT://$(POD_IP):9092"
