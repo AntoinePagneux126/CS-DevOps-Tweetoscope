@@ -46,7 +46,30 @@ spec:
         image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/collector
         imagePullPolicy: Always
 ---
-
+#########################################
+##########   Logger     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger-deployment
+  namespace : cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger
+  template:
+    metadata:
+      name: logger-pod
+      labels:
+        app: logger
+    spec:
+      containers:
+      - name: logger-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/logger
+        imagePullPolicy: Always
+---
 #########################################
 ##########   Estimator     ##############
 #########################################

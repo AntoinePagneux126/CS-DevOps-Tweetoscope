@@ -9,6 +9,7 @@ import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
 import numpy as np
+import time
 
 import hawkes_tools as HT
 import logger
@@ -16,7 +17,6 @@ import logger
 
 
 if __name__=="__main__" :
-    #logger = logger.get_logger('estimator', broker_list="kafka-service:9092",debug=True)
     
     ################################################
     #######         Kafka Part              ########
@@ -43,7 +43,11 @@ if __name__=="__main__" :
       value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
       key_serializer=str.encode                                 # How to serialize the key
     )
-    print("producer created")
+    producer_log = KafkaProducer(
+      bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
+      value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
+    )
+    print("producers created")
 
     ################################################
     #######         Stats part              ########
@@ -85,6 +89,14 @@ if __name__=="__main__" :
         }
         #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
-        producer.flush()
+        msg_log={
+            't': time.time(),
+            'level' : "DEBUG",
+            'source' : "estimator",
+            'message': f"sended messages for {cid}",
+        }
+        producer_log.send("logs",value=msg_log)
+    producer_log.flush()
+    producer.flush()
 
 
