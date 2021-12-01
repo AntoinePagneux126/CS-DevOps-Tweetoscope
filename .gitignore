@@ -11,8 +11,3 @@ Python_files/Cascades
 tests/.DS_Store
 .gitignore
 .vscode/
-YAML_files/collector.yml
-YAML_files/estimator.yml
-YAML_files/predictor.yml
-YAML_files/deployment_gen.yml
-YAML_files/deployment_v0.yml
