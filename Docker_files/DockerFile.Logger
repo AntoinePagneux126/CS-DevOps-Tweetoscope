@@ -7,6 +7,6 @@ RUN apt-get install python3-pip -y
 WORKDIR tweetoscope_2021_11
 RUN pip3 install -r requirements.txt
 
-CMD python3 Python_files/logger.py --logs-topic logs --broker-list kafka-service:9092
+CMD python3 Python_files/logger.py --logs_topic logs --broker-list kafka-service:9092
 
 
