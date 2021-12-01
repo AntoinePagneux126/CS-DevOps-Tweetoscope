@@ -137,8 +137,7 @@ pylint_job:
     - mkdir ./pylint
     - echo "starting lint for python code ... "
     - set -o noclobber
-    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt || pylint-exit $?
-    - pylint tee ./pylint/pylint.log || pylint-exit $?
+    - pylint -ry -sy Python_files/*.py  --output-format=text --output=Rapport_Pylint/report.txt tee ./pylint/pylint.log|| pylint-exit $?
     - PYLINT_SCORE=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' ./pylint/pylint.log)
     - anybadge --label=PYLINT_SCORE --file=pylint/pylint.svg --value=$PYLINT_SCORE 2=red 4=orange 8=yellow 10=green
   # artifacts:
