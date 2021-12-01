@@ -24,6 +24,7 @@ create_docker_image_gaml_job:
   only : 
       changes :
           - Docker_files/DockerFile.Gen_GAML
+          - generator/*
 
 create_docker_image_collector_job:
   stage : create_docker_image
