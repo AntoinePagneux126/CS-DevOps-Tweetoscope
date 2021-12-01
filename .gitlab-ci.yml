@@ -19,7 +19,7 @@ create_docker_image_gaml_job:
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
-    - docker push $CI_REGISTRY_IMAGE/gengaml:VF
+    - docker push $CI_REGISTRY_IMAGE/gengaml
     - echo " Image pushed !"
 
 create_docker_image_collector_job:
@@ -35,7 +35,7 @@ create_docker_image_collector_job:
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
-    - docker push $CI_REGISTRY_IMAGE/collector:VF
+    - docker push $CI_REGISTRY_IMAGE/collector
     - echo " Image pushed !"
 
 create_docker_image_estimator_py_job:
@@ -51,7 +51,7 @@ create_docker_image_estimator_py_job:
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
-    - docker push $CI_REGISTRY_IMAGE/estimator:V2
+    - docker push $CI_REGISTRY_IMAGE/estimator
     - echo " Image pushed !"
 
 
@@ -68,7 +68,7 @@ create_docker_image_predictor_py_job:
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
-    - docker push $CI_REGISTRY_IMAGE/predictor:V2
+    - docker push $CI_REGISTRY_IMAGE/predictor
     - echo " Image pushed !"
 
 
@@ -85,7 +85,7 @@ create_docker_image_learner_py_job:
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
-    - docker push $CI_REGISTRY_IMAGE/learner:v2
+    - docker push $CI_REGISTRY_IMAGE/learner
     - echo " Image pushed !"
 
 
