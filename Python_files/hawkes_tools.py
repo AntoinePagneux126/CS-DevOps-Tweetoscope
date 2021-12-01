@@ -32,10 +32,10 @@ def loglikelihood(params, history, t):
     if not isinstance(params[1], (np.floating,float, int)) and params[1]<0 :
             raise Exception ("beta must be a int or float greater than 0")
 
-    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 :
             raise Exception(" history must be an np.array with following shape : (n,2)")
     
-    p,beta = params    
+    p,beta = params
     
     if p <= 0 or p >= 1 or beta <= 0.: return -np.inf
 
@@ -86,7 +86,7 @@ def compute_MAP(history, t, alpha, mu,
     #if not isinstance(t, (float,int) ) or t < 0:
       #      raise Exception(" t must be an float or int greater than 0")
 
-    if not isinstance(history, np.ndarray) or history.shape[1]!=2 : 
+    if not isinstance(history, np.ndarray) or history.shape[1]!=2 :
             raise Exception(" history must be an np.array with following shape : (n,2)")
 
     
@@ -136,4 +136,4 @@ def compute_MAP(history, t, alpha, mu,
         options={'xtol': 1e-8, 'disp': display}
     )
     # Returns the loglikelihood and found parameters
-    return(-res.fun, res.x) ## res.x contains p et beta
+    return(-res.fun, res.x)## res.x contains p et beta

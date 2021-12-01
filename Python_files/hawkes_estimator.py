@@ -1,5 +1,5 @@
 """
-The aim of this code is to estimate the cascade's parameters. 
+The aim of this code is to estimate the cascade's parameters.
 """
 
 
@@ -8,7 +8,6 @@ import argparse                   # To parse command line arguments
 import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
-import os
 import numpy as np
 
 import hawkes_tools as HT
@@ -16,14 +15,12 @@ import logger
 
 
 
-if __name__=="__main__" : 
-
+if __name__=="__main__" :
     #logger = logger.get_logger('estimator', broker_list="localhost::9092",debug=True)
     
     ################################################
     #######         Kafka Part              ########
     ################################################
-
     topic_reading="cascadeseries"
     topic_writing="cascadeproperties"
 
@@ -32,11 +29,11 @@ if __name__=="__main__" :
     parser = argparse.ArgumentParser()
     # parser.add_argument('--broker-list', type=str, help="the broker list", default="localhost:9092")
     parser.add_argument('--broker-list', type=str, help="the broker list", default="kafka-service:9092")
-    args = parser.parse_args()  # Parse arguments
+    args = parser.parse_args() # Parse arguments
 
 
     consumer = KafkaConsumer(topic_reading,                   # Topic name
-      bootstrap_servers = args.broker_list,                        # List of brokers passed from the command line
+      bootstrap_servers = args.broker_list,                      # List of brokers passed from the command line
       value_deserializer=lambda v: json.loads(v.decode('utf-8')))  # How to deserialize the value from a binary buffer
     
     print("consumer created")
@@ -70,8 +67,8 @@ if __name__=="__main__" :
         #logger.info(f"Map computation for {cid} ...")
         history=np.array(msg.value['tweets'])
         
-        starting_date=history[0,0]## origine date 
-        for i in range(len(history[:,0])) : 
+        starting_date=history[0,0]## origine date
+        for i in range(len(history[:,0])):
           history[i,0]-=starting_date
         print(history)
         MAP_res=HT.compute_MAP(history=history,t=float(history[-1,0]),alpha=alpha, mu=mu)
