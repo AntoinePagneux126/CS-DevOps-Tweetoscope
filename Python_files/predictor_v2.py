@@ -26,7 +26,6 @@ if __name__ == "__main__":
     topic_writing_alert = "alerts"
     topic_writing_stats = "stats"
 
-    logger.info("Setting up kafka consumer & producer for predictor part...")
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--broker-list', type=str,
@@ -69,14 +68,11 @@ if __name__ == "__main__":
     ################################################
     #####         Prediction Part              #####
     ################################################
-    logger.info("Start reading in cascade properties topic...")
-    logger.info("using learner...")
     for msg in consumer:
         msg = msg.value 
         my_params = msg["params"]
         cid = msg["cid"]
 
-        logger.info(f"Predictions computation for {cid} ...")
         N, N_star, G1 = prd.predictions(
             params=my_params, history=msg["tweets"], alpha=2.016, mu=1)
         if len(consumer_model) != 0 or consumer_model != None:
@@ -122,6 +118,5 @@ if __name__ == "__main__":
         }
         producer_log.send("logs",value=msg_log)
         producer.send(topic_writing_stats, key=None, value=send_stats)
-        logger.info(f"Messages sended post predictions for {cid}...")
     producer.flush()
     producer_log.flush()
