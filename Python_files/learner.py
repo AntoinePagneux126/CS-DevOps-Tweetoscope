@@ -57,7 +57,6 @@ if __name__ == "__main__":
     #######         Stats part              ########
     ################################################
 
-    logger.info("Start reading in the samples topic...")
     df = pd.Dataframe(columns=["T_obs", "X", "W"])
     models_dict = {"600": RandomForestRegressor(
     ), "1200": RandomForestRegressor(), "Others": RandomForestRegressor()}
@@ -77,8 +76,6 @@ if __name__ == "__main__":
             # 'n_obs' : msg.value["T_obs"],
             'model': pickle.dumps(models_dict[T_obs])
         }
-        logger.info(
-            f"Sending trained model for {T_obs} time windows lenght...")
 
         producer.send(topic_writing, key=msg.value['T_obs'], value=send)
         threshold[T_obs] += 100  # restarting counter
