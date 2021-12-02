@@ -119,3 +119,28 @@ spec:
       - name: predictor-container
         image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/predictor
         imagePullPolicy: Always
+---
+
+#########################################
+##########   Predictor     ##############
+#########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learner-deployment
+  namespace: cpusdi1-20-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: learner
+  template:
+    metadata:
+      name: learner-pod
+      labels:
+        app: learner
+    spec:
+      containers:
+      - name: learner-container
+        image: gitlab-student.centralesupelec.fr:4567/tanguy.colleville/tweetoscope_2021_11/learner
+        imagePullPolicy: Always
