@@ -8,15 +8,14 @@ import argparse                   # To parse command line arguments
 import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
-import numpy as np
+import pickle
+import time
 
 import predictor_tools as prd
 import logger
 
 if __name__ == "__main__":
 
-    logger = logger.get_logger(
-        'predictor', broker_list="kafka-service:9092", debug=True)
     ################################################
     #######         Kafka Part              ########
     ################################################
@@ -47,7 +46,7 @@ if __name__ == "__main__":
                                    # List of brokers passed from the command line
                                    bootstrap_servers=args.broker_list,
                                    # How to deserialize the value from a binary buffer
-                                   value_deserializer=lambda v: json.loads(
+                                   value_deserializer=lambda v: pickle.loads(
                                        v.decode('utf-8')),
                                    # How to deserialize the key (if any)
                                    key_deserializer=lambda v: v.decode()
@@ -61,6 +60,11 @@ if __name__ == "__main__":
         # How to serialize the key
         key_serializer=str.encode
     )
+    producer_log = KafkaProducer(
+      bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
+      value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
+    )
+
 
     ################################################
     #####         Prediction Part              #####
@@ -110,5 +114,14 @@ if __name__ == "__main__":
             'T_obs': msg["T_obs"],
             'ARE': error,
         }
+        msg_log={
+            't': time.time(),
+            'level' : "DEBUG",
+            'source' : "predictor",
+            'message': f"sended messages for {cid}",
+        }
+        producer_log.send("logs",value=msg_log)
         producer.send(topic_writing_stats, key=None, value=send_stats)
         logger.info(f"Messages sended post predictions for {cid}...")
+    producer.flush()
+    producer_log.flush()

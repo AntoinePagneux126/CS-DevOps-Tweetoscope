@@ -44,7 +44,7 @@ if __name__ == "__main__":
         # List of brokers passed from the command line
         bootstrap_servers=args.broker_list,
         # How to serialize the value to a binary buffer
-        value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+        value_serializer=lambda v: pickle.dumps(v).encode('utf-8'),
         # How to serialize the key
         key_serializer=str.encode
     )
@@ -70,25 +70,24 @@ if __name__ == "__main__":
         W = msg.value["W"]
         df.append(T_obs, X, W)
 
-        if len(df[df["T_obs" == T_obs]]) > threshold[T_obs]:
-            models_dict[T_obs].fit(
-                df[df["T_obs" == T_obs]]["X"], df[df["T_obs" == T_obs]]["W"])
-            send = {
-                'type': 'parameters',
-                # 'n_obs' : msg.value["T_obs"],
-                'model': pickle.dumps(models_dict[T_obs])
-            }
-            logger.info(
-                f"Sending trained model for {T_obs} time windows lenght...")
-
-            producer.send(topic_writing, key=msg.value['T_obs'], value=send)
-            threshold[T_obs] += 100  # restarting counter
-
-            msg_log={
-            't': time.time(),
-            'level' : "DEBUG",
-            'source' : "learner",
-            'message': f"sended message",
+        models_dict[T_obs].fit(
+            df[df["T_obs" == T_obs]]["X"], df[df["T_obs" == T_obs]]["W"])
+        send = {
+            'type': 'parameters',
+            # 'n_obs' : msg.value["T_obs"],
+            'model': pickle.dumps(models_dict[T_obs])
         }
-            producer_log.send("logs", value=msg_log)
+        logger.info(
+            f"Sending trained model for {T_obs} time windows lenght...")
+
+        producer.send(topic_writing, key=msg.value['T_obs'], value=send)
+        threshold[T_obs] += 100  # restarting counter
+
+        msg_log={
+        't': time.time(),
+        'level' : "DEBUG",
+        'source' : "learner",
+        'message': f"sended message",
+    }
+        producer_log.send("logs", value=msg_log)
         producer.flush()
