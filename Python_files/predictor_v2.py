@@ -20,7 +20,7 @@ if __name__ == "__main__":
     #######         Kafka Part              ########
     ################################################
 
-    topic_reading = "cascade_properties"
+    topic_reading = "cascadeproperties"
     topic_reading_2 = "models"
     topic_writing_sample = "samples"
     topic_writing_alert = "alerts"
@@ -63,7 +63,6 @@ if __name__ == "__main__":
       bootstrap_servers = args.broker_list,                     # List of brokers passed from the command line
       value_serializer=lambda v: json.dumps(v).encode('utf-8'), # How to serialize the value to a binary buffer
     )
-
 
     ################################################
     #####         Prediction Part              #####
