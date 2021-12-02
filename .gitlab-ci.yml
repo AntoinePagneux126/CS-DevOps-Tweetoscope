@@ -10,6 +10,7 @@ create_docker_image_gaml_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
@@ -30,6 +31,7 @@ create_docker_image_collector_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
@@ -50,6 +52,7 @@ create_docker_image_estimator_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
@@ -70,6 +73,7 @@ create_docker_image_predictor_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
@@ -91,6 +95,7 @@ create_docker_image_learner_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
@@ -111,6 +116,7 @@ create_docker_image_logger_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
+  pull_policy: always
   services:
     - docker:dind
   script:
