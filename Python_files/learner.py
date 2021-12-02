@@ -62,7 +62,6 @@ if __name__ == "__main__":
     ), "1200": RandomForestRegressor(), "Others": RandomForestRegressor()}
     threshold = {"600": 100, "1200": 200, "Others": 100}
     for msg in consumer:
-        # I'll construct a cascade object thanks to msg
         cid = msg.value["cid"]
         T_obs = msg.value["T_obs"]
         X = msg.value["X"]

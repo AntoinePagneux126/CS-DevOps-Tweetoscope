@@ -27,7 +27,6 @@ if __name__=="__main__" :
 
     ## default value without typing anything in the terminal
     parser = argparse.ArgumentParser()
-    # parser.add_argument('--broker-list', type=str, help="the broker list", default="localhost:9092")
     parser.add_argument('--broker-list', type=str, help="the broker list", default="kafka-service:9092")
     args = parser.parse_args() # Parse arguments
 
@@ -55,20 +54,9 @@ if __name__=="__main__" :
 
     # Constants given by Mishra et al 
     mu,alpha=1 , 2.016
-    #logger.info("Start reading in cascade serie topic...")
-    # for i in range(0,10): 
-    #     cascade=np.load(f"Python_files/Cascades/test_cascade_{i}.npy")
-
-    #     dico= {
-    #       "cid": i ,
-    #       "tweets" : cascade,
-    #       "T_obs" : cascade[-1,0],
-    #     }
 
     for msg in consumer : 
-        # I'll construct a cascade object thanks to msg
         cid=msg.value["cid"]
-        #logger.info(f"Map computation for {cid} ...")
         history=np.array(msg.value['tweets'])
         
         starting_date=history[0,0]## origine date
@@ -87,7 +75,6 @@ if __name__=="__main__" :
             'cid': cid,
             'tweets':history.tolist(),
         }
-        #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
         msg_log={
             't': round(time.time(),3),

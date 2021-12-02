@@ -13,7 +13,6 @@ import numpy as np
 import time
 
 import predictor_tools as prd
-import logger
 
 if __name__ == "__main__":
 
