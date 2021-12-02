@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #######         Stats part              ########
     ################################################
 
-    df = pd.Dataframe(columns=["T_obs", "X", "W"])
+    df = pd.DataFrame(columns=["T_obs", "X", "W"])
     models_dict = {"600": RandomForestRegressor(
     ), "1200": RandomForestRegressor(), "Others": RandomForestRegressor()}
     threshold = {"600": 100, "1200": 200, "Others": 100}
