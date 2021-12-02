@@ -90,7 +90,7 @@ if __name__=="__main__" :
         #logger.info(f"Sending estimated parameter for {cid}...")
         producer.send(topic_writing, key = str(msg.value['T_obs']), value = send)
         msg_log={
-            't': time.time(),
+            't': round(time.time(),3),
             'level' : "DEBUG",
             'source' : "estimator",
             'message': f"sended messages for {cid}",

@@ -9,6 +9,7 @@ import json                       # To parse and dump JSON
 from kafka import KafkaConsumer   # Import Kafka consumer
 from kafka import KafkaProducer   # Import Kafka producer
 import pickle
+import numpy as np 
 import time
 
 import predictor_tools as prd
@@ -67,20 +68,14 @@ if __name__ == "__main__":
     ################################################
     #####         Prediction Part              #####
     ################################################
-    for msg in consumer:
+    for msg in consumer:            
         msg = msg.value 
         my_params = msg["params"]
         cid = msg["cid"]
 
         N, N_star, G1 = prd.predictions(
-            params=my_params, history=msg["tweets"], alpha=2.016, mu=1)
-        if len(consumer_model) != 0 or consumer_model != None:
-            for msg_model in consumer_model:
-                if msg_model.key == msg["T_obs"] and msg_model[msg["T_obs"]] != None:
-                    model = msg_model[msg["T_obs"]]
-            omega = model.predict([msg["beta"], N_star, G1])
-            N = msg["n_obs"] + omega * (1 - N_star) / G1
-
+            params=np.array(my_params), history=msg["tweets"], alpha=2.016, mu=1)
+        
         send_sample = {
             'type': 'sample',
             'cid': cid,
@@ -91,8 +86,14 @@ if __name__ == "__main__":
         }
         producer.send(topic_writing_sample,
                       key=msg["T_obs"], value=send_sample)
+        
+        for msg_model in consumer_model:
+            if msg_model.key == msg["T_obs"] and msg_model[msg["T_obs"]] != None:
+                model = msg_model[msg["T_obs"]]
+        omega = model.predict([msg["beta"], N_star, G1])
+        N_forest = msg["n_obs"] + omega * (1 - N_star) / G1
+        error = abs(N-N_forest)/N_forest
 
-        # TODO to be tuned to make it nicer
         send_alert = {
             'type': 'alert',
             'to display': 'very hot topic, follow up with it',
@@ -102,7 +103,7 @@ if __name__ == "__main__":
 
         producer.send(topic_writing_alert, key=msg["T_obs"], value=send_alert)
 
-        error = 0  # to be implemented
+        
         send_stats = {
             'type': 'stats',
             'cid': cid,
@@ -110,7 +111,7 @@ if __name__ == "__main__":
             'ARE': error,
         }
         msg_log={
-            't': time.time(),
+            't': round(time.time(),3),
             'level' : "DEBUG",
             'source' : "predictor",
             'message': f"sended messages for {cid}",

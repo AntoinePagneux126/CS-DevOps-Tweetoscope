@@ -80,7 +80,7 @@ if __name__=="__main__":
           producer.send(topic_writing_sample, key =str(np.array(msg["tweets"])[-1,0]), value = send_sample)
 
           msg_log={
-            't': time.time(),
+            't': round(time.time(),3),
             'level' : "DEBUG",
             'source' : "predictor",
             'message': f"sended messages for {cid}",

@@ -81,7 +81,7 @@ if __name__ == "__main__":
         threshold[T_obs] += 100  # restarting counter
 
         msg_log={
-        't': time.time(),
+        't': round(time.time(),3),
         'level' : "DEBUG",
         'source' : "learner",
         'message': f"sended message",
