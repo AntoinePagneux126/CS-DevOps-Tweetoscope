@@ -3,20 +3,16 @@ stages :  ## parallezing tasks
   - create_docker_image
   - create_docs
 
-
-
-
 create_docker_image_gaml_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image GAML build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/gengaml -f DockerFile.Gen_GAML .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/gengaml -f DockerFile.Gen_GAML .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
@@ -31,13 +27,12 @@ create_docker_image_collector_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image Collector build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/collector -f DockerFile.Collector .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/collector -f DockerFile.Collector .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
@@ -52,13 +47,12 @@ create_docker_image_estimator_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image Estimator build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/estimator -f DockerFile.Estimator .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/estimator -f DockerFile.Estimator .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
@@ -73,13 +67,12 @@ create_docker_image_predictor_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image Predictor build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/predictor -f DockerFile.Predictor .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/predictor -f DockerFile.Predictor .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
@@ -95,13 +88,12 @@ create_docker_image_learner_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image Learner build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/learner -f DockerFile.Learner .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/learner -f DockerFile.Learner .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
@@ -116,13 +108,12 @@ create_docker_image_logger_py_job:
   stage : create_docker_image
   allow_failure: false
   image: docker:latest
-  pull_policy: always
   services:
     - docker:dind
   script:
     - cd Docker_files
     - echo " Image Learner build process starts ..."
-    - docker build -t $CI_REGISTRY_IMAGE/logger -f DockerFile.Logger .
+    - docker build --no-cache -t $CI_REGISTRY_IMAGE/logger -f DockerFile.Logger .
     - echo " Docker login in process ... "
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - echo " Login done !"
